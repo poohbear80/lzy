@@ -37,4 +37,5 @@ Public Enum DataAccessTypes As Integer
     MySql = 4
     Excel = 8
     CSV = 16
+    abca = 32
 End Enum
