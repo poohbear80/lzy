@@ -3,58 +3,58 @@ Imports LazyFramework.CQRS.Command
 Imports LazyFramework.CQRS.Logging
 Imports NUnit.Framework
 
-<TestFixture> Public Class CreateCustomerTest
-    Private _Persistdata As Persistdata
+'<TestFixture> Public Class CreateCustomerTest
+'    Private _Persistdata As Persistdata
 
-    <SetUp> Sub SetUp()
-        LazyFramework.Runtime.Context.Current = New LazyFramework.Runtime.WinThread
-        LazyFramework.ClassFactory.LogToDebug = True
-        LazyFramework.ClassFactory.Clear()
+'    <SetUp> Sub SetUp()
+'        LazyFramework.Runtime.Context.Current = New LazyFramework.Runtime.WinThread
+'        LazyFramework.ClassFactory.LogToDebug = True
+'        LazyFramework.ClassFactory.Clear()
 
-        _Persistdata = New Persistdata
-        LazyFramework.ClassFactory.SetTypeInstance(Of ILogWriter)(_Persistdata)
-        LazyFramework.ClassFactory.SetTypeInstance(Of CQRS.IActionSecurity, TestSecurity)()
+'        _Persistdata = New Persistdata
+'        LazyFramework.ClassFactory.SetTypeInstance(Of ILogWriter)(_Persistdata)
+'        LazyFramework.ClassFactory.SetTypeInstance(Of CQRS.IActionSecurity, TestSecurity)()
 
-        Debug.WriteLine(System.Threading.Thread.CurrentThread.ManagedThreadId)
-    End Sub
+'        Debug.WriteLine(System.Threading.Thread.CurrentThread.ManagedThreadId)
+'    End Sub
 
-    <Test> Public Sub Create()
+'    <Test> Public Sub Create()
 
-        Dim c As New CreateCustomerCommand
-        c.Id = Guid.NewGuid
-        c.Name = "Gjermund"
-        c.Address = "Kalnesveien 5"
+'        Dim c As New CreateCustomerCommand
+'        c.Id = Guid.NewGuid
+'        c.Name = "Gjermund"
+'        c.Address = "Kalnesveien 5"
 
-        CQRS.Command.Handling.ExecuteCommand(c)
+'        CQRS.Command.Handling.ExecuteCommand(c)
 
-        Assert.AreEqual("Gjermund", CommandHandler.CustomerRepository(c.Id).Name)
+'        Assert.AreEqual("Gjermund", CommandHandler.CustomerRepository(c.Id).Name)
 
-        Debug.WriteLine(System.Threading.Thread.CurrentThread.ManagedThreadId)
+'        Debug.WriteLine(System.Threading.Thread.CurrentThread.ManagedThreadId)
 
-        Dim c2 As New UpdateCustomerNameCommand
-        c2.Id = c.Id
-        c2.NewName = "Martin"
+'        Dim c2 As New UpdateCustomerNameCommand
+'        c2.Id = c.Id
+'        c2.NewName = "Martin"
 
-        CQRS.Command.Handling.ExecuteCommand(c2)
+'        CQRS.Command.Handling.ExecuteCommand(c2)
 
-        Assert.AreEqual("Martin", CommandHandler.CustomerRepository(c.Id).Name)
-        Assert.AreEqual(2, _Persistdata.EventList.Count)
+'        Assert.AreEqual("Martin", CommandHandler.CustomerRepository(c.Id).Name)
+'        Assert.AreEqual(2, _Persistdata.EventList.Count)
 
-        CommandHandler.CustomerRepository.Clear()
+'        CommandHandler.CustomerRepository.Clear()
 
-        Assert.Throws(Of KeyNotFoundException)(Sub() CommandHandler.CustomerRepository(c.Id).Name = "")
+'        Assert.Throws(Of KeyNotFoundException)(Sub() CommandHandler.CustomerRepository(c.Id).Name = "")
 
-        Dim toRestore As New List(Of IAmACommand)
-        toRestore.AddRange(_Persistdata.EventList)
+'        Dim toRestore As New List(Of IAmACommand)
+'        toRestore.AddRange(_Persistdata.EventList)
 
-        For Each restore In toRestore
-            CQRS.Command.Handling.ExecuteCommand(restore)
-        Next
-        Assert.AreEqual("Martin", CommandHandler.CustomerRepository(c.Id).Name)
+'        For Each restore In toRestore
+'            CQRS.Command.Handling.ExecuteCommand(restore)
+'        Next
+'        Assert.AreEqual("Martin", CommandHandler.CustomerRepository(c.Id).Name)
 
-    End Sub
+'    End Sub
 
-End Class
+'End Class
 
 
 Public Class CustomerCommandBase
