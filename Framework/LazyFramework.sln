@@ -1,15 +1,23 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
-MinimumVisualStudioVersion = 10.0.40219.1
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LazyFramework", "LazyFramework.vbproj", "{D72CA321-6426-4493-BCC5-961284F1C51A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B41A01DB-D83E-46F0-A50F-07B83F355841}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TestRuntimeMapper", "..\TestRuntimeMapper\TestRuntimeMapper.vbproj", "{EB749E2E-5094-493C-99ED-BA7C5A8F44C9}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LazyFramework.Test", "..\Framework.Test\LazyFramework.Test.vbproj", "{7244C152-0CAD-4A1F-B911-3BFECD923E1B}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TestProject1", "..\TestProject1\TestProject1.vbproj", "{DFD89DE3-2142-4D42-81D4-C84953E61EBB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B41A01DB-D83E-46F0-A50F-07B83F355841}"
+	ProjectSection(SolutionItems) = preProject
+		LazyFramework.vsmdi = LazyFramework.vsmdi
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
 EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = LazyFramework.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -29,21 +37,28 @@ Global
 		{D72CA321-6426-4493-BCC5-961284F1C51A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D72CA321-6426-4493-BCC5-961284F1C51A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D72CA321-6426-4493-BCC5-961284F1C51A}.Release|x86.ActiveCfg = Release|Any CPU
-		{7244C152-0CAD-4A1F-B911-3BFECD923E1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7244C152-0CAD-4A1F-B911-3BFECD923E1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7244C152-0CAD-4A1F-B911-3BFECD923E1B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{7244C152-0CAD-4A1F-B911-3BFECD923E1B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{7244C152-0CAD-4A1F-B911-3BFECD923E1B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{7244C152-0CAD-4A1F-B911-3BFECD923E1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7244C152-0CAD-4A1F-B911-3BFECD923E1B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7244C152-0CAD-4A1F-B911-3BFECD923E1B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{7244C152-0CAD-4A1F-B911-3BFECD923E1B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{7244C152-0CAD-4A1F-B911-3BFECD923E1B}.Release|x86.ActiveCfg = Release|Any CPU
+		{EB749E2E-5094-493C-99ED-BA7C5A8F44C9}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{EB749E2E-5094-493C-99ED-BA7C5A8F44C9}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{EB749E2E-5094-493C-99ED-BA7C5A8F44C9}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{EB749E2E-5094-493C-99ED-BA7C5A8F44C9}.Debug|x86.ActiveCfg = Debug|x86
+		{EB749E2E-5094-493C-99ED-BA7C5A8F44C9}.Debug|x86.Build.0 = Debug|x86
+		{EB749E2E-5094-493C-99ED-BA7C5A8F44C9}.Release|Any CPU.ActiveCfg = Release|x86
+		{EB749E2E-5094-493C-99ED-BA7C5A8F44C9}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{EB749E2E-5094-493C-99ED-BA7C5A8F44C9}.Release|Mixed Platforms.Build.0 = Release|x86
+		{EB749E2E-5094-493C-99ED-BA7C5A8F44C9}.Release|x86.ActiveCfg = Release|x86
+		{EB749E2E-5094-493C-99ED-BA7C5A8F44C9}.Release|x86.Build.0 = Release|x86
+		{DFD89DE3-2142-4D42-81D4-C84953E61EBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFD89DE3-2142-4D42-81D4-C84953E61EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFD89DE3-2142-4D42-81D4-C84953E61EBB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DFD89DE3-2142-4D42-81D4-C84953E61EBB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DFD89DE3-2142-4D42-81D4-C84953E61EBB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DFD89DE3-2142-4D42-81D4-C84953E61EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFD89DE3-2142-4D42-81D4-C84953E61EBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFD89DE3-2142-4D42-81D4-C84953E61EBB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DFD89DE3-2142-4D42-81D4-C84953E61EBB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DFD89DE3-2142-4D42-81D4-C84953E61EBB}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = LazyFramework.vsmdi
 	EndGlobalSection
 EndGlobal
