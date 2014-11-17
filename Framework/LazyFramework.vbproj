@@ -220,7 +220,6 @@
     <Compile Include="Runtime\TestContext.vb" />
     <Compile Include="Runtime\Web.vb" />
     <Compile Include="Runtime\WinThread.vb" />
-    <Compile Include="SomeNewClass.vb" />
     <Compile Include="Utils\AllreadyMappedException.vb" />
     <Compile Include="Utils\BrokenRule.vb" />
     <Compile Include="Utils\ChangedValues.vb" />
