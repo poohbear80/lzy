@@ -9,3 +9,4 @@
 *.ncrunchsolution
 *.cache
 /Framework.Test/obj/Debug
+/packages

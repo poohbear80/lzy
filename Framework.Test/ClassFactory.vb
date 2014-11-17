@@ -2,6 +2,7 @@
 Imports NUnit.Framework
 
 
+
 <TestFixture> Public Class ClassFactory
 
     <SetUp> Public Sub SetUp()

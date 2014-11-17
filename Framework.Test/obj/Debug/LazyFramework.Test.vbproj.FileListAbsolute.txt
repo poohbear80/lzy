@@ -1,3 +1,0 @@
-C:\Projects\lzy\Framework.Test\obj\Debug\LazyFramework.Test.vbprojResolveAssemblyReference.cache
-C:\Projects\lzy\Framework.Test\obj\Debug\LazyFramework.Test.Resources.resources
-C:\Projects\lzy\Framework.Test\obj\Debug\LazyFramework.Test.vbproj.GenerateResource.Cache
