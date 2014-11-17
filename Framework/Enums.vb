@@ -38,4 +38,6 @@ Public Enum DataAccessTypes As Integer
     Excel = 8
     CSV = 16
     blabl = 32
+    jlsdjfl = 64
+
 End Enum
