@@ -1,0 +1,340 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+lzy
+</name>
+</assembly>
+<members>
+<member name="P:lzy.My.Resources.JsDefault.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:lzy.My.Resources.JsDefault.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="P:lzy.My.Resources.JsDefault.Aggregate">
+	<summary>
+  Looks up a localized string similar to result.StartBlock("Namespace Aggregates");
+result.StartBlock("Friend Class {0}", [data.TableName]);
+
+result.Comment("Skriv dine egene methoder for å hente data.. ");
+
+result.Comment("Validering");
+_.each(["ValidateCreateEntity", "ValidateUpdateEntity", "ValidateDeleteEntity"], function (e) {
+    result.StartBlock("Private Sub {0}(o as Entities.{1})", [e, data.TableName]);
+    result.EndBlock("End Sub");
+});
+
+result.EndBlock("End Class");
+result.EndBlock("End Namespace");
+.
+</summary>
+</member><member name="P:lzy.My.Resources.JsDefault.Aggregate_Partial">
+	<summary>
+  Looks up a localized string similar to result.StartBlock("Namespace Aggregates");
+result.StartBlock("Partial Class {0}", [data.TableName]);
+result.WriteFormatLine("Inherits GenericBaseAggregate(Of {0}, {1})", ["DataAccess.I" + data.TableName, "DataAccess." + data.TableName]);
+result.WriteLine("");
+
+//GetInstance
+result.Write("Public Function GetInstance(")
+_.each(data.Table.Columns,function(c,i) {
+    if(c.Identity) {
+        if(i)result.write(",");
+        result.WriteFormat("{0}{1} As {2}",[Utils.toParamName(data.TableName),c.Name,c. [rest of string was truncated]";.
+</summary>
+</member><member name="P:lzy.My.Resources.JsDefault.DataAccess">
+	<summary>
+  Looks up a localized string similar to result.StartBlock("Namespace DataAccess", []);
+result.StartBlock("Friend Class {0}", [data.TableName]);
+    
+
+result.EndBlock("End Class");
+result.EndBlock("End Namespace");
+.
+</summary>
+</member><member name="P:lzy.My.Resources.JsDefault.DataAccess_Partial">
+	<summary>
+  Looks up a localized string similar to //Her kommer det en beskrivelse av js variabler som man skal ha tilgang til.
+
+var identity = _.filter(data.Table.Columns, function (e) { return e.Identity });
+
+result.StartBlock("Namespace DataAccess")
+
+result.StartBlock("Partial Class {0}", [data.TableName]);
+result.WriteFormatLine("Implements I{0}",[data.TableName]);
+//GetEntity
+result.StartBlock("Public Function GetEntity(ByVal sourceName As String, ByRef o As Entities.{0}) As Boolean Implements I{0}.GetEntity", [data.TableName]);
+result.WriteL [rest of string was truncated]";.
+</summary>
+</member><member name="P:lzy.My.Resources.JsDefault.Entity">
+	<summary>
+  Looks up a localized string similar to result.StartBlock("Namespace Entities");
+result.StartBlock("Public Class {0}", [data.Table.Name]);
+result.WriteComment("Har kan du legge inn dine spessielle ting for denne klassen");
+
+result.EndBlock("End Class");
+result.EndBlock("End Namespace");
+.
+</summary>
+</member><member name="P:lzy.My.Resources.JsDefault.Entity_Collection">
+	<summary>
+  Looks up a localized string similar to result.StartBlock("Namespace Entities");
+result.StartBlock("Public Class {0}Collection", [data.TableName]);
+result.WriteFormatLine("Inherits LazyList(Of {0})", [data.TableName]);
+result.Comment("Basic list for your object");
+result.EndBlock("End Class");
+result.EndBlock("End Namespace");
+.
+</summary>
+</member><member name="P:lzy.My.Resources.JsDefault.Entity_Partial">
+	<summary>
+  Looks up a localized string similar to result.StartBlock("Namespace Entities");
+result.StartBlock("Partial Class {0}", [data.Table.Name])
+result.WriteLine("Inherits LazyBaseclass")
+
+//Field property
+result.WriteReadOnlyProp("Fields", "String()", "{" + _.map(data.Table.Columns, function (o) { return '"' + o.Name + '"' }).join(',') + "}", "Overrides");
+
+//Private variables
+_.each(data.Table.Columns, function (o) {
+    result.WriteFormatLine("Private _{0} as {1}{2}", [o.ParamName, o.NetRuntimeType, o.Nullable &amp;&amp; o.IsValueType ? '?' : ''])
+ [rest of string was truncated]";.
+</summary>
+</member><member name="P:lzy.My.Resources.JsDefault.IDataAccess">
+	<summary>
+  Looks up a localized string similar to //
+result.StartBlock("Namespace DataAccess",[]);
+result.StartBlock("Public Interface I{0}",[data.TableName]);
+
+result.WriteFormatLine("Function GetEntity(ByVal sourceName As String, ByRef o As Entities.{0}) As Boolean", [data.TableName]);
+result.WriteFormatLine("Function GetAll(ByVal sourceName As String, ByRef o As Entities.{0}Collection) As Boolean", [data.TableName]);
+result.WriteFormatLine("Function Create(ByVal sourceName As String, ByRef o As Entities.{0}) As Boolean", [data.TableName]);
+result [rest of string was truncated]";.
+</summary>
+</member><member name="P:lzy.My.Resources.JsDefault.Standard">
+	<summary>
+  Looks up a localized string similar to //Her kommer det en beskrivelse av js variabler som man skal ha tilgang til..
+</summary>
+</member><member name="T:lzy.My.Resources.JsDefault">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="M:lzy.TemplateResult.PushTab">
+	<summary>
+	</summary>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.PopTab">
+	<summary>
+	</summary>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.WriteComment(System.String)">
+	<summary>
+	</summary>
+	<param name="s"></param>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.Comment(System.String)">
+	<summary>
+	</summary>
+	<param name="s"></param>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.WriteProp(System.String,System.String,System.String)">
+	<summary>
+	</summary>
+	<param name="name"></param>
+	<param name="type"></param>
+	<param name="defaultValue"></param>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.WriteReadOnlyProp(System.String,System.String,System.String,System.String)">
+	<summary>
+	</summary>
+	<param name="name"></param>
+	<param name="type"></param>
+	<param name="defaultValue"></param>
+	<param name="modifier"></param>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.StartBlock(System.String)">
+	<summary>
+	</summary>
+	<param name="s"></param>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.StartBlock(System.String,System.String[])">
+	<summary>
+	</summary>
+	<param name="s"></param>
+	<param name="value"></param>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.EndBlock(System.String)">
+	<summary>
+	</summary>
+	<param name="s"></param>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.WriteTab(System.Int32)">
+	<summary>
+	</summary>
+	<param name="count"></param>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.WriteTabs">
+	<summary>
+	</summary>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.WriteTab">
+	<summary>
+	</summary>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.WriteFormatLine(System.String,System.String[])">
+	<summary>
+	</summary>
+	<param name="s"></param>
+	<param name="value"></param>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.WriteFormat(System.String,System.String[])">
+	<summary>
+	</summary>
+	<param name="s"></param>
+	<param name="value"></param>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.WriteLine(System.String)">
+	<summary>
+	</summary>
+	<param name="s"></param>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.WriteLine(System.String,System.String[])">
+	<summary>
+	</summary>
+	<param name="s"></param>
+	<param name="value"></param>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.Write(System.String,System.String[])">
+	<summary>
+	</summary>
+	<param name="s"></param>
+	<param name="value"></param>
+	<remarks></remarks>
+</member><member name="M:lzy.TemplateResult.Write(System.String)">
+	<summary>
+	</summary>
+	<param name="s"></param>
+	<remarks></remarks>
+</member><member name="P:lzy.My.Resources.JS.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:lzy.My.Resources.JS.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="P:lzy.My.Resources.JS.Underscore">
+	<summary>
+  Looks up a localized string similar to //     Underscore.js 1.3.1
+//     (c) 2009-2012 Jeremy Ashkenas, DocumentCloud Inc.
+//     Underscore is freely distributable under the MIT license.
+//     Portions of Underscore are inspired or borrowed from Prototype,
+//     Oliver Steele's Functional, and John Resig's Micro-Templating.
+//     For all details and documentation:
+//     http://documentcloud.github.com/underscore
+
+(function () {
+
+    // Baseline setup
+    // --------------
+
+    // Establish the root object, `window` in the browser, or `globa [rest of string was truncated]";.
+</summary>
+</member><member name="P:lzy.My.Resources.JS.Utils">
+	<summary>
+  Looks up a localized string similar to 
+var Utils = {
+    toParamName : function (s) {
+        return s[0].toLowerCase() + s.substr(1);
+    }
+};.
+</summary>
+</member><member name="T:lzy.My.Resources.JS">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="P:lzy.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:lzy.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:lzy.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="P:lzy.My.Resources.XSLTDefault.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:lzy.My.Resources.XSLTDefault.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="P:lzy.My.Resources.XSLTDefault.Entity">
+	<summary>
+  Looks up a localized string similar to &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+  &lt;xsl:output method="text" encoding="UTF-8" indent="yes" omit-xml-declaration="yes"/&gt;
+
+  &lt;xsl:template match="/TableSettings/DatabaseInfoName" /&gt;
+  &lt;xsl:template match="/TableSettings/TableName" /&gt;
+  &lt;xsl:template match="/TableSettings/FilePath" /&gt;
+
+  &lt;xsl:template match="/TableSettings/Table"&gt;
+
+    Public Class &lt;xsl:value-of select="Name"/&gt;
+
+    
+    End Class
+
+
+  &lt;/xsl:te [rest of string was truncated]";.
+</summary>
+</member><member name="P:lzy.My.Resources.XSLTDefault.EntityPartial">
+	<summary>
+  Looks up a localized string similar to &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+  &lt;xsl:output method="text" encoding="UTF-8" indent="yes" omit-xml-declaration="yes"/&gt;
+
+  &lt;xsl:template match="/TableSettings/DatabaseInfoName" /&gt;
+  &lt;xsl:template match="/TableSettings/TableName" /&gt;
+  &lt;xsl:template match="/TableSettings/FilePath" /&gt;
+
+  &lt;xsl:template match="/TableSettings/Table"&gt;
+
+    Public Partial Class &lt;xsl:value-of select="Name"/&gt;
+
+    &lt;xsl:for-each select="C [rest of string was truncated]";.
+</summary>
+</member><member name="P:lzy.My.Resources.XSLTDefault.Standard">
+	<summary>
+  Looks up a localized string similar to &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+
+&lt;xsl:output method="text" encoding="UTF-8" indent="no" omit-xml-declaration="yes"/&gt;
+
+  &lt;xsl:template match="/TableSettings/DatabaseInfoName" /&gt;
+  &lt;xsl:template match="/TableSettings/TableName" /&gt;
+  &lt;xsl:template match="/TableSettings/FilePath" /&gt;
+  &lt;xsl:template match="/TableSettings/Table"&gt;
+  
+
+&lt;/xsl:stylesheet&gt;.
+</summary>
+</member><member name="T:lzy.My.Resources.XSLTDefault">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+</members>
+</doc>

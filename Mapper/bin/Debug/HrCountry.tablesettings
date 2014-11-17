@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<TableSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DatabaseInfoName>HRSystemdata</DatabaseInfoName>
+  <TableName>HrCountry</TableName>
+  <ProjectName>t</ProjectName>
+  <Options>{}</Options>
+  <RootNamespace>Personalarkiv.Test</RootNamespace>
+  <ExcludeCols />
+  <Reload>true</Reload>
+</TableSettings>

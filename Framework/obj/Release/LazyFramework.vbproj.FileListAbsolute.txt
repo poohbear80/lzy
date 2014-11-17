@@ -1,0 +1,10 @@
+C:\Projects\LazyFramework\FrameWork\LazyFrameWork\obj\Release\LazyFramework.Resources.resources
+C:\Projects\LazyFramework\FrameWork\LazyFrameWork\obj\Release\LazyFramework.vbproj.GenerateResource.Cache
+C:\Projects\LazyFramework\Build\Release\LazyFramework.dll
+C:\Projects\LazyFramework\Build\Release\LazyFramework.xml
+C:\Projects\LazyFramework\FrameWork\LazyFrameWork\obj\Release\LazyFramework.dll
+C:\Projects\LazyFramework\FrameWork\LazyFrameWork\obj\Release\LazyFramework.xml
+C:\Projects\LazyFramework\Build\Release\LazyFramework.pdb
+C:\Projects\LazyFramework\FrameWork\LazyFrameWork\obj\Release\LazyFramework.pdb
+C:\Projects\LazyFramework\Build\Release\LazyFramework.dll.config
+C:\Projects\LazyFramework\FrameWork\LazyFrameWork\obj\Release\LazyFramework.vbprojResolveAssemblyReference.cache

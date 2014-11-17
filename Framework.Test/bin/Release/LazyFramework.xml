@@ -1,0 +1,968 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+LazyFramework
+</name>
+</assembly>
+<members>
+<member name="P:LazyFramework.LazyFrameworkConfiguration.DatastoreType">
+	<summary>
+ The type of datastore you want to access. 
+ Default is SQLServer
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.LazyFrameworkConfiguration.Servers">
+	<summary>
+ Gets the servers.
+ Add a list of servers that your application will access. 
+ connectionString="Server=PETTER-BB\sqlexpress;Database=[DBName];User ID=sa;Password=;Trusted_Connection=true"
+ The [DBName] will be replaced by whatever preceeds the @ in your database name.
+ </summary>
+	<value>The servers.</value>
+</member><member name="P:LazyFramework.LazyFrameworkConfiguration.Current">
+	<summary>
+ Gets the current LazyFrameworkconfiguration object.
+ </summary>
+	<value>The current.</value>
+</member><member name="T:LazyFramework.LazyFrameworkConfiguration">
+	<summary>
+ The configuration class. 
+ You must put a configuration section of this type in your .config file.
+ </summary>
+	<remarks>
+		<example>
+ &lt;configSections&gt;
+		&lt;section name="LazyFrameworkConfiguration" type="LazyFramework.LazyFrameworkConfiguration,LazyFramework.Base"/&gt;
+	&lt;/configSections&gt;
+	&lt;LazyFrameworkConfiguration datastoreType="SqlServer" &gt;
+		&lt;servers&gt;
+			&lt;add name="local" connectionString="Server=PETTER-BB\sqlexpress;Database=[DBName];User ID=sa;Password=;Trusted_Connection=true" /&gt;
+		&lt;/servers&gt;
+	&lt;/LazyFrameworkConfiguration&gt;
+ </example>
+	</remarks>
+</member><member name="P:LazyFramework.ServerConfigElement.ConnectionString">
+	<summary>
+ Gets or sets the connection string.
+ </summary>
+	<value>The connection string.</value>
+</member><member name="T:LazyFramework.ServerConfigElement">
+	<summary>
+	</summary>
+</member><member name="P:LazyFramework.ILazyFrameworkConfiguration.DatastoreType">
+	<summary>
+ The type of datastore you want to access. 
+ Default is SQLServer
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.ILazyFrameworkConfiguration.Servers">
+	<summary>
+ Gets the servers.
+ Add a list of servers that your application will access. 
+ connectionString="Server=PETTER-BB\sqlexpress;Database=[DBName];User ID=sa;Password=;Trusted_Connection=true"
+ The [DBName] will be replaced by whatever preceeds the @ in your database name.
+ </summary>
+	<value>The servers.</value>
+</member><member name="M:LazyFramework.IDataAccess.FillObject(System.String,LazyFramework.IORDataObject,System.Data.Common.DbCommand,System.Object[])">
+	<summary>
+ Fills the object.
+ </summary>
+	<param name="sourceName">Name of the source.</param>
+	<param name="o">The IOrDataobject to fill</param>
+	<param name="Command">The command, as a </param>
+	<param name="params">The params.</param>
+	<returns></returns>
+</member><member name="M:LazyFramework.IDataAccess.FillObject(System.String,System.Collections.Generic.Queue{LazyFramework.IORDataObject},System.Data.Common.DbCommand,System.Object[])">
+	<summary>
+ Fills the object.
+ </summary>
+	<param name="sourceName">Name of the source.</param>
+	<param name="o">The o.</param>
+	<param name="Command">The command.</param>
+	<param name="params">The params.</param>
+	<returns></returns>
+</member><member name="M:LazyFramework.IDataAccess.UpdateObject(System.String,LazyFramework.IORDataObject,System.Data.Common.DbCommand)">
+	<summary>
+ Updates the object.
+ </summary>
+	<param name="sourceName">Name of the source.</param>
+	<param name="o">The o.</param>
+	<param name="cmd">The CMD.</param>
+	<returns></returns>
+</member><member name="M:LazyFramework.IDataAccess.ExecuteCommand(System.String,System.Data.Common.DbCommand,System.Object[])">
+	<summary>
+ Executes the command.
+ </summary>
+	<param name="sourceName">Name of the source.</param>
+	<param name="Command">The command.</param>
+	<param name="params">The params.</param>
+	<returns></returns>
+</member><member name="M:LazyFramework.IDataAccess.GetDataTable(System.String,System.String,System.Data.CommandType,System.Object[])">
+	<summary>
+ Gets the data table.
+ </summary>
+	<param name="sourceName">Name of the source.</param>
+	<param name="sqlQuery">The SQL query.</param>
+	<param name="commandType">Type of the command.</param>
+	<param name="parameters">The parameters.</param>
+	<returns></returns>
+</member><member name="M:LazyFramework.IDataAccess.CreateCommand(LazyFramework.CommandInfo)">
+	<summary>
+ Creates the command.
+ </summary>
+	<param name="cmd">The CMD.</param>
+	<returns></returns>
+</member><member name="M:LazyFramework.IDataAccess.ExecuteScalar(System.String,System.Data.Common.DbCommand,System.Object[])">
+	<summary>
+ Executes the scalar.
+ </summary>
+	<param name="sourceName">Name of the source.</param>
+	<param name="Command">The command.</param>
+	<param name="params">The params.</param>
+	<returns></returns>
+</member><member name="M:LazyFramework.IDataAccess.ExecuteScalar(System.String,System.Data.Common.DbCommand)">
+	<summary>
+	</summary>
+	<param name="sourceName"></param>
+	<param name="command"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.IDataAccess.ExecuteDatareader(System.String,System.Data.Common.DbCommand)">
+	<summary>
+	</summary>
+	<param name="sourceName"></param>
+	<param name="command"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.IDataAccess.ExecuteXmlReader(System.String,System.Data.Common.DbCommand)">
+	<summary>
+	</summary>
+	<param name="sourceName"></param>
+	<param name="command"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.IDataAccess">
+	<summary>
+ The dataaccess interface
+ </summary>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.CQRS.Command.Handling.CommandList">
+	<summary>
+	</summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.CQRS.Command.Handling.AllHandlers">
+	<summary>
+	</summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.CQRS.Command.Handling.ExecuteCommand(LazyFramework.CQRS.Command.IAmACommand)">
+	<summary>
+ Executes a command by finding the mapping to the type of command passed in. 
+ </summary>
+	<param name="command"></param>
+	<remarks>Any command can have only 1 handler. An exception will be thrown if there is found more than one for any given command. </remarks>
+</member><member name="M:LazyFramework.DataModificationPluginBase.ExecuteTask(LazyFramework.IORDataObject,LazyFramework.CommandInfoCommandTypeEnum,System.Boolean)">
+	<summary>
+ Executes the task.
+ </summary>
+	<param name="o">The instance.</param>
+	<param name="modificationType">Type of the modification.</param>
+	<param name="commandOk">if set to <c>true</c> [command ok].</param>
+	<returns></returns>
+</member><member name="M:LazyFramework.DataModificationPluginBase.InitPlugin(System.String)">
+	<summary>
+ Inits the plugin.
+ </summary>
+	<param name="params">The params.</param>
+</member><member name="P:LazyFramework.DataModificationPluginBase.ExecutionPoint">
+	<summary>
+ Gets or sets the execution point.
+ </summary>
+	<value>The execution point.</value>
+</member><member name="P:LazyFramework.DataModificationPluginBase.PluginName">
+	<summary>
+ Gets or sets the name of the plugin.
+ </summary>
+	<value>The name of the plugin.</value>
+</member><member name="P:LazyFramework.LazyBaseClass.Dirty">
+	<summary>
+ Is this object changed?
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.LazyBaseClass.ChangeLog">
+	<summary>
+ All values changed in the object from when it was loaded from the database is saved here.. 
+ Can be used to collect all changed values.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks>Used by a datamodification plugin to store histrical data for an entity.</remarks>
+</member><member name="M:LazyFramework.LazyBaseClass.SetValue(System.String,System.Object)">
+	<summary>
+ Used to set the value
+ </summary>
+	<param name="name">Then name of then collum in the query. Map this against your local field.</param>
+	<param name="value">The value of then named param</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyBaseClass.GetValue(System.String,System.Object@)">
+	<summary>
+ Retrives a value from a private field.
+ The names asked for is the same name as the parameter in an sql query
+ </summary>
+	<param name="name"></param>
+	<param name="value"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyBaseClass.SetValueExtended(System.String,System.Object)">
+	<summary>
+ You must overide this function to handle custom values that is collected in the DB, this function is called if InsertValue returns false,
+ in the loop in FillObject.
+ </summary>
+	<param name="name"></param>
+	<param name="value"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyBaseClass.GetValueExtended(System.String,System.Object@)">
+	<summary>
+ Override this function, if you are adding extra parameteres to your object
+ </summary>
+	<param name="name"></param>
+	<param name="value"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="F:LazyFramework.LazyBaseClass._FillResult">
+	<summary>
+ Check this to see if the dataacces command was successfull
+ </summary>
+	<remarks></remarks>
+</member><member name="E:LazyFramework.LazyBaseClass.FillComplete">
+	<summary>
+ Event fired when the object is filled. 
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyBaseClass.OnFillComplete(LazyFramework.FillCompleteEventargs)">
+	<summary>
+ This event fires when the database layer is finished with loading then object with data.
+ </summary>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyBaseClass.Deserialize(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+	<summary>
+ Override this sub to Desrialize your custom values. 
+ This sub is called from then special constructor implemented for the iSerializable interface
+ </summary>
+	<param name="info"></param>
+	<param name="context"></param>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyBaseClass.Serialize(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+	<summary>
+ Override this sub to fill the info object with your custom data for serialization
+ This sub is called from the GetObjectData sub witch implements the ISerialize interface.
+ </summary>
+	<param name="info"></param>
+	<param name="context"></param>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyBaseClass.TryGet``1(``0@,System.Object)">
+	<summary>
+ Used to retrive a value from the serialsation context.
+ </summary>
+	<typeparam name="T"></typeparam>
+	<param name="param"></param>
+	<param name="value"></param>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyBaseClass.AddChangedValue(System.String,System.Object)">
+	<summary>
+ Used by properties to add a value to the cahngedValue collection.
+ </summary>
+	<param name="name"></param>
+	<param name="value"></param>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.LazyBaseClass.Loaded">
+	<summary>
+ Stores info for when the object is loaded from the databse.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.LazyBaseClass.Fields">
+	<summary>
+ Gets the fields.
+ </summary>
+	<value>The fields.</value>
+</member><member name="T:LazyFramework.LazyBaseClass">
+	<summary>
+ The base class for LazyFramework.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.CQRS.Query.QueryBase`1">
+	<summary>
+ Queries which result in a given entity type or list of entity type
+ Queries should never resolve the entity. That is always done through the handler. 
+ </summary>
+	<typeparam name="TResultEntity"></typeparam>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.SQLServer.FillObject(System.String,LazyFramework.IORDataObject,System.Data.Common.DbCommand,System.Object[])">
+	<summary>
+ Fills the object.
+ </summary>
+	<param name="sourceName">Name of the source.</param>
+	<param name="o">The IOrDataobject to fill</param>
+	<param name="Command">The command, as a</param>
+	<param name="params">The params.</param>
+	<returns></returns>
+</member><member name="M:LazyFramework.SQLServer.FillObject(System.String,System.Collections.Generic.Queue{LazyFramework.IORDataObject},System.Data.Common.DbCommand,System.Object[])">
+	<summary>
+ Fills the object.
+ </summary>
+	<param name="sourceName">Name of the source.</param>
+	<param name="objectQueue">The object queue.</param>
+	<param name="Command">The command.</param>
+	<param name="params">The params.</param>
+	<returns></returns>
+</member><member name="M:LazyFramework.SQLServer.GetDataTable(System.String,System.String,System.Data.CommandType,System.Object[])">
+	<summary>
+ Gets the data table.
+ </summary>
+	<param name="sourceName">Name of the source.</param>
+	<param name="sqlQuery">The SQL query.</param>
+	<param name="commandType">Type of the command.</param>
+	<param name="parameters">The parameters.</param>
+	<returns></returns>
+</member><member name="M:LazyFramework.SQLServer.ExecReader(System.Data.SqlClient.SqlCommand,LazyFramework.IORDataObject,System.Object[])">
+	<summary>
+ Executes a reader an returns then result in the reader
+ </summary>
+	<param name="cmd"></param>
+	<param name="o"></param>
+	<param name="Params"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.SQLServer.DoFill(System.Data.SqlClient.SqlDataReader,LazyFramework.IORDataObject)">
+	<summary>
+ INternal sub for filling the object's
+ </summary>
+	<param name="r">The r.</param>
+	<param name="o">The o.</param>
+</member><member name="M:LazyFramework.SQLServer.FillLoop(System.Data.SqlClient.SqlDataReader,LazyFramework.IORDataObject)">
+	<summary>
+ Loop til fill data
+ </summary>
+	<param name="r">The r.</param>
+	<param name="o">The o.</param>
+</member><member name="M:LazyFramework.SQLServer.GetConnectionString(System.String)">
+	<summary>
+ Retrives the connectionstring from the config file. 
+ </summary>
+	<param name="dbName"></param>
+	<returns></returns>
+	<remarks>use the syntax dbName@servername to get the right connectionstring. The string [DBName] in 
+ the connectionstring is replaced by the text infront of the @
+ </remarks>
+</member><member name="M:LazyFramework.SQLServer.FillParameters(System.Data.SqlClient.SqlCommand,System.Object[])">
+	<summary>
+ Fills a command object with parameters. The parameters is cached in a collection to improve performance.
+ </summary>
+	<param name="cmd"></param>
+	<remarks>Det er ikke lov for en parameter å tilhøre flere kommandoer så den må klones..</remarks>
+</member><member name="M:LazyFramework.SQLServer.ExecuteSp(System.String,System.String,System.Object[])">
+	<summary>
+ Executes an sp. The data in the result parameter is returned.
+ </summary>
+	<param name="databaseName"></param>
+	<param name="spName"></param>
+	<param name="parameters"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.SQLServer.ExecuteText(System.String,System.String,System.Object[])">
+	<summary>
+ Execute a sql text against the databse
+ </summary>
+	<param name="databaseName"></param>
+	<param name="text"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.LazyBaseAggregate.DbName">
+	<summary>
+ Gets or sets the name of the db.
+ </summary>
+	<value>The name of the db.</value>
+</member><member name="M:LazyFramework.LazyBaseAggregate.SetDefaultValue(LazyFramework.LazyBaseClass,System.String,System.Object)">
+	<summary>
+ Used to set a default value for an entity in this aggregate class.
+ The value is set if and only if the PropName is not found in the ChangeLog of the entity.
+ </summary>
+	<param name="instance"></param>
+	<param name="propName"></param>
+	<param name="value"></param>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.LazyBaseAggregate">
+	<summary>
+ A base class for aggregated functionallity. 
+ </summary>
+</member><member name="T:LazyFramework.ValueNameNotFoundException">
+	<summary>
+	</summary>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.ServerNotSpecifiedException">
+	<summary>
+ Thrown if the server specified does not exist
+ </summary>
+</member><member name="T:LazyFramework.Events.IInitEvents">
+	<summary>
+ Dette er bare et marker interface som gjør det mulig å plukke opp alle klasser av denne typen
+ og få satt opp eventhandlere
+ </summary>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.IEntityBase.FillResult">
+	<summary>
+ Filled by the data access layer to tell then caller the result of then query
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.IEntityBase.Loaded">
+	<summary>
+ When is this entity loaded from then repository
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.IORDataObject.SetValue(System.String,System.Object)">
+	<summary>
+ Used to set the value 
+ </summary>
+	<param name="name">Then name of then collum in the query. Map this against your local field.</param>
+	<param name="value">The value of then named param</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.IORDataObject.SetValueExtended(System.String,System.Object)">
+	<summary>
+ Used to set the value 
+ </summary>
+	<param name="name">Then name of then collum in the query. Map this against your local field.</param>
+	<param name="value">The value of then named param</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.IORDataObject.GetValue(System.String,System.Object@)">
+	<summary>
+ Retrives a value from a private field. 
+ The names asked for is the same name as the parameter in an sql query
+ </summary>
+	<param name="name"></param>
+	<param name="value"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.IORDataObject.GetValueExtended(System.String,System.Object@)">
+	<summary>
+	</summary>
+	<param name="name"></param>
+	<param name="value"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="E:LazyFramework.IORDataObject.FillComplete">
+	<summary>
+	</summary>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.IORDataObject.OnFillComplete(LazyFramework.FillCompleteEventargs)">
+	<summary>
+ Called by then data access provider when the query is completed. 
+ </summary>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.IORDataObject">
+	<summary>
+ The base interface for talking with the dataaccess layer.
+ </summary>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.LazyDictionary`1.ObjectNameCollumn">
+	<summary>
+ Gets the object name collumn.
+ Identifies the coloumn to be used as the key in the dictionary.
+ </summary>
+	<value>The object name collumn.</value>
+</member><member name="M:LazyFramework.LazyDictionary`1.SetValue(System.String,System.Object)">
+	<summary>
+ Used to set the value
+ </summary>
+	<param name="name">Then name of the collum in the query. Map this against your local field.</param>
+	<param name="value">The value of the named param</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyDictionary`1.SetValueExtended(System.String,System.Object)">
+	<summary>
+ Used to set the value
+ </summary>
+	<param name="name">Then name of the collum in the query. Map this against your local field.</param>
+	<param name="value">The value of the named param</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyDictionary`1.GetValue(System.String,System.Object@)">
+	<summary>
+ Retrives a value from a private field.
+ The names asked for is the same name as the parameter in an sql query
+ </summary>
+	<param name="name"></param>
+	<param name="value"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyDictionary`1.GetValueExtended(System.String,System.Object@)">
+	<summary>
+ Override this function to give back more values if needed.
+ </summary>
+	<param name="name"></param>
+	<param name="value"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.LazyDictionary`1.FillResult">
+	<summary>
+ Set by the data access layer to tell then caller the result of then query
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyDictionary`1.OnFillComplete(LazyFramework.FillCompleteEventargs)">
+	<summary>
+ Called by then data access provider when the query is completed.
+ </summary>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyDictionary`1.NextRow">
+	<summary>
+	</summary>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.LazyDictionary`1.Fields">
+	<summary>
+ All available fields in T
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.LazyDictionary`1">
+	<summary>
+ Standard dictionary using generics and the IOrDataobject interface. Any collection wich inherits from this can be filled true the <see cref="M:LazyFramework.IDataAccess.FillObject(System.String,LazyFramework.IORDataObject,System.Data.Common.DbCommand,System.Object[])"></see> FillObjct function.
+ </summary>
+	<typeparam name="TType"></typeparam>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.Utils.Json.Reader.AttributeNameTokenAcceptor.AcceptsToken(System.Char)">
+	<summary>
+ [a-z][A-Z]
+ </summary>
+	<param name="t"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.IMultiLine.NextRow">
+	<summary>
+ Here the base collection handles the creation of new objects in a list
+ </summary>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.IMultiLine">
+	<summary>
+ Tells the dataaccesslayer that this is a collection supporting multiple objects
+ </summary>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.Utils.FindHandlers.FindAllHandlerDelegates``2(System.Boolean)">
+	<summary>
+	</summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.ClassFactory.GetTypeInstance``2">
+	<summary>
+ Main method if the lzyFactory
+ </summary>
+	<typeparam name="T"></typeparam>
+	<typeparam name="TDefaultType"></typeparam>
+	<returns>A newly created instance of the passed in interface.</returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.ClassFactory.SetTypeInstance``2">
+	<summary>
+ Use this method to override the default type to use in GetTypeInstance. 
+ </summary>
+	<typeparam name="T"></typeparam>
+	<typeparam name="TConfigedType"></typeparam>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.ClassFactory.SetTypeInstanceForSession``2">
+	<summary>
+ Store a reference to an typeinstance in a 'session' slot. 
+ Will only affect the current call in a websession, or the current thread in a win session 
+ </summary>
+	<typeparam name="T"></typeparam>
+	<typeparam name="TConfigedType"></typeparam>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.ClassFactory.SetTypeInstanceForSession``2(System.Boolean)">
+	<summary>
+	</summary>
+	<typeparam name="T"></typeparam>
+	<typeparam name="TConfigedType"></typeparam>
+	<param name="persist">Set to true to cache the instance of the created class for the session. </param>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.ClassFactory">
+	<summary>
+ This is an IoC factory. Possible extensions to be made is to configure things from a config file. 
+ 
+ </summary>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.IFileAccess">
+	<summary>
+ For now this is a readonly interface
+ </summary>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:LazyFramework.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:LazyFramework.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="P:LazyFramework.Utils.ResponseThread.QueryInfo.Time">
+	<summary>
+ Gives u the number of ms that the system has used to retrvie data from the DB and fill object with that data.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.TypeValidation.ValidateClass(System.String)">
+	<summary>
+	</summary>
+	<param name="class"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.TypeValidation.FindAllClassesOfTypeInApplication(System.Type,System.Boolean,System.Boolean)">
+	<summary>
+	</summary>
+	<param name="t"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.TypeValidation.ValidateApplicationWeakReferances">
+	<summary>
+	</summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.CQRS.EventHandling.EventHub.AllHandlers">
+	<summary>
+	</summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.CQRS.EventHandling.EventHub.Publish(LazyFramework.CQRS.EventHandling.IAmAnEvent,System.Boolean)">
+	<summary>
+ Publish an event to the application. 
+ </summary>
+	<param name="event"></param>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.CQRS.EventHandling.EventHub">
+	<summary>
+	</summary>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.FillCompleteEventargs.CmdName">
+	<summary>
+	</summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.FillCompleteEventargs">
+	<summary>
+ Fired when a object is filled with data
+ </summary>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.CQRS.IActionBase">
+	<summary>
+ Marker interface for all actions. 
+ 
+ </summary>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.IMultiLineDatareaderDecorator">
+	<summary>
+ Wraps the IMultiline/IORdataobject with an IDataReader interface
+ </summary>
+	<remarks>Experimental</remarks>
+</member><member name="M:LazyFramework.DataAccessFactory.DataAccess">
+	<summary>
+ Gives you the currently configured dataacces type.
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.DataAccessFactory">
+	<summary>
+	</summary>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.CQRS.IAmAnAction">
+	<summary>
+ Values of the interface is declared as functions to avoid serializing.. 
+ </summary>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.CQRS.EventHandling.IHandleEvent">
+	<summary>
+	</summary>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.CQRS.EventHandling.IPublishEvent">
+	<summary>
+	</summary>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.Runtime.WinThread">
+	<summary>
+ To be used in windowsapplications. 
+ </summary>
+	<remarks></remarks>
+</member><member name="F:LazyFramework.FillResultEnum.NoData">
+	<summary>
+ Set when query returns no rows
+ </summary>
+	<remarks></remarks>
+</member><member name="F:LazyFramework.FillResultEnum.DataFound">
+	<summary>
+ Set when only 1 line is returned from then query
+ </summary>
+	<remarks></remarks>
+</member><member name="F:LazyFramework.FillResultEnum.MultipleLinesFound">
+	<summary>
+ Set when more than 1 line is returned from query
+ </summary>
+	<remarks></remarks>
+</member><member name="F:LazyFramework.FillResultEnum.UpdateOK">
+	<summary>
+ Set when an dataupdate query returned no errors
+ </summary>
+	<remarks></remarks>
+</member><member name="T:LazyFramework.FillResultEnum">
+	<summary>
+ An enum of possible returnvalues from then dataaccesslayer
+ </summary>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.LazyList`1.CurrentObj">
+	<summary>
+ Gets or sets the current obj.
+ </summary>
+	<value>The current obj.</value>
+</member><member name="P:LazyFramework.LazyList`1.Fields">
+	<summary>
+ All available fields in T
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyList`1.ResetPager">
+	<summary>
+ Resets the pager.
+ </summary>
+</member><member name="P:LazyFramework.LazyList`1.PageSize">
+	<summary>
+ Then size of the page for the object.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.LazyList`1.PageNo">
+	<summary>
+ Then current page of the collection
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyList`1.SetValue(System.String,System.Object)">
+	<summary>
+ Used to set the value
+ </summary>
+	<param name="name">The name of the collum in the query. Map this against your local field.</param>
+	<param name="value">The value of the named param</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyList`1.SetValueExtended(System.String,System.Object)">
+	<summary>
+ Used to set the value
+ </summary>
+	<param name="name">The name of then collum in the query. Map this against your local field.</param>
+	<param name="value">The value of the named param</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:LazyFramework.LazyList`1.FillResult">
+	<summary>
+ Filled by then data access layer to tell then caller the result of then query
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="E:LazyFramework.LazyList`1.FillComplete">
+	<summary>
+	</summary>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyList`1.onFillComplete(LazyFramework.FillCompleteEventargs)">
+	<summary>
+ Called by the data access provider when the query is completed.
+ </summary>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyList`1.SortByProperty(System.String,System.Boolean)">
+	<summary>
+ Sorts the collection by property with then given name.
+ </summary>
+	<param name="propName">Name of the prop.</param>
+	<param name="asc">if set to <c>true</c> [asc].</param>
+</member><member name="M:LazyFramework.LazyList`1.CompareObject(`0,`0)">
+	<summary>
+ Sorting of the objects is done here...
+ </summary>
+	<param name="a"></param>
+	<param name="b"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyList`1.PageCollection(`0)">
+	<summary>
+ The possibility to iterate over pages in the collection.
+ </summary>
+	<param name="o"></param>
+	<returns>Boolean</returns>
+	<remarks>Unknown</remarks>
+</member><member name="M:LazyFramework.LazyList`1.GetPage(System.Int32)">
+	<summary>
+ Get a specific page from the collection
+ </summary>
+	<param name="page">Number of the page you want</param>
+	<returns>System.Collections.Generic.List(Of T)</returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyList`1.GetPage(System.Int32,System.Int32)">
+	<summary>
+ Get a specific page from the collection and set the pagesize.
+ </summary>
+	<param name="size">Size of page</param>
+	<param name="page">Page number to return</param>
+	<returns>System.Collections.Generic.List(Of T)</returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyList`1.GetPage">
+	<summary>
+ Get the current page from the collection
+ </summary>
+	<returns>System.Collections.Generic.List(Of T)</returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyList`1.GetQueue">
+	<summary>
+ get a queue from the collection
+ </summary>
+	<returns>System.Collections.Generic.Queue(Of T)</returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyList`1.GetStack">
+	<summary>
+ Get a stack from the collection
+ </summary>
+	<returns>System.Collections.Generic.Stack(Of T)</returns>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyList`1.NextRow">
+	<summary>
+ Tells the collection ready the next object for filling.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyList`1.GetValue(System.String,System.Object@)">
+	<summary>
+ Part of the IOrDataobject interface
+ </summary>
+	<param name="name">Name of the value to get</param>
+	<param name="value">Then value</param>
+	<returns>boolean</returns>
+	<remarks>Not implemented in the baseclass</remarks>
+</member><member name="M:LazyFramework.LazyList`1.GetValueExtended(System.String,System.Object@)">
+	<summary>
+ Part of the IOrDataobject interface
+ </summary>
+	<param name="name">Name of the value to get</param>
+	<param name="value">Then value</param>
+	<returns>boolean</returns>
+	<remarks>Not implemented in the baseclass</remarks>
+</member><member name="M:LazyFramework.LazyList`1.op_Addition(LazyFramework.LazyList{`0},LazyFramework.LazyList{`0})">
+	<summary>
+ Implements the operator +.
+ </summary>
+	<param name="col1">The col1.</param>
+	<param name="col2">The col2.</param>
+	<returns>The result of the operator.
+ Col1 is filled with the objects in Col2</returns>
+</member><member name="T:LazyFramework.LazyList`1">
+	<summary>
+ A base list collection using generics and implementing the IOrDataobject interface.
+ Also hold the abilities for paging and sorting.
+ </summary>
+	<typeparam name="T"></typeparam>
+	<remarks></remarks>
+</member><member name="M:LazyFramework.LazyValidators.LazyValidationAttribute.Validate(System.Object)">
+	<summary>
+ Validates the specified value against the whatever rule you have specified.
+ </summary>
+	<param name="value">The value.</param>
+	<returns></returns>
+</member><member name="P:LazyFramework.LazyValidators.LazyValidationAttribute.GetJavascriptValidator">
+	<summary>
+ Gets the get javascript validator.
+ </summary>
+	<value>The get javascript validator.</value>
+</member><member name="M:LazyFramework.LazyValidators.LengthValidator.#ctor(System.String)">
+	<summary>
+ Initializes a new instance of the <see cref="T:LazyFramework.LazyValidators.LengthValidator"/> class.
+ </summary>
+	<param name="msg">The messeage to add to the broken rule.</param>
+</member><member name="M:LazyFramework.LazyValidators.LengthValidator.Validate(System.Object)">
+	<summary>
+ Validates the specified value against the whatever rule you have specified.
+ </summary>
+	<param name="value">The value.</param>
+	<returns></returns>
+</member><member name="T:LazyFramework.LazyValidators.LengthValidator">
+	<summary>
+ Validates the length of the string to be between 2 values.
+ </summary>
+</member><member name="M:LazyFramework.LazyValidators.NotEmptyStringValidator.Validate(System.Object)">
+	<summary>
+ Validates the specified value against the whatever rule you have specified.
+ </summary>
+	<param name="value">The value.</param>
+	<returns></returns>
+</member><member name="T:LazyFramework.LazyValidators.NotEmptyStringValidator">
+	<summary>
+ Validates that the string is not empty
+ </summary>
+</member><member name="M:LazyFramework.LazyValidators.NotNullValidator.Validate(System.Object)">
+	<summary>
+ Validates the specified value against the whatever rule you have specified.
+ </summary>
+	<param name="value">The value.</param>
+	<returns></returns>
+</member><member name="T:LazyFramework.LazyValidators.NotNullValidator">
+	<summary>
+ Validates the value to be not null.
+ will also work agains nullable of properties
+ </summary>
+</member><member name="T:LazyFramework.LazyValidators.RegexpStringValidator">
+	<summary>
+ Validate the string agains a RegulareExpression
+ </summary>
+</member><member name="M:LazyFramework.LazyValidators.ValidateObject(System.Type,System.Object)">
+	<summary>
+ Validates the object.
+ </summary>
+	<param name="t">The t.</param>
+	<param name="o">The o.</param>
+</member><member name="P:LazyFramework.CQRS.Query.Handling.Handlers">
+	<summary>
+	</summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member>
+</members>
+</doc>

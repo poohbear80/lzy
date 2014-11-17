@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<TableSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DatabaseInfoName>hr</DatabaseInfoName>
+  <TableName>CacheDataStorage</TableName>
+  <ProjectName>t</ProjectName>
+  <Table>
+    <Name>CacheDataStorage</Name>
+    <Columns>
+      <ColumnInfo>
+        <PartOfPrimaryKey>true</PartOfPrimaryKey>
+        <IsForeignKey>false</IsForeignKey>
+        <Identity>true</Identity>
+        <Name>Id</Name>
+        <NameToUpper>ID</NameToUpper>
+        <DataType>int</DataType>
+        <Nullable>false</Nullable>
+        <Length>4</Length>
+        <ParamName>id</ParamName>
+        <NetRuntimeType>Integer</NetRuntimeType>
+        <DefaultValue />
+        <DefaultValueCode />
+        <DbType>int32</DbType>
+      </ColumnInfo>
+      <ColumnInfo>
+        <PartOfPrimaryKey>false</PartOfPrimaryKey>
+        <IsForeignKey>false</IsForeignKey>
+        <Identity>false</Identity>
+        <Name>Created</Name>
+        <NameToUpper>CREATED</NameToUpper>
+        <DataType>datetime</DataType>
+        <Nullable>false</Nullable>
+        <Length>8</Length>
+        <ParamName>created</ParamName>
+        <NetRuntimeType>DateTime</NetRuntimeType>
+        <DefaultValue />
+        <DefaultValueCode />
+        <DbType>datetime</DbType>
+      </ColumnInfo>
+      <ColumnInfo>
+        <PartOfPrimaryKey>false</PartOfPrimaryKey>
+        <IsForeignKey>false</IsForeignKey>
+        <Identity>false</Identity>
+        <Name>ObjectType</Name>
+        <NameToUpper>OBJECTTYPE</NameToUpper>
+        <DataType>nvarchar</DataType>
+        <Nullable>false</Nullable>
+        <Length>500</Length>
+        <ParamName>objectType</ParamName>
+        <NetRuntimeType>String</NetRuntimeType>
+        <DefaultValue />
+        <DefaultValueCode />
+        <DbType>string</DbType>
+      </ColumnInfo>
+      <ColumnInfo>
+        <PartOfPrimaryKey>false</PartOfPrimaryKey>
+        <IsForeignKey>false</IsForeignKey>
+        <Identity>false</Identity>
+        <Name>Type</Name>
+        <NameToUpper>TYPE</NameToUpper>
+        <DataType>uniqueidentifier</DataType>
+        <Nullable>false</Nullable>
+        <Length>16</Length>
+        <ParamName>type</ParamName>
+        <NetRuntimeType>Guid</NetRuntimeType>
+        <DefaultValue />
+        <DefaultValueCode />
+        <DbType>Guid</DbType>
+      </ColumnInfo>
+      <ColumnInfo>
+        <PartOfPrimaryKey>false</PartOfPrimaryKey>
+        <IsForeignKey>false</IsForeignKey>
+        <Identity>false</Identity>
+        <Name>Data</Name>
+        <NameToUpper>DATA</NameToUpper>
+        <DataType>text</DataType>
+        <Nullable>false</Nullable>
+        <Length>16</Length>
+        <ParamName>data</ParamName>
+        <NetRuntimeType>String</NetRuntimeType>
+        <DefaultValue />
+        <DefaultValueCode />
+        <DbType>string</DbType>
+      </ColumnInfo>
+    </Columns>
+    <ForeginKeys />
+  </Table>
+  <Options>{}</Options>
+  <ExcludeCols />
+  <Reload>true</Reload>
+</TableSettings>

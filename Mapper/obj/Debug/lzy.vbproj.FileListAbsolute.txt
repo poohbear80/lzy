@@ -1,0 +1,15 @@
+C:\Projects\LazyFramework\FrameWork\LzyMapper2\lzy\bin\Debug\lzy.exe.config
+C:\Projects\LazyFramework\FrameWork\LzyMapper2\lzy\bin\Debug\lzy.exe
+C:\Projects\LazyFramework\FrameWork\LzyMapper2\lzy\bin\Debug\lzy.pdb
+C:\Projects\LazyFramework\FrameWork\LzyMapper2\lzy\bin\Debug\lzy.xml
+C:\Projects\LazyFramework\FrameWork\LzyMapper2\lzy\bin\Debug\Noesis.Javascript.dll
+C:\Projects\LazyFramework\FrameWork\LzyMapper2\lzy\obj\Debug\lzy.vbprojResolveAssemblyReference.cache
+C:\Projects\LazyFramework\FrameWork\LzyMapper2\lzy\obj\Debug\lzy.JS.resources
+C:\Projects\LazyFramework\FrameWork\LzyMapper2\lzy\obj\Debug\lzy.Resources.resources
+C:\Projects\LazyFramework\FrameWork\LzyMapper2\lzy\obj\Debug\lzy.JsDefault.resources
+C:\Projects\LazyFramework\FrameWork\LzyMapper2\lzy\obj\Debug\lzy.XSLTDefault.resources
+C:\Projects\LazyFramework\FrameWork\LzyMapper2\lzy\obj\Debug\lzy.vbproj.GenerateResource.Cache
+C:\Projects\LazyFramework\FrameWork\LzyMapper2\lzy\obj\Debug\lzy.exe
+C:\Projects\LazyFramework\FrameWork\LzyMapper2\lzy\obj\Debug\lzy.xml
+C:\Projects\LazyFramework\FrameWork\LzyMapper2\lzy\obj\Debug\lzy.pdb
+C:\Projects\Hressurs\lzy\CS\lzy.exe.config
