@@ -93,11 +93,11 @@ End Class
 
 
 <TestFixture> Public Class TestParser
-    <Test> Public Sub ParseSimpleObject()
-        Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter"",""Alder"":43}")
-        Assert.AreEqual("Petter", p.Navn)
-        Assert.AreEqual(43, p.Alder)
-    End Sub
+    '<Test> Public Sub ParseSimpleObject()
+    '    Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter"",""Alder"":43}")
+    '    Assert.AreEqual("Petter", p.Navn)
+    '    Assert.AreEqual(43, p.Alder)
+    'End Sub
 End Class
 
 Public Structure Test
