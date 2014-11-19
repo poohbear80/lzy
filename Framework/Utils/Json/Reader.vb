@@ -18,53 +18,33 @@ Namespace Utils.Json
         Public Shared Function StringToObject(Of T As New)(input As StreamReader) As T
             Dim builder As New ObjectBuilder(Of T)
 
-            Dim parser As New JsonParser(input)
-            parser.Parse(builder)
+            Dim nextChar As Integer = input.Read()
+            While nextChar > 0
 
-            Return builder.Result
+                If builder.AcceptChar(ChrW(nextChar)) Then
+
+                End If
+
+                nextChar = input.Read
+                If builder.Complete Then
+                    Exit While
+                End If
+            End While
+
+
+            If builder.Complete Then
+                Return builder.Result
+            End If
+
+            Throw New MissingTokenException()
 
         End Function
 
+        Public MustInherit Class Builder(Of T)
+            Public Result As T
+            Public MustOverride Function AcceptChar(c As Char) As Boolean
+            Public MustOverride ReadOnly Property Complete As Boolean
 
-        Private Class JsonParser
-            Implements ITextParser
-
-            Private ReadOnly _StreamReader As StreamReader
-
-            Public Sub New(ByVal streamReader As StreamReader)
-                _StreamReader = streamReader
-            End Sub
-
-
-            Public Sub Parse(builder As Builder) Implements ITextParser.Parse
-                Dim currByte As Char
-                While Not _StreamReader.EndOfStream
-                    currByte = ChrW(_StreamReader.Read())
-                    For Each ta In builder.TokenAcceptors
-                        If ta.AcceptsToken(currByte) Then
-                            For Each b In builder.SubBuilders
-
-                            Next
-                        End If
-                    Next
-                End While
-            End Sub
-        End Class
-
-        Private Interface ITextParser
-
-            Sub Parse(builder As Builder)
-
-        End Interface
-
-        Public MustInherit Class Builder
-            Public TokenAcceptors As New List(Of ITokenAcceptor)
-            Public MustOverride Iterator Function SubBuilders() As IEnumerable(Of Builder)
-            Public Result As Object
-            Protected TextRead As String = ""
-            Public Sub AddText(c As Char)
-                TextRead += c
-            End Sub
         End Class
 
         Friend Class ValueBuilder
@@ -91,20 +71,50 @@ Namespace Utils.Json
         End Class
 
         Friend Class ObjectBuilder(Of T As New)
-            Inherits Builder
-            Public Sub New()
-                TokenAcceptors.Add(New ObjectTokenAcceptor With {.Builder = Me})
-                TokenAcceptors.Add(New WhiteSpaceTokenAcceptor With {.Builder = Me})
+            Inherits Builder(Of T)
+            Private state As Integer
+            Private _complete As Boolean = False
 
+            Private blanks As New WhiteSpaceTokenAcceptor
+
+
+            Public Sub New()
                 Result = New T
             End Sub
-            Public Shadows Result As T
 
-            Public Overrides Iterator Function SubBuilders() As IEnumerable(Of Builder)
-                Yield New AttributeBuilder
+            Public Overrides Function AcceptChar(c As Char) As Boolean
+                Select Case state
+                    Case 0
+                        If blanks.AcceptsToken(c) Then
+                            Return True
+                        Else
+                            If c = "{" Then
+                                state = 1
+                                Return True
+                            End If
+                            Throw New MissingTokenException("{")
+                        End If
+                    Case 1
+
+                    Case 2
+                        If blanks.AcceptsToken(c) Then
+                            Return True
+                        End If
+                        If c = "}" Then
+                            _complete = True
+                            Return True
+                        End If
+                        Throw New MissingTokenException("{")
+                End Select
             End Function
+
+            Public Overrides ReadOnly Property Complete As Boolean
+                Get
+                    Return _complete
+                End Get
+            End Property
         End Class
-        
+
 
         Public Interface ITokenAcceptor
             Function AcceptsToken(t As Char) As Boolean
@@ -167,7 +177,7 @@ Namespace Utils.Json
         End Class
         Public Class WhiteSpaceTokenAcceptor
             Inherits TokenAcceptor
-            
+
             Public Overrides Function AcceptsToken(t As Char) As Boolean
                 If AscW(t) <= 32 Then
                     Return True
@@ -178,6 +188,20 @@ Namespace Utils.Json
 
     End Class
 
+    Public Class MissingTokenException
+        Inherits Exception
 
+        Private ReadOnly _S As String
 
+        Public Sub New(ByVal s As String)
+            MyBase.New(s)
+            _S = s
+        End Sub
+
+        Public ReadOnly Property Token As String
+            Get
+                Return _S
+            End Get
+        End Property
+    End Class
 End Namespace
