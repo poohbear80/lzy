@@ -268,8 +268,8 @@ Imports NUnit.Framework
     <test>
     Public Sub InsertMultipleTypesOfInterfaceWithKeys()
 
-        LazyFramework.ClassFactory.SetTypeInstance(Of ITest)(New SessionAwareTest, "bla")
-        LazyFramework.ClassFactory.SetTypeInstance(Of ITest)(New NoneSessionsAwareTest, "ukebla")
+        LazyFramework.ClassFactory.SetTypeInstance(Of ITest)("bla", New SessionAwareTest)
+        LazyFramework.ClassFactory.SetTypeInstance(Of ITest)("ukebla", New NoneSessionsAwareTest)
 
 
         Assert.IsInstanceOf(Of SessionAwareTest)(LazyFramework.ClassFactory.GetTypeInstance(Of ITest)("bla"))
@@ -281,8 +281,8 @@ Imports NUnit.Framework
     Public Sub InsertMultipleTypesOfInterfaceWithKeysInSession()
 
         Using New LazyFramework.ClassFactory.SessionInstance
-            LazyFramework.ClassFactory.SetTypeInstanceForSession(Of ITest)(New SessionAwareTest, "bla")
-            LazyFramework.ClassFactory.SetTypeInstanceForSession(Of ITest)(New NoneSessionsAwareTest, "ukebla")
+            LazyFramework.ClassFactory.SetTypeInstanceForSession(Of ITest)("bla", New SessionAwareTest)
+            LazyFramework.ClassFactory.SetTypeInstanceForSession(Of ITest)("ukebla", New NoneSessionsAwareTest)
 
 
             Assert.IsInstanceOf(Of SessionAwareTest)(LazyFramework.ClassFactory.GetTypeInstance(Of ITest)("bla"))

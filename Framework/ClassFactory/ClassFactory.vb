@@ -116,25 +116,29 @@ Public Class ClassFactory
     End Function
 
     Public Shared Function GetTypeInstance(Of T)(key As String) As T
-        Dim list As Dictionary(Of String, T)
+        Dim list As Dictionary(Of String, TypeInfo(Of T))
         Dim ti As ITypeInfo = Nothing
 
-        If Session IsNot Nothing AndAlso Session.ContainsKey(Of Dictionary(Of String, T))() Then
-            ti = Session.GetInstance(GetType(Dictionary(Of String, T)))
-        ElseIf ProcessStore.ContainsKey(GetType(Dictionary(Of String, T))) Then
-            ti = ProcessStore((GetType(Dictionary(Of String, T))))
+        If Session IsNot Nothing AndAlso Session.ContainsKey(Of Dictionary(Of String, TypeInfo(Of T)))() Then
+            ti = Session.GetInstance(GetType(Dictionary(Of String, TypeInfo(Of T))))
+        ElseIf ProcessStore.ContainsKey(GetType(Dictionary(Of String, TypeInfo(Of T)))) Then
+            ti = ProcessStore((GetType(Dictionary(Of String, TypeInfo(Of T)))))
         End If
 
         If ti Is Nothing Then
             Throw New NotConfiguredException(GetType(T).ToString)
         End If
 
-        list = CType(ti.CurrentInstance, Dictionary(Of String, T))
+        list = CType(ti.CurrentInstance, Dictionary(Of String, TypeInfo(Of T)))
         If Not list.ContainsKey(key) Then
             Throw New NotConfiguredException(key)
         End If
+        If list(key).PersistInstance Then
+            Return CType(list(key).CurrentInstance, T)
+        Else
+            Return list(key).CreateInstance
+        End If
 
-        Return list(key)
     End Function
 
     Public Shared Function GetDefaultInstaceForType(Of TT)() As TT
@@ -203,18 +207,20 @@ Public Class ClassFactory
         End If
     End Sub
 
-    Public Shared Sub SetTypeInstance(Of T)(ByVal instance As T, ByVal key As String)
-        If Not ProcessStore.ContainsKey(GetType(Dictionary(Of String, T))) Then
-            ProcessStore(GetType(Dictionary(Of String, T))) = New TypeInfo(Of T) With {.CurrentType = GetType(Dictionary(Of String, T)), .CurrentInstance = New Dictionary(Of String, T), .PersistInstance = True}
+    Public Shared Sub SetTypeInstance(Of T)(ByVal key As String, ByVal instance As T)
+        If Not ProcessStore.ContainsKey(GetType(Dictionary(Of String, TypeInfo(Of T)))) Then
+            ProcessStore(GetType(Dictionary(Of String, TypeInfo(Of T)))) = New TypeInfo(Of T) With {.CurrentType = GetType(Dictionary(Of String, TypeInfo(Of T))), .CurrentInstance = New Dictionary(Of String, TypeInfo(Of T)), .PersistInstance = True}
         End If
 
-        Dim list As Dictionary(Of String, T) = CType(ProcessStore(GetType(Dictionary(Of String, T))).CurrentInstance, Dictionary(Of String, T))
+        Dim list As Dictionary(Of String, TypeInfo(Of T)) = CType(ProcessStore(GetType(Dictionary(Of String, TypeInfo(Of T)))).CurrentInstance, Dictionary(Of String, TypeInfo(Of T)))
         If Not list.ContainsKey(key) Then
-            list.Add(key, instance)
+            list.Add(key, New TypeInfo(Of T) With {.CurrentInstance = instance, .PersistInstance = True, .CurrentType = instance.GetType})
         Else
-            list(key) = instance
+            list(key).CurrentInstance = instance
         End If
     End Sub
+
+
 
     Public Shared Function ContainsKey(Of TKey)() As Boolean
 
@@ -265,17 +271,17 @@ Public Class ClassFactory
         Session.SetInstance(GetType(T), New TypeInfo(Of T) With {.CurrentType = instance.GetType, .PersistInstance = True, .CurrentInstance = instance})
     End Sub
 
-    Public Shared Sub SetTypeInstanceForSession(Of T)(ByVal instance As T, ByVal key As String)
-        If Not Session.ContainsKey(Of Dictionary(Of String, T))() Then
-            Session.SetInstance(GetType(Dictionary(Of String, T)), New TypeInfo(Of T) With {.CurrentType = GetType(Dictionary(Of String, T)), .CurrentInstance = New Dictionary(Of String, T), .PersistInstance = True})
+    Public Shared Sub SetTypeInstanceForSession(Of T)(ByVal key As String, ByVal instance As T)
+        If Not Session.ContainsKey(Of Dictionary(Of String, TypeInfo(Of T)))() Then
+            Session.SetInstance(GetType(Dictionary(Of String, TypeInfo(Of T))), New TypeInfo(Of T) With {.CurrentType = GetType(Dictionary(Of String, TypeInfo(Of T))), .CurrentInstance = New Dictionary(Of String, TypeInfo(Of T)), .PersistInstance = True})
         End If
 
-        Dim list As Dictionary(Of String, T) = CType(Session.GetInstance(GetType(Dictionary(Of String, T))).CurrentInstance, Dictionary(Of String, T))
+        Dim list As Dictionary(Of String, TypeInfo(Of T)) = CType(Session.GetInstance(GetType(Dictionary(Of String, TypeInfo(Of T)))).CurrentInstance, Dictionary(Of String, TypeInfo(Of T)))
 
         If Not list.ContainsKey(key) Then
-            list.Add(key, instance)
+            list.Add(key, New TypeInfo(Of T) With {.CurrentInstance = instance, .PersistInstance = True, .CurrentType = instance.GetType})
         Else
-            list(key) = instance
+            list(key).CurrentInstance = instance
         End If
     End Sub
 
