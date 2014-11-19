@@ -11,3 +11,4 @@
 /Framework.Test/obj/Debug
 /packages
 /Framework.Test/bin/Debug
+*.ncrunchproject
