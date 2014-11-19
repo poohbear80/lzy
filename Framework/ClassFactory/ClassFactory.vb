@@ -220,6 +220,20 @@ Public Class ClassFactory
         End If
     End Sub
 
+    Public Shared Sub SetTypeInstance(Of TType)(key As String, instanceType As Type)
+
+        If Not ProcessStore.ContainsKey(GetType(Dictionary(Of String, TypeInfo(Of TType)))) Then
+            ProcessStore(GetType(Dictionary(Of String, TypeInfo(Of TType)))) = New TypeInfo(Of TType) With {.CurrentType = GetType(Dictionary(Of String, TypeInfo(Of TType))), .CurrentInstance = New Dictionary(Of String, TypeInfo(Of TType)), .PersistInstance = True}
+        End If
+        Dim list As Dictionary(Of String, TypeInfo(Of TType)) = CType(ProcessStore(GetType(Dictionary(Of String, TypeInfo(Of TType)))).CurrentInstance, Dictionary(Of String, TypeInfo(Of TType)))
+
+        If Not list.ContainsKey(key) Then
+            list.Add(key, New TypeInfo(Of TType) With {.PersistInstance = False, .CurrentType = instanceType})
+        Else
+            list(key).CurrentType = instanceType
+        End If
+
+    End Sub
 
 
     Public Shared Function ContainsKey(Of TKey)() As Boolean

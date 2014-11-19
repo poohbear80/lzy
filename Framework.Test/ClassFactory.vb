@@ -277,6 +277,15 @@ Imports NUnit.Framework
 
     End Sub
 
+    <Test> Public Sub InsertTypesWithKey()
+        LazyFramework.ClassFactory.SetTypeInstance(Of ITest)("bla", GetType(SessionAwareTest))
+        LazyFramework.ClassFactory.SetTypeInstance(Of ITest)("ukebla", GetType(NoneSessionsAwareTest))
+        
+        Assert.IsInstanceOf(Of SessionAwareTest)(LazyFramework.ClassFactory.GetTypeInstance(Of ITest)("bla"))
+        Assert.IsInstanceOf(Of NoneSessionsAwareTest)(LazyFramework.ClassFactory.GetTypeInstance(Of ITest)("ukebla"))
+
+    End Sub
+
     <Test>
     Public Sub InsertMultipleTypesOfInterfaceWithKeysInSession()
 
