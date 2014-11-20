@@ -2,13 +2,10 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/Framework/obj/Debug
-/Framework/packages
-*.user
-*.suo
-*.ncrunchsolution
-*.cache
-/Framework.Test/obj/Debug
-/packages
-/Framework.Test/bin/Debug
-*.ncrunchproject
+**Debug/
+**packages/
+**.user
+**.suo
+**.ncrunchsolution
+**.ncrunchproject
+**.cache
