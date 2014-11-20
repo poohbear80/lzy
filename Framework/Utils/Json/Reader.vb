@@ -104,7 +104,7 @@ Namespace Utils.Json
                 Yield New AttributeBuilder
             End Function
         End Class
-        
+
 
         Public Interface ITokenAcceptor
             Function AcceptsToken(t As Char) As Boolean
@@ -167,7 +167,7 @@ Namespace Utils.Json
         End Class
         Public Class WhiteSpaceTokenAcceptor
             Inherits TokenAcceptor
-            
+
             Public Overrides Function AcceptsToken(t As Char) As Boolean
                 If AscW(t) <= 32 Then
                     Return True

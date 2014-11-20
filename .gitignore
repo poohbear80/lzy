@@ -12,3 +12,4 @@
 /packages
 /Framework.Test/bin/Debug
 *.ncrunchproject
+*.project
