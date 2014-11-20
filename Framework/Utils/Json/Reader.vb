@@ -135,6 +135,11 @@ Namespace Utils.Json
         Public Const Qualifier = ":"c
         Public Const Separator = ","c
 
+        Public Shared Sub ConsumeComments(nextChar As IReader)
+            WhiteSpace(nextChar)
+
+        End Sub
+
         Public Shared Sub EatUntil(c As Char, nextChar As IReader)
             WhiteSpace(nextChar)
             If nextChar.Read <> c Then
