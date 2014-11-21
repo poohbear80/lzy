@@ -100,21 +100,31 @@ End Class
     End Sub
 
     <Test> Public Sub ParseTextWithEscapeObject()
-        Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter\nGjermund\\     ""}")
-        Assert.AreEqual("Petter" & vbCrLf & "Gjermund\     ", p.Navn)
+        Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter\nGjermund\\""}")
+        Assert.AreEqual("Petter" & vbCrLf & "Gjermund\", p.Navn)
         'Assert.AreEqual(43, p.Alder)
     End Sub
+
+    <Test> Public Sub ParseComplexObject()
+        Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter"",""TestInfo"": {""Name"":""Nils""}}")
+        Assert.AreEqual("Petter", p.Navn)
+        Assert.AreEqual("Nils", p.TestInfo.Name)
+        'Assert.AreEqual(43, p.Alder)
+    End Sub
+
+
 End Class
 
-Public Structure Test
+Public Class Test
     Public Name As String
     Public Year As Integer
-End Structure
+End Class
 
 
 Public Class Person
     Public Navn As String
     Public Alder As Integer
     Public Barn As List(Of Person)
+    Public TestInfo As Test
 End Class
 
