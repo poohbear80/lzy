@@ -248,7 +248,13 @@
     <Compile Include="Utils\FindHandlers.vb" />
     <Compile Include="Utils\Helpers.vb" />
     <Compile Include="Utils\ILazyFrameworkConfiguration.vb" />
+    <Compile Include="Utils\Json\Builder.vb" />
+    <Compile Include="Utils\Json\IReader.vb" />
+    <Compile Include="Utils\Json\ObjectBuilder.vb" />
     <Compile Include="Utils\Json\Reader.vb" />
+    <Compile Include="Utils\Json\ReadStream.vb" />
+    <Compile Include="Utils\Json\StringParser.vb" />
+    <Compile Include="Utils\Json\TokenAcceptors.vb" />
     <Compile Include="Utils\Json\Writer.vb" />
     <Compile Include="Utils\LazyFrameworkRequestModule.vb" />
     <Compile Include="Utils\PluginValidator.vb" />
