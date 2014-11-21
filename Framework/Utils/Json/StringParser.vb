@@ -50,6 +50,9 @@ Namespace Utils.Json
             }
 
         Public Overrides Function Parse(nextChar As IReader) As Boolean
+            Complete = False
+
+
             Dim buffer As New Text.StringBuilder
             TokenAcceptors.EatUntil(Chr(34), nextChar)
 

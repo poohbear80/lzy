@@ -249,6 +249,7 @@
     <Compile Include="Utils\Helpers.vb" />
     <Compile Include="Utils\ILazyFrameworkConfiguration.vb" />
     <Compile Include="Utils\Json\Builder.vb" />
+    <Compile Include="Utils\Json\IntegerParser.vb" />
     <Compile Include="Utils\Json\IReader.vb" />
     <Compile Include="Utils\Json\ObjectBuilder.vb" />
     <Compile Include="Utils\Json\Reader.vb" />
