@@ -5,6 +5,8 @@ Namespace Utils.Json
         Public Const Qualifier = ":"c
         Public Const Separator = ","c
 
+        Public Shared BuilderFactory As Type = GetType(ObjectBuilder(Of ))
+
         Public Shared Sub ConsumeComments(nextChar As IReader)
             WhiteSpace(nextChar)
 
@@ -52,24 +54,39 @@ Namespace Utils.Json
                 Dim fInfo = result.GetType().GetField(name)
 
                 If fInfo.FieldType.IsValueType Or fInfo.FieldType Is GetType(String) Then
+
                     If fInfo.FieldType Is GetType(String) Then
                         Dim stringParser As StringParser = New StringParser
                         stringParser.Parse(nextChar)
 
                         fInfo.SetValue(result, stringParser.InnerResult)
                     End If
+                Else
+                    Dim b As Builder = CType(Activator.CreateInstance(BuilderFactory.MakeGenericType(fInfo.FieldType)), Builder)
+                    b.Parse(nextChar)
+                    If b.Complete Then
+                        fInfo.SetValue(result, b.InnerResult)
+                    Else
+                        Throw new Utils.Json.NotCompleteException
+                    End If
+
                 End If
             Loop While CanFindValueSeparator(nextChar)
         End Sub
 
         Private Shared Function CanFindValueSeparator(ByVal nextChar As IReader) As Boolean
             WhiteSpace(nextChar)
-            If nextChar.PeekToBuffer = "," Then
+            If nextChar.Peek = "," Then
                 nextChar.Read()
                 Return True
             End If
             Return False
         End Function
+
+    End Class
+
+    Public Class NotCompleteException
+        Inherits Exception
 
     End Class
 End NameSpace

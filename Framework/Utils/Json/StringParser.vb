@@ -44,8 +44,8 @@ Namespace Utils.Json
                  End If
 
              End Function, Function(r As IReader)
-                               r.ClearBuffer()
-                               Return vbBack
+                               Dim toTrans = r.Buffer
+                               Return "" 'ChrW()
                            End Function}
             }
 
@@ -58,14 +58,14 @@ Namespace Utils.Json
                 If cur = "\" Then 'Not allowed, is the start of an escape
                     buffer.Append(nextChar.Buffer)
 
-                    nextChar.PeekToBuffer()
+                    cur = nextChar.PeekToBuffer()
                     While ML.ContainsKey(nextChar.BufferPeek)
-                        nextChar.PeekToBuffer()
+                        cur = nextChar.PeekToBuffer()
                     End While
                     buffer.Append(ML(nextChar.BufferPreLastPeek)(nextChar))
+                Else
+                    cur = nextChar.PeekToBuffer
                 End If
-                cur = nextChar.PeekToBuffer
-
             End While
             buffer.Append(nextChar.Buffer)
             nextChar.Read()
