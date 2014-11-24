@@ -42,7 +42,7 @@ Namespace Utils.Json
         Private Shared Sub WriteObject(result As StreamWriter, o As Object)
             Dim first As Boolean = True
             result.Write("{"c)
-            For Each member In o.GetType().GetMembers(Reflection.BindingFlags.DeclaredOnly Or Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance).Where(Function(v) v.MemberType = Reflection.MemberTypes.Field Or v.MemberType = Reflection.MemberTypes.Property)
+            For Each member In o.GetType().GetMembers(Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance).Where(Function(v) v.MemberType = Reflection.MemberTypes.Field Or v.MemberType = Reflection.MemberTypes.Property)
 
                 If Not first Then
                     result.Write(",")

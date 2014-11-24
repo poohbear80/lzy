@@ -67,7 +67,7 @@ Namespace Utils.Json
                     If b.Complete Then
                         fInfo.SetValue(result, b.InnerResult)
                     Else
-                        Throw new Utils.Json.NotCompleteException
+                        Throw New Utils.Json.NotCompleteException
                     End If
 
                 End If
@@ -89,4 +89,4 @@ Namespace Utils.Json
         Inherits Exception
 
     End Class
-End NameSpace
+End Namespace

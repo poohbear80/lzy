@@ -11,6 +11,14 @@ Namespace CQRS.ActionLink
             End Get
         End Property
 
+
+        Public Overridable ReadOnly Property Tag As String
+            Get
+                Return Nothing
+            End Get
+        End Property
+
+
         Public MustOverride Function IsAvailable() As Boolean Implements IActionBase.IsAvailable
         Public MustOverride Function IsAvailable(user As IPrincipal) As Boolean Implements IActionBase.IsAvailable
         Public MustOverride Function IsAvailable(user As IPrincipal, o As Object) As Boolean Implements IActionBase.IsAvailable

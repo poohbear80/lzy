@@ -79,6 +79,17 @@ Imports NUnit.Framework
 
     End Sub
 
+
+    <Test> Public Sub InheritedAttributesIsWrittenToText()
+        Dim o As New Person2
+
+        o.Addresse = "blbla"
+        o.Name = "Mikael"
+        
+        Assert.AreEqual("{""Addresse"":""blbla"",""Name"":""Mikael"",""Year"":0}", Writer.ObjectToString(o))
+
+    End Sub
+
     <Test> Public Sub StringArray()
         Dim toWrite As String() = {"abc", "æøå", ""}
         Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(toWrite), Writer.ObjectToString(toWrite))
@@ -128,3 +139,10 @@ Public Class Person
     Public TestInfo As Test
 End Class
 
+
+Public Class Person2
+    Inherits Test
+
+    Public Addresse As String
+    
+End Class
