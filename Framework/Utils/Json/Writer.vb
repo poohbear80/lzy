@@ -11,7 +11,8 @@ Namespace Utils.Json
             {GetType(Double), AddressOf WriteNumber},
             {GetType(Single), AddressOf WriteNumber},
             {GetType(String), AddressOf Writetext},
-            {GetType(Decimal), AddressOf WriteNumber}
+            {GetType(Decimal), AddressOf WriteNumber},
+            {GetType(Date), Sub(w, val) w.write(val.ToString)}
         }
 
         Public Delegate Sub Writer(writer As StreamWriter, value As Object)

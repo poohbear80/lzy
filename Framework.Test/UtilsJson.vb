@@ -89,6 +89,25 @@ Imports NUnit.Framework
         Assert.AreEqual("{""Addresse"":""blbla"",""Name"":""Mikael"",""Year"":0}", Writer.ObjectToString(o))
 
     End Sub
+    <Test> Public Sub DateTimeAttributesIsWrittenToText()
+        Dim o As New ExcavationTripDateTime
+
+        o.StartDate = New DateTime(1999, 6, 1)
+        o.EndDate = New DateTime(2000, 6, 1)
+
+        Assert.AreEqual("{""StartDate"":01.06.1999 00:00:00,""EndDate"":01.06.2000 00:00:00}", Writer.ObjectToString(o))
+
+    End Sub
+
+    <Test> Public Sub DateAttributesIsWrittenToText()
+        Dim o As New ExcavationTripDate
+
+        o.StartDate = New Date(1999, 6, 1)
+        o.EndDate = New Date(2000, 6, 1)
+
+        Assert.AreEqual("{""StartDate"":01.06.1999 00:00:00,""EndDate"":01.06.2000 00:00:00}", Writer.ObjectToString(o))
+
+    End Sub
 
     <Test> Public Sub StringArray()
         Dim toWrite As String() = {"abc", "æøå", ""}
@@ -145,4 +164,13 @@ Public Class Person2
 
     Public Addresse As String
     
+End Class
+
+Public Class ExcavationTripDateTime
+    Public StartDate As DateTime
+    Public EndDate As DateTime
+End Class
+Public Class ExcavationTripDate
+    Public StartDate As Date
+    Public EndDate As Date
 End Class
