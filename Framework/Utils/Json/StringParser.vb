@@ -49,10 +49,7 @@ Namespace Utils.Json
                            End Function}
             }
 
-        Public Overrides Function Parse(nextChar As IReader) As Boolean
-            Complete = False
-
-
+        Public Overrides Function Parse(nextChar As IReader) As Object
             Dim buffer As New Text.StringBuilder
             TokenAcceptors.EatUntil(Chr(34), nextChar)
 
@@ -73,8 +70,7 @@ Namespace Utils.Json
             buffer.Append(nextChar.Buffer)
             nextChar.Read()
 
-            Complete = True
-            Me.InnerResult = buffer.ToString
+            Return buffer.ToString
         End Function
 
         Private Class MatchList

@@ -123,7 +123,7 @@ Public Class TestSecurity
         Return True
     End Function
 
-    Public Function UserCanRunThisAction1(user As IPrincipal, action As IActionBase, entity As Object) As Boolean Implements IActionSecurity.UserCanRunThisAction
+    Public Function UserCanRunThisAction(user As IPrincipal, action As IActionBase, entity As Object) As Boolean Implements IActionSecurity.UserCanRunThisAction
         Return True
     End Function
 End Class
