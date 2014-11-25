@@ -122,7 +122,6 @@
     <Compile Include="CQRS\ActionBase.vb" />
     <Compile Include="CQRS\ActionContext\ActionContext.vb" />
     <Compile Include="CQRS\ActionContext\Handling.vb" />
-    <Compile Include="CQRS\ActionContext\ISupportActionContext.vb" />
     <Compile Include="CQRS\ActionInfo.vb" />
     <Compile Include="CQRS\ActionIsNotAvailableException.vb" />
     <Compile Include="CQRS\ActionLink\ActionLinkBase.vb" />
@@ -135,6 +134,7 @@
     <Compile Include="CQRS\Dto\DtoBase.vb" />
     <Compile Include="CQRS\Dto\IActionDescriptor.vb" />
     <Compile Include="CQRS\IActionBase.vb" />
+    <Compile Include="CQRS\IProvideSecurityContext.vb" />
     <Compile Include="CQRS\Logging\CommandInfo.vb" />
     <Compile Include="CQRS\Logging\Log.vb" />
     <Compile Include="CQRS\Logging\ErrorInfo.vb" />

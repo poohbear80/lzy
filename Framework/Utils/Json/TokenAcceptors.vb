@@ -23,6 +23,7 @@ Namespace Utils.Json
             While AscW(nextchar.PeekToBuffer) <= 32
                 nextchar.Read()
             End While
+            
         End Sub
 
         Public Shared Sub Quote(nextChar As IReader)

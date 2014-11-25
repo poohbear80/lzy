@@ -1,6 +1,14 @@
 ﻿
+Imports System.Runtime.CompilerServices
 Imports LazyFramework.Utils.Json
 Imports NUnit.Framework
+
+Module StringExtension
+    <Extension()> Public Sub Deserialize(obj As String)
+        Dim i = 0
+    End Sub
+End Module
+
 
 <TestFixture> Public Class UtilsJson
 
@@ -85,17 +93,33 @@ Imports NUnit.Framework
 
         o.Addresse = "blbla"
         o.Name = "Mikael"
-        
+
         Assert.AreEqual("{""Addresse"":""blbla"",""Name"":""Mikael"",""Year"":0}", Writer.ObjectToString(o))
 
     End Sub
+
+    Public Class PetterJson
+        Public Shared Function Format(val As String) As String
+            Return "TEST CONFIG"
+        End Function
+    End Class
+
+
+
+
+
     <Test> Public Sub DateTimeAttributesIsWrittenToText()
         Dim o As New ExcavationTripDateTime
+
+        'Dim text = PetterJson.Deserialize(obj)
+        'Dim text = PetterJson.Format("YYMMMDD").Deserialize(obj)
 
         o.StartDate = New DateTime(1999, 6, 1)
         o.EndDate = New DateTime(2000, 6, 1)
 
-        Assert.AreEqual("{""StartDate"":01.06.1999 00:00:00,""EndDate"":01.06.2000 00:00:00}", Writer.ObjectToString(o))
+        Writer.Config.FormatDate(Function(value As Date) Format(value, "DD-MM-YY T:M:S ")).ObjectToString(o)
+
+        Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(o), Writer.ObjectToString(o))
 
     End Sub
 

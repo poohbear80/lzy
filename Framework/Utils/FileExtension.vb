@@ -15,7 +15,6 @@ Namespace Utils
             serialized = serializer.Serialize(data)
 
 
-
             Dim handler = SafeNativeMethods.GetHandle(Path(data.GetType, fileName), SafeNativeMethods.AccessType.Write)
             Using f As New FileStream(handler, FileAccess.Write)
 
