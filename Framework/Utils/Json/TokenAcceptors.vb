@@ -23,7 +23,6 @@ Namespace Utils.Json
             While AscW(nextchar.PeekToBuffer) <= 32
                 nextchar.Read()
             End While
-            
         End Sub
 
         Public Shared Sub Quote(nextChar As IReader)
@@ -34,6 +33,7 @@ Namespace Utils.Json
 
         Public Shared Function Attribute(nextChar As IReader) As String
             'Dim buffer As New StringBuilder
+            WhiteSpace(nextChar)
             Quote(nextChar)
             Dim w = AscW(nextChar.PeekToBuffer)
 
@@ -47,33 +47,39 @@ Namespace Utils.Json
 
         Public Shared Sub Attributes(ByVal result As Object, ByVal nextChar As IReader)
             Do
-                WhiteSpace(nextChar)
                 Dim name = Attribute(nextChar)
-
                 EatUntil(Qualifier, nextChar)
-
-                Dim fInfo = result.GetType().GetField(name)
-
-                If fInfo.FieldType.IsValueType Or fInfo.FieldType Is GetType(String) Then
-
-                    If fInfo.FieldType Is GetType(String) Then
-                        Dim stringParser As StringParser = New StringParser
-                        stringParser.Parse(nextChar)
-
-                        fInfo.SetValue(result, stringParser.InnerResult)
-                    End If
-                Else
-                    Dim b As Builder = CType(Activator.CreateInstance(BuilderFactory.MakeGenericType(fInfo.FieldType)), Builder)
-                    b.Parse(nextChar)
-                    If b.Complete Then
-                        fInfo.SetValue(result, b.InnerResult)
-                    Else
-                        Throw New Utils.Json.NotCompleteException
-                    End If
-
-                End If
+                CreateAttributeValue(nextChar, result, name)
             Loop While CanFindValueSeparator(nextChar)
         End Sub
+
+        Private Shared Sub CreateAttributeValue(ByVal nextChar As IReader, ByVal result As Object, ByVal name As String)
+
+            Dim fInfo = result.GetType().GetField(name)
+            If fInfo.FieldType.IsValueType Or fInfo.FieldType Is GetType(String) Then
+                Dim builder = TypeParserMapper(fInfo.FieldType)
+                builder.Parse(nextChar)
+                fInfo.SetValue(result, builder.InnerResult)
+            Else
+                Dim b As Builder = CType(Activator.CreateInstance(BuilderFactory.MakeGenericType(fInfo.FieldType)), Builder)
+                b.Parse(nextChar)
+                If b.Complete Then
+                    fInfo.SetValue(result, b.InnerResult)
+                Else
+                    Throw New Utils.Json.NotCompleteException
+                End If
+
+            End If
+        End Sub
+
+        Public Shared TypeParserMapper As New Dictionary(Of Type, Builder) From {
+                                                                            {GetType(String), New StringParser},
+                                                                            {GetType(Integer), New IntegerParser},
+                                                                            {GetType(Int64), New IntegerParser},
+                                                                            {GetType(Int16), New IntegerParser}
+                                                                        }
+
+
 
         Private Shared Function CanFindValueSeparator(ByVal nextChar As IReader) As Boolean
             WhiteSpace(nextChar)
