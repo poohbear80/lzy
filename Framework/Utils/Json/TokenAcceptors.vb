@@ -58,17 +58,11 @@ Namespace Utils.Json
             Dim fInfo = result.GetType().GetField(name)
             If fInfo.FieldType.IsValueType Or fInfo.FieldType Is GetType(String) Then
                 Dim builder = TypeParserMapper(fInfo.FieldType)
-                builder.Parse(nextChar)
-                fInfo.SetValue(result, builder.InnerResult)
+
+                fInfo.SetValue(result, builder.Parse(nextChar))
             Else
                 Dim b As Builder = CType(Activator.CreateInstance(BuilderFactory.MakeGenericType(fInfo.FieldType)), Builder)
-                b.Parse(nextChar)
-                If b.Complete Then
-                    fInfo.SetValue(result, b.InnerResult)
-                Else
-                    Throw New Utils.Json.NotCompleteException
-                End If
-
+                fInfo.SetValue(result, b.Parse(nextChar))
             End If
         End Sub
 

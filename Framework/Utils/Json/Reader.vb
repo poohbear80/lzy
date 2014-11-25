@@ -17,7 +17,7 @@ Namespace Utils.Json
             Dim builder As New ObjectBuilder(Of T)
 
             Return DirectCast(builder.Parse(New ReadStream(input)), T)
-            
+
         End Function
     End Class
 
