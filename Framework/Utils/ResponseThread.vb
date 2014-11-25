@@ -128,6 +128,10 @@ Namespace Utils
 
         Private Shared Function ThreadStore() As Dictionary(Of String, Object)
 
+            If Runtime.Context.Current Is Nothing Then
+                Throw New ClassFactory.NotConfiguredException("Please set LazyFramework.Runtime.Context.Current to a valid context")
+            End If
+
             Return Runtime.Context.Current.Storage
 
             'If HttpContext.Current IsNot Nothing Then
