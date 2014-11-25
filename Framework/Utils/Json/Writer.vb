@@ -11,17 +11,31 @@ Namespace Utils.Json
             {GetType(Double), AddressOf WriteNumber},
             {GetType(Single), AddressOf WriteNumber},
             {GetType(String), AddressOf Writetext},
-            {GetType(Decimal), AddressOf WriteNumber}
+            {GetType(Decimal), AddressOf WriteNumber},
+            {GetType(Date), Sub(w, val) w.write(val.ToString)}
         }
 
         Public Delegate Sub Writer(writer As StreamWriter, value As Object)
 
         Public Shared Function ObjectToString(o As Object) As String
+            Return ObjectToString(New JSonConfig, o)
+            'Dim result = New StreamWriter(New MemoryStream, Text.Encoding.UTF8)
+            'ObjectToString(result, o)
+            'result.Flush()
+            'result.BaseStream.Position = 0
+            'Return New StreamReader(result.BaseStream).ReadToEnd
+        End Function
+
+        Public Shared Function ObjectToString(config As JSonConfig, o As Object) As String
             Dim result = New StreamWriter(New MemoryStream, Text.Encoding.UTF8)
             ObjectToString(result, o)
             result.Flush()
             result.BaseStream.Position = 0
             Return New StreamReader(result.BaseStream).ReadToEnd
+        End Function
+
+        Public Shared Function Config() As JSonConfig
+            Return New JSonConfig
         End Function
 
         Private Shared Sub ObjectToString(result As StreamWriter, o As Object)
@@ -42,7 +56,7 @@ Namespace Utils.Json
         Private Shared Sub WriteObject(result As StreamWriter, o As Object)
             Dim first As Boolean = True
             result.Write("{"c)
-            For Each member In o.GetType().GetMembers(Reflection.BindingFlags.DeclaredOnly Or Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance).Where(Function(v) v.MemberType = Reflection.MemberTypes.Field Or v.MemberType = Reflection.MemberTypes.Property)
+            For Each member In o.GetType().GetMembers(Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance).Where(Function(v) v.MemberType = Reflection.MemberTypes.Field Or v.MemberType = Reflection.MemberTypes.Property)
 
                 If Not first Then
                     result.Write(",")
@@ -105,6 +119,8 @@ Namespace Utils.Json
 
 
 
+
+
 #Region "WriteText"
         Private Shared ReadOnly ToEscape As Integer() = {&H22, &H2, &H5C}
         Private Shared Translate As New Dictionary(Of Integer, String) From {
@@ -131,4 +147,38 @@ Namespace Utils.Json
 
 
     End Class
+
+    Public Class JSonConfig
+
+        Public Function ObjectToString(value As Object) As String
+            Writer.ObjectToString(Me, value)
+        End Function
+
+
+        Function FormatDate(format As ToString(Of Date)) As JSonConfig
+
+            Return Me
+        End Function
+    End Class
+
+    Public Delegate Function ToString(Of T)(value As T) As String
+
+
+    Public Interface IFormatValue(Of T)
+        Function ToString(value As T) As String
+        Function ToInstance(value As String) As T
+    End Interface
+
+    Public Class DateFormatter
+        Implements IFormatValue(Of Date)
+
+        Public Function ToInstance(value As String) As Date Implements IFormatValue(Of Date).ToInstance
+
+        End Function
+
+        Public Function ToString1(value As Date) As String Implements IFormatValue(Of Date).ToString
+
+        End Function
+    End Class
+
 End Namespace

@@ -1,7 +1,4 @@
 Imports System.IO
-Imports System.Text
-Imports System.Reflection
-Imports System.Text.RegularExpressions
 
 Namespace Utils.Json
     Public Class Reader
@@ -19,14 +16,7 @@ Namespace Utils.Json
         Public Shared Function StringToObject(Of T As New)(input As StreamReader) As T
             Dim builder As New ObjectBuilder(Of T)
 
-            builder.Parse(New ReadStream(input))
-
-            If builder.Complete Then
-                Return builder.Result
-            End If
-
-            Throw New uncompleteException
-
+            Return DirectCast(builder.Parse(New ReadStream(input)), T)
 
         End Function
     End Class

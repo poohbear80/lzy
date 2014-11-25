@@ -25,8 +25,15 @@ Namespace CQRS.Transform
         End Function
 
         Private Shared Function TransformAndAddAction(ByVal action As IAmAnAction, ByVal transformerFactory As ITransformerFactory, e As Object) As Object
+            Dim securityContext As Object
 
-            If Not ActionSecurity.Current.EntityIsAvailableForUser(action.User, action, e) Then Return Nothing
+            If TypeOf (e) Is IProvideSecurityContext Then
+                securityContext = DirectCast(e, IProvideSecurityContext).Context
+            Else
+                securityContext = e
+            End If
+
+            If Not ActionSecurity.Current.EntityIsAvailableForUser(action.User, action, securityContext) Then Return Nothing
             
             Dim transformer = transformerFactory.GetTransformer(action, e)
             If transformer Is Nothing Then Return Nothing

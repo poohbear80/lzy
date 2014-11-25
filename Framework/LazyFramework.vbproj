@@ -62,7 +62,7 @@
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>..\..\Build\Debug\</OutputPath>
+    <OutputPath>..\Build\Debug\</OutputPath>
     <DocumentationFile>LazyFramework.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
@@ -72,7 +72,7 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Build\Release\</OutputPath>
+    <OutputPath>..\Build\Release\</OutputPath>
     <DocumentationFile>LazyFramework.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <RemoveIntegerChecks>true</RemoveIntegerChecks>
@@ -122,7 +122,6 @@
     <Compile Include="CQRS\ActionBase.vb" />
     <Compile Include="CQRS\ActionContext\ActionContext.vb" />
     <Compile Include="CQRS\ActionContext\Handling.vb" />
-    <Compile Include="CQRS\ActionContext\ISupportActionContext.vb" />
     <Compile Include="CQRS\ActionInfo.vb" />
     <Compile Include="CQRS\ActionIsNotAvailableException.vb" />
     <Compile Include="CQRS\ActionLink\ActionLinkBase.vb" />
@@ -135,6 +134,7 @@
     <Compile Include="CQRS\Dto\DtoBase.vb" />
     <Compile Include="CQRS\Dto\IActionDescriptor.vb" />
     <Compile Include="CQRS\IActionBase.vb" />
+    <Compile Include="CQRS\IProvideSecurityContext.vb" />
     <Compile Include="CQRS\Logging\CommandInfo.vb" />
     <Compile Include="CQRS\Logging\Log.vb" />
     <Compile Include="CQRS\Logging\ErrorInfo.vb" />
@@ -249,6 +249,7 @@
     <Compile Include="Utils\Helpers.vb" />
     <Compile Include="Utils\ILazyFrameworkConfiguration.vb" />
     <Compile Include="Utils\Json\Builder.vb" />
+    <Compile Include="Utils\Json\IntegerParser.vb" />
     <Compile Include="Utils\Json\IReader.vb" />
     <Compile Include="Utils\Json\ObjectBuilder.vb" />
     <Compile Include="Utils\Json\Reader.vb" />
