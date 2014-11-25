@@ -62,7 +62,7 @@
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>..\..\Build\Debug\</OutputPath>
+    <OutputPath>..\Build\Debug\</OutputPath>
     <DocumentationFile>LazyFramework.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
@@ -72,7 +72,7 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Build\Release\</OutputPath>
+    <OutputPath>..\Build\Release\</OutputPath>
     <DocumentationFile>LazyFramework.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <RemoveIntegerChecks>true</RemoveIntegerChecks>
@@ -248,7 +248,13 @@
     <Compile Include="Utils\FindHandlers.vb" />
     <Compile Include="Utils\Helpers.vb" />
     <Compile Include="Utils\ILazyFrameworkConfiguration.vb" />
+    <Compile Include="Utils\Json\Builder.vb" />
+    <Compile Include="Utils\Json\IReader.vb" />
+    <Compile Include="Utils\Json\ObjectBuilder.vb" />
     <Compile Include="Utils\Json\Reader.vb" />
+    <Compile Include="Utils\Json\ReadStream.vb" />
+    <Compile Include="Utils\Json\StringParser.vb" />
+    <Compile Include="Utils\Json\TokenAcceptors.vb" />
     <Compile Include="Utils\Json\Writer.vb" />
     <Compile Include="Utils\LazyFrameworkRequestModule.vb" />
     <Compile Include="Utils\PluginValidator.vb" />

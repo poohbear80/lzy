@@ -79,6 +79,36 @@ Imports NUnit.Framework
 
     End Sub
 
+
+    <Test> Public Sub InheritedAttributesIsWrittenToText()
+        Dim o As New Person2
+
+        o.Addresse = "blbla"
+        o.Name = "Mikael"
+        
+        Assert.AreEqual("{""Addresse"":""blbla"",""Name"":""Mikael"",""Year"":0}", Writer.ObjectToString(o))
+
+    End Sub
+    <Test> Public Sub DateTimeAttributesIsWrittenToText()
+        Dim o As New ExcavationTripDateTime
+
+        o.StartDate = New DateTime(1999, 6, 1)
+        o.EndDate = New DateTime(2000, 6, 1)
+
+        Assert.AreEqual("{""StartDate"":01.06.1999 00:00:00,""EndDate"":01.06.2000 00:00:00}", Writer.ObjectToString(o))
+
+    End Sub
+
+    <Test> Public Sub DateAttributesIsWrittenToText()
+        Dim o As New ExcavationTripDate
+
+        o.StartDate = New Date(1999, 6, 1)
+        o.EndDate = New Date(2000, 6, 1)
+
+        Assert.AreEqual("{""StartDate"":01.06.1999 00:00:00,""EndDate"":01.06.2000 00:00:00}", Writer.ObjectToString(o))
+
+    End Sub
+
     <Test> Public Sub StringArray()
         Dim toWrite As String() = {"abc", "æøå", ""}
         Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(toWrite), Writer.ObjectToString(toWrite))
@@ -100,21 +130,47 @@ End Class
     End Sub
 
     <Test> Public Sub ParseTextWithEscapeObject()
-        Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter\nGjermund\\     ""}")
-        Assert.AreEqual("Petter" & vbCrLf & "Gjermund\     ", p.Navn)
+        Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter\nGjermund\\""}")
+        Assert.AreEqual("Petter" & vbCrLf & "Gjermund\", p.Navn)
         'Assert.AreEqual(43, p.Alder)
     End Sub
+
+    <Test> Public Sub ParseComplexObject()
+        Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter"",""TestInfo"": {""Name"":""Nils""}}")
+        Assert.AreEqual("Petter", p.Navn)
+        Assert.AreEqual("Nils", p.TestInfo.Name)
+        'Assert.AreEqual(43, p.Alder)
+    End Sub
+
+
 End Class
 
-Public Structure Test
+Public Class Test
     Public Name As String
     Public Year As Integer
-End Structure
+End Class
 
 
 Public Class Person
     Public Navn As String
     Public Alder As Integer
     Public Barn As List(Of Person)
+    Public TestInfo As Test
 End Class
 
+
+Public Class Person2
+    Inherits Test
+
+    Public Addresse As String
+    
+End Class
+
+Public Class ExcavationTripDateTime
+    Public StartDate As DateTime
+    Public EndDate As DateTime
+End Class
+Public Class ExcavationTripDate
+    Public StartDate As Date
+    Public EndDate As Date
+End Class
