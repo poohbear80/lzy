@@ -110,10 +110,7 @@ End Class
 
 Public Class TestSecurity
     Implements IActionSecurity
-
-
-
-
+    
     Public Function EntityIsAvailableForUser(user As Security.Principal.IPrincipal, action As IAmAnAction, entity As Object) As Boolean Implements IActionSecurity.EntityIsAvailableForUser
         Return True
     End Function
@@ -123,6 +120,10 @@ Public Class TestSecurity
     End Function
 
     Public Function UserCanRunThisAction(user As IPrincipal, c As IActionBase) As Boolean Implements IActionSecurity.UserCanRunThisAction
+        Return True
+    End Function
+
+    Public Function UserCanRunThisAction1(user As IPrincipal, action As IActionBase, entity As Object) As Boolean Implements IActionSecurity.UserCanRunThisAction
         Return True
     End Function
 End Class
