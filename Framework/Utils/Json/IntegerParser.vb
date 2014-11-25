@@ -2,13 +2,12 @@ Namespace Utils.Json
     Friend Class IntegerParser
         Inherits Builder
 
-        Public Overrides Function Parse(nextChar As IReader) As Boolean
+        Public Overrides Function Parse(nextChar As IReader) As Object
 
             While IsNumeric(nextChar.PeekToBuffer)
 
             End While
-            InnerResult = Integer.Parse(nextChar.Buffer)
-            Complete = True
+            Return Integer.Parse(nextChar.Buffer)
         End Function
 
     End Class

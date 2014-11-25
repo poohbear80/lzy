@@ -58,19 +58,11 @@ Namespace Utils.Json
 
                     If fInfo.FieldType Is GetType(String) Then
                         Dim stringParser As StringParser = New StringParser
-                        stringParser.Parse(nextChar)
-
-                        fInfo.SetValue(result, stringParser.InnerResult)
+                        fInfo.SetValue(result, stringParser.Parse(nextChar))
                     End If
                 Else
                     Dim b As Builder = CType(Activator.CreateInstance(BuilderFactory.MakeGenericType(fInfo.FieldType)), Builder)
-                    b.Parse(nextChar)
-                    If b.Complete Then
-                        fInfo.SetValue(result, b.InnerResult)
-                    Else
-                        Throw New Utils.Json.NotCompleteException
-                    End If
-
+                    fInfo.SetValue(result, b.Parse(nextChar))
                 End If
             Loop While CanFindValueSeparator(nextChar)
         End Sub
