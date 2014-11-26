@@ -10,5 +10,8 @@ Namespace CQRS.Logging
         Public EndTime As Int64
         Public State As String
         Public Data As Object
+        Public EntityType As String
+
+
     End Class
 End NameSpace

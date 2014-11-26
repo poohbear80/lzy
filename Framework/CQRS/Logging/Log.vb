@@ -53,6 +53,10 @@ Namespace CQRS.Logging
             input.StartTime = e.TimeStamp
             input.EndTime = e.EndTimeStamp
             input.Data = e
+            If TypeOf (e) Is CommandBase Then
+                input.EntityType = DirectCast(e, CommandBase).GetInnerEntity.GetType.FullName
+            End If
+
 
             Writer.WriteCommand(input)
         End Sub
