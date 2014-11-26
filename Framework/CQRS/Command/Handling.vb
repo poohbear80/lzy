@@ -100,8 +100,7 @@ Namespace CQRS.Command
                 Logging.Log.Error(command, notImplementedException)
                 Throw notImplementedException
             End If
-
-
+            
             command.ActionComplete()
             Logging.Log.Command(command)
         End Sub

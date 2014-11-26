@@ -61,7 +61,7 @@ Namespace CQRS
                         If TypeOf (createInstance) Is CommandBase Then
                             CType(createInstance, CommandBase).SetInnerEntity(entity)
                         End If
-                        If Not ActionSecurity.Current.UserCanRunThisAction(user, createInstance) Then
+                        If Not ActionSecurity.Current.UserCanRunThisAction(user, createInstance, If(TypeOf (entity) Is IProvideSecurityContext, DirectCast(entity, IProvideSecurityContext).Context, entity)) Then
                             Continue For
                         End If
                         ret.Add(createInstance)
