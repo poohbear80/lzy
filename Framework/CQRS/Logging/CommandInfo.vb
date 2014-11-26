@@ -11,7 +11,5 @@ Namespace CQRS.Logging
         Public State As String
         Public Data As Object
         Public EntityType As String
-
-
     End Class
 End NameSpace
