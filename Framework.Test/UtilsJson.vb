@@ -97,7 +97,6 @@ End Module
         Assert.AreEqual("{""Addresse"":""blbla"",""Name"":""Mikael"",""Year"":0}", Writer.ObjectToString(o))
 
     End Sub
-
     Public Class PetterJson
         Public Shared Function Format(val As String) As String
             Return "TEST CONFIG"
@@ -168,6 +167,12 @@ End Class
 
     <Test> Public Sub ParseSimpleObjectWithInteger()
         Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter"",""Alder"":42}")
+        Assert.AreEqual("Petter", p.Navn)
+        Assert.AreEqual(42, p.Alder)
+    End Sub
+
+    <Test> Public Sub ConsumeJsonWithComments()
+        Dim p = Utils.Json.Reader.StringToObject(Of Person)(My.Resources.ConsumeJsonWithComments)
         Assert.AreEqual("Petter", p.Navn)
         Assert.AreEqual(42, p.Alder)
     End Sub

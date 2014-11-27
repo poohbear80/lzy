@@ -59,5 +59,14 @@ Namespace My.Resources
                 resourceCulture = value
             End Set
         End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to {&quot;Navn&quot;:&quot;Petter&quot;,&quot;Alder&quot;:42}.
+        '''</summary>
+        Friend ReadOnly Property ConsumeJsonWithComments() As String
+            Get
+                Return ResourceManager.GetString("ConsumeJsonWithComments", resourceCulture)
+            End Get
+        End Property
     End Module
 End Namespace
