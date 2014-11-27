@@ -17,7 +17,7 @@
         {"bigint", New ILanguageSettings.DataType With {.DbType = "Int64", .LanguageType = "Int64"}},
         {"bit", New ILanguageSettings.DataType With {.DbType = "boolean", .LanguageType = "Boolean"}},
         {"datetime", New ILanguageSettings.DataType With {.DbType = "datetime", .LanguageType = "DateTime"}},
-        {"float", New ILanguageSettings.DataType With {.DbType = "decimal", .LanguageType = "Double"}},
+        {"float", New ILanguageSettings.DataType With {.DbType = "decimal", .LanguageType = "Decimal"}},
         {"decimal", New ILanguageSettings.DataType With {.DbType = "currency", .LanguageType = "Double"}},
         {"double", New ILanguageSettings.DataType With {.DbType = "double", .LanguageType = "Double"}},
         {"image", New ILanguageSettings.DataType With {.DbType = "binary", .LanguageType = "Byte()"}},
