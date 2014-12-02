@@ -69,7 +69,7 @@ Namespace CQRS.Query
 
             If Not ActionSecurity.Current.UserCanRunThisAction(q.User, q) Then
                 EventHub.Publish(New NoAccess(q))
-                Throw New NotSupportedException("No access")
+                Throw New ActionSecurityAuthorizationFaildException(q, q.User)
             End If
 
             Validation.Handling.ValidateAction(q)
