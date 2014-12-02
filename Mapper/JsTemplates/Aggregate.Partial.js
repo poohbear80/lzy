@@ -1,74 +1,72 @@
-result.StartBlock("Imports LazyFramework");
+var primaryKey = _.filter(data.Table.Columns, function (e) { return e.PartOfPrimaryKey; });
+
+var notIdentity = _.filter(data.Table.Columns, function (e) { return !e.Identity; });
+var Identity = _.map(primaryKey, function (c) { return Utils.toParamName(c.Name) });
+var params = _.map(primaryKey, function (c) { return Utils.toParamName(c.Name) + " as " + c.NetRuntimeType; });
+
+
+result.Comment("ReSharper disable once CheckNamespace");
 result.StartBlock("Namespace Aggregates");
+result.WriteLine("");
 result.StartBlock("Partial Class {0}Aggregate", [data.TableName]);
 
-result.WriteLine("");
-
 //GetInstance
-result.Write("Public Function GetInstance(");
-_.each(data.Table.Columns,function(c,i) {
-    if(c.Identity) {
-        if(i)result.write(",");
-        result.WriteFormat("{0}{1} As {2}",[Utils.toParamName(data.TableName),c.Name,c.NetRuntimeType]);
-    }
-});
-result.StartBlock(") As Entities.{0}",[data.TableName]);
+if (params.length) {
+    result.WriteLine("");
+    result.WriteFormatLine("Public Function GetOne({0}) as Entities.{1}", [params.join(","), data.TableName]);
+    result.WriteLine("");
 
-result.WriteFormatLine("Dim retObj As New Entities.{0}", [data.TableName]);
-_.each(data.Table.Columns, function (c, i) {
-    if(c.Identity) result.WriteFormatLine("retObj.{1} = {0}{1}", [Utils.toParamName(data.TableName), c.Name]);
-});
+    result.WriteFormatLine("Dim retObj As New Entities.{0}", [data.TableName]);
 
-result.WriteComment("Check if me.CurrentUser is allowed to this");
+    result.WriteFormatLine("Repository.GetOne(retObj,{0})", [Identity.join(",")]);
+    result.WriteLine("Return retObj ");
+    result.WriteLine("");
+    result.EndBlock("End Function");
 
-result.WriteLine("Repository.GetEntity(Me.DbName, retObj)");
+    //UpdateInstance
+    result.StartBlock("");
+    result.StartBlock("Public Sub UpdateInstance(ByRef o As Entities.{0}) ", [data.TableName]);
+    result.WriteLine("");
+    result.WriteLine("Repository.Update( o)");
 
-result.WriteLine("Return retObj ");
+    result.WriteLine("");
+    result.EndBlock("End Sub");
 
-result.EndBlock("End Function");
+    //Delete Instance
+    result.StartBlock("");
+    result.StartBlock("Public Sub DeleteInstance(ByVal o As Entities.{0} ) ", [data.TableName]);
+    result.WriteLine("");
+
+    result.WriteLine("Repository.Delete( o)");
+
+    result.WriteLine("");
+    result.EndBlock("End Sub");
+    result.WriteLine("");
+
+}
+
 
 //GetAllInstances
-result.StartBlock("Public Function GetAllInstances() As Entities.{0}Collection",[data.TableName]);
-result.WriteFormatLine("Dim retObj As New Entities.{0}Collection",[data.TableName]);
-result.WriteComment("Check if me.CurrentUser is allowed to this");
-
-result.WriteLine("Repository.GetAll(Me.DbName, retObj)");
+result.StartBlock("");
+result.StartBlock("Public Function GetAllInstances() As Entities.{0}Collection", [data.TableName]);
+result.WriteLine("");
+result.WriteFormatLine("Dim retObj As New Entities.{0}Collection", [data.TableName]);
+result.WriteLine("Repository.GetAll( retObj)");
 result.WriteLine("Return retObj");
+result.WriteLine("");
 result.EndBlock("End Function");
 
 //CreateInstance
-result.StartBlock("Public Function CreateInstance(ByVal o As Entities.{0}) As Boolean",[data.TableName]);
-result.Comment("Validate the object");
-result.Comment("Check if me.CurrentUser is allowed to this");
-result.Comment("Setting default values for the object");
-_.each(data.Table.Columns, function (c, i) {
-    if(c.DefaultValue) result.WriteFormatLine('SetDefaultValue(o, "{0}",{1} )',[c.Name,c.DefaultValueCode]);
-});
-result.WriteLine("ValidateCreateEntity(o)");
+result.StartBlock("");
+result.StartBlock("Public Sub CreateInstance(ByRef o As Entities.{0})", [data.TableName]);
+result.WriteLine("");
 
-result.WriteLine("Return Repository.Create(Me.DbName, o)");
-result.EndBlock("End Function");
+result.WriteLine("Repository.Create(o)");
+result.WriteLine("");
+result.EndBlock("End Sub");
 
 
-//UpdateInstance
-result.StartBlock("Public Function UpdateInstance(ByVal o As Entities.{0}) As Boolean",[data.TableName]);
-result.Comment("Check if me.CurrentUser is allowed to this");
-result.Comment("Validate the object");
-result.WriteLine("Me.ValidateUpdateEntity(o)");
-
-
-result.WriteLine("Return Repository.Update(DbName, o)");
-result.EndBlock("End Function");
-
-//Delete Instance
-result.StartBlock("Public Function DeleteInstance(ByVal o As Entities.{0} ) as Boolean", [data.TableName]);
-result.Comment("Check if me.CurrentUser is allowed to this");
-result.Comment("Validate the object");
-result.WriteLine("Me.ValidateDeleteEntity(o)");
-
-result.WriteLine("Return Repository.Delete(Me.DbName, o)");
-result.EndBlock("End Function");
 
 result.EndBlock("End Class");
+result.WriteLine("");
 result.EndBlock("End Namespace");
-
