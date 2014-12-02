@@ -27,6 +27,9 @@ Namespace Utils.Json
         End Sub
 
         Public Shared Sub WhiteSpace(nextchar As IReader)
+            If AscW(nextchar.Current) > 32 Then
+                Return
+            End If
             While AscW(nextchar.PeekToBuffer) <= 32
                 nextchar.Read()
             End While
