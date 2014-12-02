@@ -61,7 +61,13 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to {&quot;Navn&quot;:&quot;Petter&quot;,&quot;Alder&quot;:42}.
+        '''  Looks up a localized string similar to 
+        '''      //Her kommer det em kommentar på 1 linje
+        '''      {&quot;Navn&quot;:&quot;Petter&quot;,
+        '''      /*Dette er kommentar på mange linjer
+        '''      test teste*/
+        '''      &quot;Alder&quot;:42}
+        '''    .
         '''</summary>
         Friend ReadOnly Property ConsumeJsonWithComments() As String
             Get

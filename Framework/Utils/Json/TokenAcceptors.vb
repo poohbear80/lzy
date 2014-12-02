@@ -7,11 +7,6 @@ Namespace Utils.Json
 
         Public Shared BuilderFactory As Type = GetType(ObjectBuilder(Of ))
 
-        Public Shared Sub ConsumeComments(nextChar As IReader)
-            WhiteSpace(nextChar)
-
-        End Sub
-
         Public Shared Sub EatUntil(c As Char, nextChar As IReader)
             WhiteSpace(nextChar)
             If nextChar.Read <> c Then
@@ -19,10 +14,34 @@ Namespace Utils.Json
             End If
         End Sub
 
+        Public Shared Sub EatUntil(c As String, nextChar As IReader)
+            While nextChar.BufferPeek.Length < c.Length
+                nextChar.PeekToBuffer()
+            End While
+            While nextChar.BufferPeek <> c
+                nextChar.Read()
+                nextChar.PeekToBuffer()
+            End While
+            nextChar.ClearBuffer()
+            nextChar.Read()
+        End Sub
+
         Public Shared Sub WhiteSpace(nextchar As IReader)
             While AscW(nextchar.PeekToBuffer) <= 32
                 nextchar.Read()
             End While
+            If nextchar.Current = "/" Then 'Start of single or multiline comment
+                nextchar.PeekToBuffer()
+                If nextchar.BufferPeek = "//" Then
+                    nextchar.ClearBuffer()
+                    EatUntil(vbCrLf, nextchar)
+                End If
+                If nextchar.BufferPeek = "/*" Then
+                    nextchar.ClearBuffer()
+                    EatUntil("*/", nextchar)
+                End If
+                WhiteSpace(nextchar)
+            End If
         End Sub
 
         Public Shared Sub Quote(nextChar As IReader)
