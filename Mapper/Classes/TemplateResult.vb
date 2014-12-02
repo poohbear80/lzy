@@ -42,56 +42,56 @@
     Public Sub Comment(s As String)
         WriteComment(s)
     End Sub
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <param name="name"></param>
-    ''' <param name="type"></param>
-    ''' <param name="defaultValue"></param>
-    ''' <remarks></remarks>
-    Public Sub WriteProp(name As String, type As String, defaultValue As String)
+    ' ''' <summary>
+    ' ''' 
+    ' ''' </summary>
+    ' ''' <param name="name"></param>
+    ' ''' <param name="type"></param>
+    ' ''' <param name="defaultValue"></param>
+    ' ''' <remarks></remarks>
+    'Public Sub WriteProp(name As String, type As String, defaultValue As String)
 
-        Dim pName As String = "_" & name(0).ToString.ToLower & Mid(name, 2)
+    '    Dim pName As String = "_" & name(0).ToString.ToLower & Mid(name, 2)
 
-        WriteFormatLine("Private {0} as {1} {2}  ", pName, type, If(Not String.IsNullOrEmpty(defaultValue), "=" & defaultValue, ""))
-        WriteFormatLine("Public Property {0} as {1}", name, type)
-        PushTab()
-        WriteLine("Get")
-        PushTab()
-        WriteFormatLine("Return {0}", pName)
-        PopTab()
-        WriteLine("End Get")
-        PopTab()
-        WriteFormatLine("Set(value as {0})", type)
-        PushTab()
-        WriteFormatLine("{0} = value", pName)
-        PopTab()
-        WriteLine("End Get")
-        PopTab()
-        WriteFormatLine("End Property")
-    End Sub
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <param name="name"></param>
-    ''' <param name="type"></param>
-    ''' <param name="defaultValue"></param>
-    ''' <param name="modifier"></param>
-    ''' <remarks></remarks>
-    Public Sub WriteReadOnlyProp(name As String, type As String, defaultValue As String, modifier As String)
-        Dim pName As String = "_" & name
+    '    WriteFormatLine("Private {0} as {1} {2}  ", pName, type, If(Not String.IsNullOrEmpty(defaultValue), "=" & defaultValue, ""))
+    '    WriteFormatLine("Public Property {0} as {1}", name, type)
+    '    PushTab()
+    '    WriteLine("Get")
+    '    PushTab()
+    '    WriteFormatLine("Return {0}", pName)
+    '    PopTab()
+    '    WriteLine("End Get")
+    '    PopTab()
+    '    WriteFormatLine("Set(value as {0})", type)
+    '    PushTab()
+    '    WriteFormatLine("{0} = value", pName)
+    '    PopTab()
+    '    WriteLine("End Get")
+    '    PopTab()
+    '    WriteFormatLine("End Property")
+    'End Sub
+    ' ''' <summary>
+    ' ''' 
+    ' ''' </summary>
+    ' ''' <param name="name"></param>
+    ' ''' <param name="type"></param>
+    ' ''' <param name="defaultValue"></param>
+    ' ''' <param name="modifier"></param>
+    ' ''' <remarks></remarks>
+    'Public Sub WriteReadOnlyProp(name As String, type As String, defaultValue As String, modifier As String)
+    '    Dim pName As String = "_" & name
 
-        WriteFormatLine("Private Readonly {0} as {1} {2}  ", pName, type, If(Not String.IsNullOrEmpty(defaultValue), "=" & defaultValue, ""))
-        WriteFormatLine("Public {2} Readonly Property {0} as {1}", name, type, modifier)
-        PushTab()
-        WriteLine("Get")
-        PushTab()
-        WriteFormatLine("Return {0}", pName)
-        PopTab()
-        WriteLine("End Get")
-        PopTab()
-        WriteLine("End Property")
-    End Sub
+    '    WriteFormatLine("Private Readonly {0} as {1} {2}  ", pName, type, If(Not String.IsNullOrEmpty(defaultValue), "=" & defaultValue, ""))
+    '    WriteFormatLine("Public {2} Readonly Property {0} as {1}", name, type, modifier)
+    '    PushTab()
+    '    WriteLine("Get")
+    '    PushTab()
+    '    WriteFormatLine("Return {0}", pName)
+    '    PopTab()
+    '    WriteLine("End Get")
+    '    PopTab()
+    '    WriteLine("End Property")
+    'End Sub
     ''' <summary>
     ''' 
     ''' </summary>

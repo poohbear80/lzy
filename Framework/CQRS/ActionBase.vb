@@ -59,10 +59,15 @@ Namespace CQRS
         <System.ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Never)> Public MustOverride Function IsAvailable(user As IPrincipal) As Boolean Implements IActionBase.IsAvailable
         <System.ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Never)> Public MustOverride Function IsAvailable() As Boolean Implements IActionBase.IsAvailable
 
-        
         Public Function Contexts() As IEnumerable(Of ActionContext.ActionContext)
             Return ActionContext.Handling.GetContextsForAction(Me)
         End Function
+
+
+        Public Overridable Sub OnActionBegin()
+        End Sub
+        Public Overridable Sub OnActionComplete()
+        End Sub
     End Class
 
 

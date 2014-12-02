@@ -194,7 +194,7 @@ Public Class Person2
     Inherits Test
 
     Public Addresse As String
-    
+
 End Class
 
 Public Class ExcavationTripDateTime

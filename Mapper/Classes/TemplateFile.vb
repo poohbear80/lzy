@@ -7,7 +7,6 @@ Public Class TemplateFile
     Property FileName As String = ""
     Property OutputPath As String = ""
     Property Overwrite As Boolean = False
-    Property XsltFilePath As String = ""
     Property JsFilePath As String = ""
 
 End Class
