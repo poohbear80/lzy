@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\debugMapper\lzy\</OutputPath>
     <DocumentationFile>lzy.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>true</Prefer32Bit>
@@ -53,8 +53,7 @@
     <Reference Include="Microsoft.SqlServer.Smo, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SqlServer.SqlEnum, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Noesis.Javascript">
-      <HintPath>..\..\..\Binaries\Noesis.Javascript.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\Binaries\Noesis.Javascript.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -169,7 +168,6 @@
     <Content Include="JsTemplates\Entity.Collection.js" />
     <Content Include="JsTemplates\Entity.js" />
     <Content Include="JsTemplates\Entity.Partial.js" />
-    <Content Include="JsTemplates\Entity.Serializable.js" />
     <Content Include="JsTemplates\IDataAccess.js" />
     <Content Include="Js\Underscore.js" />
     <Content Include="ReadMe.txt" />
