@@ -77,16 +77,25 @@ Namespace CQRS.Query
             'Standard queryhandling. 1->1 mapping
             If Handlers.ContainsKey(q.GetType) Then
                 Try
+                    If TypeOf (q) Is ActionBase Then
+                        DirectCast(q, ActionBase).OnActionBegin()
+                    End If
+
                     Dim invoke As Object = Handlers(q.GetType)(0).Invoke(Nothing, {q})
                     q.ActionComplete()
                     EventHub.Publish(New QueryExecuted(q))
 
+                    Dim transformResult As Object = Nothing
                     If invoke IsNot Nothing Then
-                        Return CQRS.Transform.Handling.TransformResult(q, invoke)
-                    Else
-                        Return Nothing
+                        transformResult = CQRS.Transform.Handling.TransformResult(q, invoke)
                     End If
 
+                    If TypeOf (q) Is ActionBase Then
+                        DirectCast(q, ActionBase).OnActionBegin()
+                    End If
+
+                    Return transformResult
+                    
                 Catch ex As TargetInvocationException
                     Logging.Log.Error(q, ex)
                     Throw ex.InnerException
@@ -94,6 +103,7 @@ Namespace CQRS.Query
                     Logging.Log.Error(q, ex)
                     Throw
                 End Try
+                
             Else
                 'If MultiHandlers.ContainsKey(q.GetType) Then
                 '    Dim handler = MultiHandlers(q.GetType)

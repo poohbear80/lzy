@@ -77,6 +77,8 @@ End Class
 
 Public MustInherit Class BaseCommand(Of T)
     Inherits CommandBase(Of T)
+
+
 End Class
 
 Public Class CommandForA
@@ -198,6 +200,15 @@ Public Class TestCommand
             Return "Name"
         End Get
     End Property
+
+    Public Overrides Sub OnActionBegin()
+        MyBase.OnActionBegin()
+    End Sub
+
+    Public Overrides Sub OnActionComplete()
+        MyBase.OnActionComplete()
+    End Sub
+
 End Class
 
 
