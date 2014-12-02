@@ -104,24 +104,20 @@ End Module
         End Function
     End Class
 
+    '<Test> Public Sub DateTimeAttributesIsWrittenToText()
+    '    Dim o As New ExcavationTripDateTime
 
+    '    'Dim text = PetterJson.Deserialize(obj)
+    '    'Dim text = PetterJson.Format("YYMMMDD").Deserialize(obj)
 
+    '    o.StartDate = New DateTime(1999, 6, 1)
+    '    o.EndDate = New DateTime(2000, 6, 1)
 
+    '    Writer.Config.FormatDate(Function(value As Date) Format(value, "DD-MM-YY T:M:S ")).ObjectToString(o)
 
-    <Test> Public Sub DateTimeAttributesIsWrittenToText()
-        Dim o As New ExcavationTripDateTime
+    '    Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(o), Writer.ObjectToString(o))
 
-        'Dim text = PetterJson.Deserialize(obj)
-        'Dim text = PetterJson.Format("YYMMMDD").Deserialize(obj)
-
-        o.StartDate = New DateTime(1999, 6, 1)
-        o.EndDate = New DateTime(2000, 6, 1)
-
-        Writer.Config.FormatDate(Function(value As Date) Format(value, "DD-MM-YY T:M:S ")).ObjectToString(o)
-
-        Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(o), Writer.ObjectToString(o))
-
-    End Sub
+    'End Sub
 
     <Test> Public Sub DateAttributesIsWrittenToText()
         Dim o As New ExcavationTripDate
@@ -168,6 +164,12 @@ End Class
 
     <Test> Public Sub ParseSimpleObjectWithInteger()
         Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter"",""Alder"":42}")
+        Assert.AreEqual("Petter", p.Navn)
+        Assert.AreEqual(42, p.Alder)
+    End Sub
+
+    <Test> Public Sub ConsumeJsonWithComments()
+        Dim p = Utils.Json.Reader.StringToObject(Of Person)(My.Resources.ConsumeJsonWithComments)
         Assert.AreEqual("Petter", p.Navn)
         Assert.AreEqual(42, p.Alder)
     End Sub

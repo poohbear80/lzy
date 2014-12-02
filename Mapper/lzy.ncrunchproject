@@ -1,5 +1,5 @@
 <ProjectConfiguration>
-  <CopyReferencedAssembliesToWorkspace>true</CopyReferencedAssembliesToWorkspace>
+  <CopyReferencedAssembliesToWorkspace>false</CopyReferencedAssembliesToWorkspace>
   <ConsiderInconclusiveTestsAsPassing>false</ConsiderInconclusiveTestsAsPassing>
   <PreloadReferencedAssemblies>false</PreloadReferencedAssemblies>
   <AllowDynamicCodeContractChecking>true</AllowDynamicCodeContractChecking>
@@ -13,22 +13,8 @@
   <AnalyseExecutionTimes>true</AnalyseExecutionTimes>
   <IncludeStaticReferencesInWorkspace>true</IncludeStaticReferencesInWorkspace>
   <DefaultTestTimeout>60000</DefaultTestTimeout>
-  <UseBuildConfiguration></UseBuildConfiguration>
-  <UseBuildPlatform></UseBuildPlatform>
-  <ProxyProcessPath></ProxyProcessPath>
+  <UseBuildConfiguration />
+  <UseBuildPlatform />
+  <ProxyProcessPath />
   <UseCPUArchitecture>AutoDetect</UseCPUArchitecture>
-  <MSTestThreadApartmentState>STA</MSTestThreadApartmentState>
-  <BuildProcessArchitecture>x86</BuildProcessArchitecture>
-  <IgnoredTests>
-    <RegexTestSelector>
-      <RegularExpression>LazyFramework\.Test\.ResponseThread\..*</RegularExpression>
-    </RegexTestSelector>
-    <NamedTestSelector>
-      <TestName>LazyFramework.Test.RuntimeMapper.CreateInMapper</TestName>
-    </NamedTestSelector>
-    <NamedTestSelector>
-      <TestName>LazyFramework.Test.RuntimeMapper.MissingValueThrowsException</TestName>
-    </NamedTestSelector>
-  </IgnoredTests>
-  <HiddenWarnings>CopyReferencedAssembliesToWorkspaceIsOn;LongTestTimesWithoutParallelExecution</HiddenWarnings>
 </ProjectConfiguration>
