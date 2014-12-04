@@ -120,7 +120,7 @@
       {"Navn":"Petter",
       /*Dette er kommentar på mange linjer
       test teste*/
-      "Alder":42}
+      "Alder":42 }
     </value>
-  </data>
+  </data> 
 </root>

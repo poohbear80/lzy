@@ -7,11 +7,12 @@ Namespace Utils.Json
 
         Public Shared BuilderFactory As Type = GetType(ObjectBuilder(Of ))
 
-        Public Shared Sub EatUntil(c As Char, nextChar As IReader)
+        Public Shared Sub EatUntil(c As Char, nextChar As IReader)          
             WhiteSpace(nextChar)
-            If nextChar.Read <> c Then
+            If nextChar.Current <> c Then
                 Throw New MissingTokenException(c)
             End If
+            nextChar.Read()
         End Sub
 
         Public Shared Sub EatUntil(c As String, nextChar As IReader)
@@ -23,16 +24,21 @@ Namespace Utils.Json
                 nextChar.PeekToBuffer()
             End While
             nextChar.ClearBuffer()
-            nextChar.Read()
+            nextChar.Read() 'Dump end of buffer
         End Sub
 
         Public Shared Sub WhiteSpace(nextchar As IReader)
             If AscW(nextchar.Current) > 32 Then
                 Return
             End If
-            While AscW(nextchar.PeekToBuffer) <= 32
+            While AscW(nextchar.Peek) <= 32
                 nextchar.Read()
             End While
+            ConsumeComment(nextchar)
+        End Sub
+
+        Private Shared Sub ConsumeComment(ByVal nextchar As IReader)
+            nextchar.PeekToBuffer()
             If nextchar.Current = "/" Then 'Start of single or multiline comment
                 nextchar.PeekToBuffer()
                 If nextchar.BufferPeek = "//" Then
@@ -48,9 +54,10 @@ Namespace Utils.Json
         End Sub
 
         Public Shared Sub Quote(nextChar As IReader)
-            If nextChar.Read <> Chr(34) Then
+            If nextChar.Current <> Chr(34) Then
                 Throw New MissingTokenException(Chr(34))
             End If
+            nextChar.Read() 'Dump quote
         End Sub
 
         Public Shared Function Attribute(nextChar As IReader) As String
@@ -78,6 +85,9 @@ Namespace Utils.Json
         Private Shared Sub CreateAttributeValue(ByVal nextChar As IReader, ByVal result As Object, ByVal name As String)
 
             Dim fInfo = result.GetType().GetField(name)
+            If fInfo Is Nothing Then
+                Throw New UnknownAttributeException(name)
+            End If
             If fInfo.FieldType.IsValueType Or fInfo.FieldType Is GetType(String) Then
                 Dim builder = TypeParserMapper(fInfo.FieldType)
 
@@ -88,24 +98,39 @@ Namespace Utils.Json
             End If
         End Sub
 
+        Public Shared Sub BufferLegalCharacters(nextChar As IReader, leagal As String)
+            Dim toArray = leagal.ToArray
+            While toArray.Contains(nextChar.Peek)
+                nextChar.PeekToBuffer()
+            End While
+        End Sub
+
+
         Public Shared TypeParserMapper As New Dictionary(Of Type, Builder) From {
                                                                             {GetType(String), New StringParser},
                                                                             {GetType(Integer), New IntegerParser},
                                                                             {GetType(Int64), New IntegerParser},
-                                                                            {GetType(Int16), New IntegerParser}
+                                                                            {GetType(Int16), New IntegerParser},
+                                                                            {GetType(Date), New DateParser},
+                                                                            {GetType(Double), New DoubleParser}
                                                                         }
-
-
-
+        
         Private Shared Function CanFindValueSeparator(ByVal nextChar As IReader) As Boolean
             WhiteSpace(nextChar)
-            If nextChar.Peek = "," Then
+            If nextChar.Current = "," Then
                 nextChar.Read()
                 Return True
             End If
             Return False
         End Function
+    End Class
 
+    Friend Class UnknownAttributeException
+        Inherits Exception
+
+        Public Sub New(ByVal name As String)
+            MyBase.New(name)
+        End Sub
     End Class
 
     Public Class NotCompleteException

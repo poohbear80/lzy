@@ -51,7 +51,8 @@ Namespace Utils.Json
 
         Public Overrides Function Parse(nextChar As IReader) As Object
             Dim buffer As New Text.StringBuilder
-            TokenAcceptors.EatUntil(Chr(34), nextChar)
+            TokenAcceptors.WhiteSpace(nextChar)
+            TokenAcceptors.Quote(nextChar)
 
             Dim cur = nextChar.PeekToBuffer
             While cur <> Chr(34)
@@ -68,7 +69,7 @@ Namespace Utils.Json
                 End If
             End While
             buffer.Append(nextChar.Buffer)
-            nextChar.Read()
+            TokenAcceptors.Quote(nextChar)
 
             Return buffer.ToString
         End Function

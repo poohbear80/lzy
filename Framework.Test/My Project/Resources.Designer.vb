@@ -66,7 +66,7 @@ Namespace My.Resources
         '''      {&quot;Navn&quot;:&quot;Petter&quot;,
         '''      /*Dette er kommentar på mange linjer
         '''      test teste*/
-        '''      &quot;Alder&quot;:42}
+        '''      &quot;Alder&quot;:42 }
         '''    .
         '''</summary>
         Friend ReadOnly Property ConsumeJsonWithComments() As String

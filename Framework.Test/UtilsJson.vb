@@ -144,7 +144,7 @@ End Class
 
 <TestFixture> Public Class TestParser
     <Test> Public Sub ParseSimpleObject()
-        Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter""}")
+        Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter""}  ")
         Assert.AreEqual("Petter", p.Navn)
         'Assert.AreEqual(43, p.Alder)
     End Sub
@@ -156,14 +156,14 @@ End Class
     End Sub
 
     <Test> Public Sub ParseComplexObject()
-        Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter"",""TestInfo"": {""Name"":""Nils""}}")
+        Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter"",""TestInfo"": {""Name"":""Nils""  }   }")
         Assert.AreEqual("Petter", p.Navn)
         Assert.AreEqual("Nils", p.TestInfo.Name)
         'Assert.AreEqual(43, p.Alder)
     End Sub
 
     <Test> Public Sub ParseSimpleObjectWithInteger()
-        Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter"",""Alder"":42}")
+        Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter"",""Alder"":  42   }")
         Assert.AreEqual("Petter", p.Navn)
         Assert.AreEqual(42, p.Alder)
     End Sub
@@ -173,6 +173,14 @@ End Class
         Assert.AreEqual("Petter", p.Navn)
         Assert.AreEqual(42, p.Alder)
     End Sub
+
+    <Test> Public Sub ParseSimpleObjectWithDouble()
+        Dim p = Utils.Json.Reader.StringToObject(Of Person)("{""Navn"":""Petter"",""Speed"":  4.2,""Alder"":42  }")
+        Assert.AreEqual("Petter", p.Navn)
+        Assert.AreEqual(4.2, p.Speed)
+    End Sub
+
+
 
 End Class
 
@@ -185,6 +193,7 @@ End Class
 Public Class Person
     Public Navn As String
     Public Alder As Integer
+    Public Speed As Double
     Public Barn As List(Of Person)
     Public TestInfo As Test
 End Class
