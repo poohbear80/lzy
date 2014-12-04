@@ -91,7 +91,7 @@ Namespace CQRS.Query
                     End If
 
                     If TypeOf (q) Is ActionBase Then
-                        DirectCast(q, ActionBase).OnActionBegin()
+                        DirectCast(q, ActionBase).OnActionComplete()
                     End If
 
                     Return transformResult
