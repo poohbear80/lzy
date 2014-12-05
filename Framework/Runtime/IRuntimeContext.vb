@@ -6,7 +6,8 @@ Namespace Runtime
         Function Storage() As Dictionary(Of String, Object)
 
         Sub ContextSet()
-
+        
+        Property ChickenMode() As Boolean
 
     End Interface
     

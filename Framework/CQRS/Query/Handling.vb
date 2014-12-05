@@ -2,6 +2,7 @@
 Imports System.Runtime.CompilerServices
 Imports LazyFramework.CQRS.EventHandling
 Imports LazyFramework.Utils
+Imports System.Threading
 
 Namespace CQRS.Query
 
@@ -104,7 +105,7 @@ Namespace CQRS.Query
                     Throw
                 End Try
                 
-            Else
+                'Else
                 'If MultiHandlers.ContainsKey(q.GetType) Then
                 '    Dim handler = MultiHandlers(q.GetType)
                 '    Dim target As Global.LazyFramework.CQRS.Query.IParalellQuery = CType(handler.CreateInstance, IParalellQuery)
@@ -115,15 +116,15 @@ Namespace CQRS.Query
 
                 '    handler.Methods.AsParallel.ForAll(Sub(m)
                 '                                          Threading.Thread.CurrentPrincipal = p
-                '                                          Dim ldss As LocalDataStoreSlot = Thread.GetNamedDataSlot(Constants.StoreName)
+                '                                          Dim ldss As LocalDataStoreSlot = Thread.GetNamedDataSlot(Runtime.Constants.StoreName)
                 '                                          Thread.SetData(ldss, s)
                 '                                          m.Invoke(target, {})
                 '                                          Thread.CurrentPrincipal = Nothing
-                '                                          Thread.FreeNamedDataSlot(Constants.StoreName)
+                '                                          Thread.FreeNamedDataSlot(Runtime.Constants.StoreName)
                 '                                      End Sub)
                 '    Return target.InnerResult
                 'End If
-                EventHub.Publish(New HandlerNotFound(q))
+                'EventHub.Publish(New HandlerNotFound(q))
             End If
 
             Throw New NotSupportedException("Query handler not found")

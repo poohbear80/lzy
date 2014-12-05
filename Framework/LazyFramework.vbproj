@@ -217,6 +217,7 @@
     <Compile Include="CQRS\Query\IHandleQuery.vb" />
     <Compile Include="CQRS\Query\QueryBase.vb" />
     <Compile Include="CQRS\Query\QueryLogEvent.vb" />
+    <Compile Include="Runtime\SpawnThread.vb" />
     <Compile Include="Runtime\TestContext.vb" />
     <Compile Include="Runtime\Web.vb" />
     <Compile Include="Runtime\WinThread.vb" />
