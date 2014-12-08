@@ -69,7 +69,6 @@ Namespace CQRS.Transform
             If TypeOf transformEntity Is ActionContext.ActionContext Then
 
             End If
-
             Return transformEntity
         End Function
     End Class
