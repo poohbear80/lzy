@@ -103,11 +103,11 @@ Public Class CalculateKm
     Public KmDrive As Integer
     Public DateDriven As DateTime
 
-    Public Overrides ReadOnly Property ActionName As String
-        Get
-            Return "Kalkuler km sats"
-        End Get
-    End Property
+    Public Overrides Function ActionName() As String
+
+        Return "Kalkuler km sats"
+
+    End Function
 End Class
 
 Public Class TestSecurity
@@ -163,21 +163,19 @@ End Class
 Public Class ExceptionIsThrownCommand
     Inherits CommandBase
 
-    Public Overrides ReadOnly Property ActionName As String
-        Get
-            Return "Exception"
-        End Get
-    End Property
+    Public Overrides Function ActionName() As String
+
+        Return "Exception"
+
+    End Function
 End Class
 
 Public Class AnotherCommand
     Inherits CommandBase
 
-    Public Overrides ReadOnly Property ActionName As String
-        Get
-            Return "jbjkbkjb"
-        End Get
-    End Property
+    Public Overrides Function ActionName() As String
+        Return "jbjkbkjb"
+    End Function
 End Class
 
 Public Class ByrefCommand
@@ -185,21 +183,21 @@ Public Class ByrefCommand
 
     Public Called As Boolean = False
 
-    Public Overrides ReadOnly Property ActionName As String
-        Get
-            Return ""
-        End Get
-    End Property
+    Public Overrides Function ActionName() As String
+
+        Return ""
+
+    End Function
 End Class
 
 Public Class TestCommand
     Inherits CommandBase
 
-    Public Overrides ReadOnly Property ActionName As String
-        Get
-            Return "Name"
-        End Get
-    End Property
+    Public Overrides Function ActionName() As String
+
+        Return "Name"
+
+    End Function
 
     Public Overrides Sub OnActionBegin()
         MyBase.OnActionBegin()

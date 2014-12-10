@@ -20,7 +20,7 @@ Public Class Data
         Logger.Log(10, New DataLog("Fill object -" & command.CommandText))
         ExecReader(Of Object)(dbName, command, New FillStatus(Of Object)(data), CommandBehavior.SingleResult Or CommandBehavior.SingleRow, AddressOf ReadOne, data.GetType)
     End Sub
-    
+
 
 #Region "Privates"
 

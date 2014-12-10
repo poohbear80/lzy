@@ -5,12 +5,9 @@ Namespace CQRS.ActionLink
         Implements IActionBase
         
 
-        Public Overridable ReadOnly Property ActionName As String Implements IActionBase.ActionName
-            Get
-                Return Me.GetType.FullName
-            End Get
-        End Property
-
+        Public Overridable Function ActionName() As String Implements IActionBase.ActionName
+            Return Me.GetType.FullName
+        End Function
 
         Public Overridable ReadOnly Property Tag As String
             Get

@@ -36,11 +36,9 @@ Namespace CQRS
         End Function
 
         <System.ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Never)>
-        Public Overridable ReadOnly Property ActionName As String Implements IAmAnAction.ActionName
-            Get
-                Return Me.GetType.FullName.Replace("."c, "")
-            End Get
-        End Property
+        Public Overridable Function ActionName() As String Implements IAmAnAction.ActionName
+            Return Me.GetType.FullName.Replace("."c, "")
+        End Function
 
         <System.ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Never)>
         Public Function TimeStamp() As Long Implements IAmAnAction.TimeStamp

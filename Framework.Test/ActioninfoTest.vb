@@ -34,11 +34,9 @@ Public Class SomeOtherActionBase(Of T)
 
 
 
-    Public ReadOnly Property ActionName As String Implements IActionBase.ActionName
-        Get
-            Return "m.m"
-        End Get
-    End Property
+    Public Function ActionName() As String Implements IActionBase.ActionName
+        Return "m.m"
+    End Function
 
     Public Function IsAvailable(user As IPrincipal, o As Object) As Boolean Implements IActionBase.IsAvailable
         Return True

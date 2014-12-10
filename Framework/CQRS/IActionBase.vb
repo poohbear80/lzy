@@ -8,7 +8,7 @@ Namespace CQRS
     ''' <remarks></remarks>
     Public Interface IActionBase
         
-        ReadOnly Property ActionName As String
+        Function ActionName() As String
         Function IsAvailable() As Boolean
         Function IsAvailable(user As IPrincipal) As Boolean
         Function IsAvailable(user As IPrincipal, o As Object) As Boolean
