@@ -11,6 +11,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "lzy", "Mapper\lzy.vbproj", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{B6A318C8-C2A9-468B-886A-A8F0D37848D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lzydb", "db\lzydb\lzydb.csproj", "{9FF0C024-53FD-4B12-B3E4-8B07BDEE9637}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,12 @@ Global
 		{50BFD18B-E391-463A-9A81-82462B607158}.DebugPersonalarkiv|Any CPU.Build.0 = Debug|Any CPU
 		{50BFD18B-E391-463A-9A81-82462B607158}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50BFD18B-E391-463A-9A81-82462B607158}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FF0C024-53FD-4B12-B3E4-8B07BDEE9637}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FF0C024-53FD-4B12-B3E4-8B07BDEE9637}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FF0C024-53FD-4B12-B3E4-8B07BDEE9637}.DebugPersonalarkiv|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FF0C024-53FD-4B12-B3E4-8B07BDEE9637}.DebugPersonalarkiv|Any CPU.Build.0 = Debug|Any CPU
+		{9FF0C024-53FD-4B12-B3E4-8B07BDEE9637}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FF0C024-53FD-4B12-B3E4-8B07BDEE9637}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
