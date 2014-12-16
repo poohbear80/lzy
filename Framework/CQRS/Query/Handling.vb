@@ -2,6 +2,7 @@
 Imports System.Runtime.CompilerServices
 Imports LazyFramework.CQRS.EventHandling
 Imports LazyFramework.Utils
+Imports System.Threading
 
 Namespace CQRS.Query
 
@@ -69,7 +70,7 @@ Namespace CQRS.Query
 
             If Not ActionSecurity.Current.UserCanRunThisAction(q.User, q) Then
                 EventHub.Publish(New NoAccess(q))
-                Throw New NotSupportedException("No access")
+                Throw New ActionSecurityAuthorizationFaildException(q, q.User)
             End If
 
             Validation.Handling.ValidateAction(q)
@@ -77,16 +78,25 @@ Namespace CQRS.Query
             'Standard queryhandling. 1->1 mapping
             If Handlers.ContainsKey(q.GetType) Then
                 Try
+                    If TypeOf (q) Is ActionBase Then
+                        DirectCast(q, ActionBase).OnActionBegin()
+                    End If
+
                     Dim invoke As Object = Handlers(q.GetType)(0).Invoke(Nothing, {q})
                     q.ActionComplete()
                     EventHub.Publish(New QueryExecuted(q))
 
+                    Dim transformResult As Object = Nothing
                     If invoke IsNot Nothing Then
-                        Return CQRS.Transform.Handling.TransformResult(q, invoke)
-                    Else
-                        Return Nothing
+                        transformResult = CQRS.Transform.Handling.TransformResult(q, invoke)
                     End If
 
+                    If TypeOf (q) Is ActionBase Then
+                        DirectCast(q, ActionBase).OnActionComplete()
+                    End If
+
+                    Return transformResult
+                    
                 Catch ex As TargetInvocationException
                     Logging.Log.Error(q, ex)
                     Throw ex.InnerException
@@ -94,7 +104,8 @@ Namespace CQRS.Query
                     Logging.Log.Error(q, ex)
                     Throw
                 End Try
-            Else
+                
+                'Else
                 'If MultiHandlers.ContainsKey(q.GetType) Then
                 '    Dim handler = MultiHandlers(q.GetType)
                 '    Dim target As Global.LazyFramework.CQRS.Query.IParalellQuery = CType(handler.CreateInstance, IParalellQuery)
@@ -105,15 +116,15 @@ Namespace CQRS.Query
 
                 '    handler.Methods.AsParallel.ForAll(Sub(m)
                 '                                          Threading.Thread.CurrentPrincipal = p
-                '                                          Dim ldss As LocalDataStoreSlot = Thread.GetNamedDataSlot(Constants.StoreName)
+                '                                          Dim ldss As LocalDataStoreSlot = Thread.GetNamedDataSlot(Runtime.Constants.StoreName)
                 '                                          Thread.SetData(ldss, s)
                 '                                          m.Invoke(target, {})
                 '                                          Thread.CurrentPrincipal = Nothing
-                '                                          Thread.FreeNamedDataSlot(Constants.StoreName)
+                '                                          Thread.FreeNamedDataSlot(Runtime.Constants.StoreName)
                 '                                      End Sub)
                 '    Return target.InnerResult
                 'End If
-                EventHub.Publish(New HandlerNotFound(q))
+                'EventHub.Publish(New HandlerNotFound(q))
             End If
 
             Throw New NotSupportedException("Query handler not found")

@@ -1,4 +1,6 @@
-﻿Public Class CsLanguageSettings
+﻿Imports System.Text.RegularExpressions
+
+Public Class CsLanguageSettings
     Implements ILanguageSettings
 
     Public Sub New()
@@ -28,12 +30,11 @@
         } Implements ILanguageSettings.DataTypes
 
 
-    Public Property DefaultValue As New Dictionary(Of String, String) From {
-        {"0", "0"},
-        {"1", "1"},
-        {"newid", "Guid.NewGuid()"},
-        {"getdate", "DateTime.Now"}
-    } Implements ILanguageSettings.DefaultValue
+    Public Property DefaultValues As New List(Of DefaultValue) From {
+        New DefaultValue With {.Match = New Regex(".*?(\d+).*"), .Replace = "${1}", .DbType = "boolean"},
+        New DefaultValue With {.Match = New Regex("newid"), .Replace = "Guid.NewGuid()", .DbType = "guid"},
+        New DefaultValue With {.Match = New Regex("getdate"), .Replace = "DateTime.Now()", .DbType = "DateTime"}
+    } Implements ILanguageSettings.DefaultValues
 
     Public ReadOnly Property FileName As String
         Get

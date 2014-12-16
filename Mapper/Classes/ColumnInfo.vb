@@ -2,26 +2,28 @@
 Imports Microsoft.SqlServer.Management.Smo
 
 Public Class ColumnInfo
+    Private ReadOnly _Column As Column
     Private Property Ls As ILanguageSettings
 
     Public Sub New()
 
     End Sub
 
-    Public Sub New(ByVal c As Column, ls As ILanguageSettings)
+    Public Sub New(ByVal column As Column, ls As ILanguageSettings)
+        _Column = Column
         Me.Ls = ls
-        Name = c.Name
-        NameToUpper = c.Name.ToUpper
-        Nullable = c.Nullable
-        DataType = c.DataType.ToString
+        Name = Column.Name
+        NameToUpper = Column.Name.ToUpper
+        Nullable = Column.Nullable
+        DataType = Column.DataType.ToString
 
-        PartOfPrimaryKey = c.InPrimaryKey
+        PartOfPrimaryKey = Column.InPrimaryKey
 
-        Identity = c.Identity
-        Length = c.DataType.MaximumLength
-        IsForeignKey = c.IsForeignKey
-        ParamName = c.Name(0).ToString.ToLower & Mid(c.Name, 2)
-        DefaultValue = If(c.DefaultConstraint Is Nothing, "", c.DefaultConstraint.Text)
+        Identity = Column.Identity
+        Length = Column.DataType.MaximumLength
+        IsForeignKey = Column.IsForeignKey
+        ParamName = Column.Name(0).ToString.ToLower & Mid(Column.Name, 2)
+        DefaultValue = If(Column.DefaultConstraint Is Nothing, "", Column.DefaultConstraint.Text)
     End Sub
     
     Property PartOfPrimaryKey As Boolean
@@ -34,7 +36,7 @@ Public Class ColumnInfo
     Property Length As Integer
     Property ParamName As String
 
-    Property NetRuntimeType As String
+    ReadOnly Property NetRuntimeType As String
         Get
             Try
                 Return Ls.DataTypes(Me.DataType.ToLower).LanguageType
@@ -42,9 +44,6 @@ Public Class ColumnInfo
                 Return Me.DataType & " ble ikke funnet i LanguageSettings"
             End Try
         End Get
-        Set(value As String)
-
-        End Set
     End Property
 
     ReadOnly Property IsValueType As Boolean
@@ -59,22 +58,24 @@ Public Class ColumnInfo
 
     Property DefaultValue As String
 
-    Property DefaultValueCode As String
+    ReadOnly Property DefaultValueCode As String
         Get
             Try
                 If String.IsNullOrEmpty(Me.DefaultValue) Then Return ""
-                Dim val = Me.DefaultValue.Replace("(", "").Replace(")", "")
-                Return Ls.DefaultValue(val)
+                For Each i In Ls.DefaultValues
+                    If i.Match.IsMatch(DefaultValue) AndAlso String.Compare(i.DbType.ToString, DataType, True) = 0 Then
+                        Return i.Match.Replace(DefaultValue, i.Replace)
+                    End If
+                Next
             Catch ex As Exception
                 Return Me.DefaultValue & " ble ikke funnet i LanguageSettings"
             End Try
-        End Get
-        Set(value As String)
 
-        End Set
+            Return Me.DefaultValue & " ble ikke funnet i LanguageSettings"
+        End Get
     End Property
 
-    Property DbType As String
+    ReadOnly Property DbType As String
         Get
             Try
                 Return Ls.DataTypes(DataType).DbType
@@ -82,9 +83,7 @@ Public Class ColumnInfo
                 Return "NOT IMPLEMENTED:" & DataType
             End Try
         End Get
-        Set(value As String)
-
-        End Set
+        
     End Property
 
 

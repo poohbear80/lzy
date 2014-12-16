@@ -8,7 +8,7 @@ Namespace Runtime
     ''' <remarks></remarks>
     Public Class WinThread
         Implements IContext
-        
+
         Public Function CurrentUser() As IPrincipal Implements IContext.CurrentUser
             Return System.Threading.Thread.CurrentPrincipal
         End Function
@@ -29,5 +29,7 @@ Namespace Runtime
         Public Sub ContextSet() Implements IContext.ContextSet
 
         End Sub
+
+        Public Property ChickenMode As Boolean = False Implements IContext.ChickenMode
     End Class
 End Namespace

@@ -5,7 +5,7 @@ Namespace Utils.Json
         Implements IReader
 
         Private ReadOnly _StreamReader As StreamReader
-        Private internaleBuffer As New Queue(Of Char)
+        Private ReadOnly internaleBuffer As New Queue(Of Char)
 
         Public Sub New(s As StreamReader)
             _StreamReader = s
@@ -13,9 +13,9 @@ Namespace Utils.Json
 
         Public Function Peek() As Char Implements IReader.Peek
             If internaleBuffer.Count > 0 Then
-                Return internaleBuffer(0)
+                Return internaleBuffer(internaleBuffer.Count - 1)
             Else
-                ChrW(_StreamReader.Peek())
+                Return ChrW(_StreamReader.Peek())
             End If
         End Function
 
@@ -50,6 +50,9 @@ Namespace Utils.Json
         End Property
 
         Public Function Current() As Char Implements IReader.Current
+            If internaleBuffer.Count = 0 Then
+                Return ChrW(0)
+            End If
             Return internaleBuffer(internaleBuffer.Count - 1)
         End Function
 

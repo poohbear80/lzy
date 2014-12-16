@@ -69,12 +69,17 @@ Namespace CQRS.Command
         Public Shared Sub ExecuteCommand(command As IAmACommand)
 
             If AllHandlers.ContainsKey(command.GetType) Then
+                If TypeOf (command) Is ActionBase Then
+                    DirectCast(command, ActionBase).OnActionBegin()
+                End If
+
                 If TypeOf (command) Is CommandBase Then
                     If Not IsCommandAvailable(CType(command, CommandBase)) Then
                         EventHub.Publish(New NoAccess(command))
                         Throw New ActionIsNotAvailableException(command, command.User)
                     End If
                 End If
+
                 If Not CanUserRunCommand(CType(command, CommandBase)) Then
                     EventHub.Publish(New NoAccess(command))
                     Throw New ActionSecurityAuthorizationFaildException(command, command.User)
@@ -87,6 +92,11 @@ Namespace CQRS.Command
                     If temp IsNot Nothing Then
                         command.SetResult(Transform.Handling.TransformResult(command, temp))
                     End If
+
+                    If TypeOf (command) Is ActionBase Then
+                        DirectCast(command, ActionBase).OnActionComplete()
+                    End If
+
                 Catch ex As TargetInvocationException
                     EventHub.Publish(New CommandFailureEvent(command))
                     Logging.Log.Error(command, ex)
@@ -96,7 +106,7 @@ Namespace CQRS.Command
                     Throw
                 End Try
             Else
-                Dim notImplementedException As NotImplementedException = New NotImplementedException(command.ActionName)
+                Dim notImplementedException = New NotImplementedException(command.ActionName)
                 Logging.Log.Error(command, notImplementedException)
                 Throw notImplementedException
             End If
@@ -110,7 +120,11 @@ Namespace CQRS.Command
         End Function
 
         Public Shared Function CanUserRunCommand(cmd As CommandBase) As Boolean
-            Return ActionSecurity.Current.UserCanRunThisAction(cmd.User, cmd)
+            If cmd.GetInnerEntity Is Nothing Then
+                Return ActionSecurity.Current.UserCanRunThisAction(cmd.User, cmd)
+            Else
+                Return ActionSecurity.Current.UserCanRunThisAction(cmd.User, cmd, cmd.GetInnerEntity)
+            End If
         End Function
 
 

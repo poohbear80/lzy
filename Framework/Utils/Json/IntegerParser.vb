@@ -3,9 +3,9 @@ Namespace Utils.Json
         Inherits Builder
 
         Public Overrides Function Parse(nextChar As IReader) As Object
-
-            While IsNumeric(nextChar.PeekToBuffer)
-
+            TokenAcceptors.WhiteSpace(nextChar)
+            While IsNumeric(nextChar.Peek)
+                nextChar.PeekToBuffer()
             End While
             Return Integer.Parse(nextChar.Buffer)
         End Function

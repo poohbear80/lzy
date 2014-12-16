@@ -198,34 +198,42 @@ Namespace Utils
             Public Ticks As Long = 0
             Public Max As CommandInfo
 
+            Public addLock As New Object
             Sub Add(ByVal dbName As String, ByVal c As CommandInfo)
                 If dbName Is Nothing Then Return
                 Add(c)
                 If Not Servers.ContainsKey(dbName) Then
-                    Servers(dbName) = New QueryInfo
+                    SyncLock addLock
+                        If Not Servers.ContainsKey(dbName) Then
+                            Servers(dbName) = New QueryInfo
+                        End If
+                    End SyncLock
                 End If
                 Servers(dbName).Add(c)
             End Sub
 
-            Private Sub Add(ByVal c As CommandInfo)
-                Count += 1
-                Ticks += c.CommandDuration
-                If Max Is Nothing Then
-                    Max = c
-                Else
-                    If Max.CommandDuration < c.CommandDuration Then
-                        Max = c
-                    End If
-                End If
-                If LogDetails Then
-                    If Not _commands.ContainsKey(c.CommandText) Then
-                        _commands.Add(c.CommandText, c)
-                    Else
-                        _commands(c.CommandText).CommandDuration += c.CommandDuration
-                        _commands(c.CommandText).Count += 1
-                    End If
-                End If
 
+            Private _cmdLock As New Object
+            Private Sub Add(ByVal c As CommandInfo)
+                SyncLock _cmdLock
+                    Count += 1
+                    Ticks += c.CommandDuration
+                    If Max Is Nothing Then
+                        Max = c
+                    Else
+                        If Max.CommandDuration < c.CommandDuration Then
+                            Max = c
+                        End If
+                    End If
+                    If LogDetails Then
+                        If Not _commands.ContainsKey(c.CommandText) Then
+                            _commands.Add(c.CommandText, c)
+                        Else
+                            _commands(c.CommandText).CommandDuration += c.CommandDuration
+                            _commands(c.CommandText).Count += 1
+                        End If
+                    End If
+                End SyncLock
             End Sub
 
             Public Property Servers As New Dictionary(Of String, QueryInfo)

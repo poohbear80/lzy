@@ -38,11 +38,11 @@ Imports NUnit.Framework
         Public Command As String
         Public Id As Integer
 
-        Public Overrides ReadOnly Property ActionName As String
-            Get
-                Return "jkjklj"
-            End Get
-        End Property
+        Public Overrides Function ActionName() As String
+
+            Return "jkjklj"
+
+        End Function
     End Class
 
     Public Class MyCommand

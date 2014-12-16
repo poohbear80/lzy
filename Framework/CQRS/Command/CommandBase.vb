@@ -10,6 +10,14 @@ Namespace CQRS.Command
             Return Nothing
         End Function
 
+        ''' <summary>
+        ''' Override this method to fill the InnerEntityList
+        ''' </summary>
+        ''' <remarks></remarks>
+        Public Overridable Sub FillEntityList()
+
+        End Sub
+
         <System.ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Never)>
         Public Sub SetInnerEntity(o As Object)
             InnerEntity = o
@@ -22,6 +30,7 @@ Namespace CQRS.Command
         End Function
 
         Protected InnerEntity As Object
+        Protected ReadOnly InnerEntityList As New List(Of Object)
         Protected InnerResult As Object
         Protected IsResolved As Boolean
 
@@ -35,10 +44,19 @@ Namespace CQRS.Command
             Return InnerEntity
         End Function
 
+        Public Function GetEntityList() As List(Of Object)
+            If Not IsResolved Then
+                InnerEntity = ResolveEntity()
+                FillEntityList()
+            End If
+            Return InnerEntityList
+        End Function
+
         <System.ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Never)>
         Public Overrides Function IsAvailable() As Boolean
             If InnerEntity Is Nothing Then
                 InnerEntity = ResolveEntity()
+                FillEntityList()
                 IsResolved = True
             End If
             Return IsAvailable(User, InnerEntity)
@@ -56,7 +74,9 @@ Namespace CQRS.Command
             SetUser(user)
             Return True
         End Function
-        
+
+
+
     End Class
 
     Public MustInherit Class CommandBase(Of TEntity)

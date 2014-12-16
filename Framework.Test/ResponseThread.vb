@@ -3,6 +3,7 @@
 <testfixture> Public Class ResponseThread
 
     <SetUp> Public Sub SetUp()
+        LazyFramework.Runtime.Context.Current = New LazyFramework.Runtime.TestContext
         Utils.ResponseThread.Current.Clear()
     End Sub
     

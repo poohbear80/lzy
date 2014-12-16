@@ -22,11 +22,9 @@ Namespace CQRS.EventHandling
 
         Public Property CommandSource As IAmACommand Implements IAmAnEvent.CommandSource
 
-        Public ReadOnly Property ActionName As String Implements IActionBase.ActionName
-            Get
-                Return Me.GetType.FullName
-            End Get
-        End Property
+        Public Function ActionName() As String Implements IActionBase.ActionName
+            Return Me.GetType.FullName
+        End Function
 
         Public Function IsAvailable() As Boolean Implements IActionBase.IsAvailable
             Return True

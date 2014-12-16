@@ -47,12 +47,18 @@ Namespace CQRS.Logging
             Dim input As New CommandInfo
 
             input.Name = e.ActionName
-            input.Type = e.GetType.AssemblyQualifiedName
+            input.Type = e.GetType.FullName
             input.InstanceId = e.Guid
             input.User = e.User
             input.StartTime = e.TimeStamp
             input.EndTime = e.EndTimeStamp
             input.Data = e
+            If TypeOf (e) Is CommandBase Then
+                If Not DirectCast(e, CommandBase).GetInnerEntity Is Nothing Then
+                    input.EntityType = DirectCast(e, CommandBase).GetInnerEntity.GetType.FullName
+                End If
+            End If
+
 
             Writer.WriteCommand(input)
         End Sub

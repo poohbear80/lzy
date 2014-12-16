@@ -3,6 +3,7 @@
 Namespace Runtime
     Public Class TestContext
         Implements IContext
+
         Public Items As New Dictionary(Of String, Object)
         Private _Principal As IPrincipal
 
@@ -28,5 +29,7 @@ Namespace Runtime
         Public Sub ContextSet() Implements IContext.ContextSet
 
         End Sub
+
+        Public Property ChickenMode As Boolean = False Implements IContext.ChickenMode
     End Class
 End NameSpace
