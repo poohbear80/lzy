@@ -11,6 +11,11 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "lzy", "Mapper\lzy.vbproj", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{B6A318C8-C2A9-468B-886A-A8F0D37848D5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{13670540-F037-44C1-BB09-C33A2CFCFBDB}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

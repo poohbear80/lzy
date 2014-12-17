@@ -12,5 +12,3 @@ Contains
 - Dataccess layer
 - CQRS handler
 
-
-
