@@ -12,4 +12,3 @@ Contains
 - Dataccess layer
 - CQRS handler
 - Instance detection
-- 
