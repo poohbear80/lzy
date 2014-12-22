@@ -34,9 +34,9 @@ Namespace CQRS.Transform
                         Cast(Of Object).
                         AsParallel.ForAll(Sub(o As Object)
                                               Using New Runtime.SpawnThreadContext(user, s, cm)
-                                                  res = TransformAndAddAction(action, transformerFactory, o)
-                                                  If res IsNot Nothing Then
-                                                      ret.Enqueue(res)
+                                                  Dim temp = TransformAndAddAction(action, transformerFactory, o)
+                                                  If temp IsNot Nothing Then
+                                                      ret.Enqueue(temp)
                                                   End If
                                               End Using
                                           End Sub)
