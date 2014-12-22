@@ -14,7 +14,7 @@ Namespace CQRS.Transform
             'Egentlig er det jo bare commands som trenger dette. Queries bør jo gjøre dette selv.. Kanskje. 
 
             If TypeOf result Is IList Then
-                Dim ret As New List(Of Object)
+                Dim ret As New Concurrent.ConcurrentQueue(Of Object)
                 Dim res As Object
 
 
@@ -22,9 +22,10 @@ Namespace CQRS.Transform
                     For Each e In CType(result, IList)
                         res = TransformAndAddAction(action, transformerFactory, e)
                         If res IsNot Nothing Then
-                            ret.Add(res)
+                            ret.Enqueue(res)
                         End If
                     Next
+                    Return ret.ToList
                 Else
                     Dim user = Runtime.Context.Current.CurrentUser  'Have to copy this from outside of the loop
                     Dim s = Runtime.Context.Current.Storage
@@ -35,12 +36,17 @@ Namespace CQRS.Transform
                                               Using New Runtime.SpawnThreadContext(user, s, cm)
                                                   res = TransformAndAddAction(action, transformerFactory, o)
                                                   If res IsNot Nothing Then
-                                                      ret.Add(res)
+                                                      ret.Enqueue(res)
                                                   End If
                                               End Using
                                           End Sub)
                 End If
-                Return ret
+
+                Dim retList = ret.ToList
+                If transformerFactory.SortingFunc IsNot Nothing Then
+                    retList.Sort(transformerFactory.SortingFunc)
+                End If
+                Return retList
             Else
                 Return TransformAndAddAction(action, transformerFactory, result)
             End If
