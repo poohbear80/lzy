@@ -12,3 +12,4 @@ Contains
 - Dataccess layer
 - CQRS handler
 - Instance detection
+- JSON Reader/Writer (rudimentary)
