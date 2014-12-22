@@ -48,7 +48,7 @@ Namespace CQRS.Transform
 
         Public Class DefaultEntiyTransformerFactory
             Implements ITransformerFactory
-
+            
             ReadOnly _Trans As New DoNothingWithTheEntityTransformer
 
             Public Function GetTransformer(action As IAmAnAction, ent As Object) As ITransformEntityToDto Implements ITransformerFactory.GetTransformer
@@ -65,6 +65,10 @@ Namespace CQRS.Transform
                 Public Property Action As IAmAnAction Implements ITransformEntityToDto.Action
             End Class
 
+
+            Public Function SortingFunc() As Comparison(Of Object) Implements ITransformerFactory.SortingFunc
+                Return Nothing
+            End Function
         End Class
 
     End Class

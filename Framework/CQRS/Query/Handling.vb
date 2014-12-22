@@ -95,6 +95,8 @@ Namespace CQRS.Query
                         DirectCast(q, ActionBase).OnActionComplete()
                     End If
 
+
+
                     Return transformResult
                     
                 Catch ex As TargetInvocationException
