@@ -7,8 +7,9 @@ Used in production since 2008.
 
 Contains
 
-- Mapper
+- ORMapper(JS driven)
 - Classfactory
 - Dataccess layer
 - CQRS handler
-
+- Instance detection
+- 
