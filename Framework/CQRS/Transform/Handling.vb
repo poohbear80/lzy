@@ -28,23 +28,33 @@ Namespace CQRS.Transform
                     Dim user = Runtime.Context.Current.CurrentUser  'Have to copy this from outside of the loop
                     Dim s = Runtime.Context.Current.Storage
                     Dim cm = Runtime.Context.Current.ChickenMode
+                    Dim Errors As New Concurrent.ConcurrentBag(Of Exception)
+
                     CType(result, IList).
                         Cast(Of Object).
                         AsParallel.ForAll(Sub(o As Object)
-                                              Using New Runtime.SpawnThreadContext(user, s, cm)
-                                                  Dim temp = TransformAndAddAction(action, transformerFactory, o)
-                                                  If temp IsNot Nothing Then
-                                                      ret.Enqueue(temp)
-                                                  End If
-                                              End Using
+                                              Try
+                                                  Using New Runtime.SpawnThreadContext(user, s, cm)
+                                                      Dim temp = TransformAndAddAction(action, transformerFactory, o)
+                                                      If temp IsNot Nothing Then
+                                                          ret.Enqueue(temp)
+                                                      End If
+                                                  End Using
+                                              Catch ex As Exception
+                                                  Errors.Add(ex)
+                                              End Try
                                           End Sub)
-                End If
 
-                Dim retList = ret.ToList
-                If transformerFactory.SortingFunc IsNot Nothing Then
-                    retList.Sort(transformerFactory.SortingFunc)
+                    If Errors.Count > 0 Then
+                        Throw Errors(0)
+                    End If
+
+                    Dim retList = ret.ToList
+                    If transformerFactory.SortingFunc IsNot Nothing Then
+                        retList.Sort(transformerFactory.SortingFunc)
+                    End If
+                    Return retList
                 End If
-                Return retList
             Else
                 Return TransformAndAddAction(action, transformerFactory, result)
             End If

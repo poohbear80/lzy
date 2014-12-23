@@ -105,6 +105,8 @@ Namespace CQRS.Query
                 Catch ex As Exception
                     Logging.Log.Error(q, ex)
                     Throw
+                Catch ex As AggregateException
+
                 End Try
                 
                 'Else
