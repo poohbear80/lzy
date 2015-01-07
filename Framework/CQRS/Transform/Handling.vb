@@ -5,7 +5,7 @@ Imports System.Linq
 Namespace CQRS.Transform
     Public Class Handling
 
-        Public Shared Function TransformResult(ByVal action As IAmAnAction, ByVal result As Object) As Object
+        Public Shared Function TransformResult(ByVal action As IAmAnAction, ByVal result As Object, Optional ByVal transformer As ITransformEntityToDto = Nothing) As Object
             Dim transformerFactory As ITransformerFactory = EntityTransformerProvider.GetFactory(action)
 
             'Hmmmm skal vi ha logikk her som sjekker om det er noe factory, og hvis det ikke er det bare returnere det den fikk inn. 
@@ -18,7 +18,7 @@ Namespace CQRS.Transform
 
                 If Runtime.Context.Current.ChickenMode Then
                     For Each e In CType(result, IList)
-                        res = TransformAndAddAction(action, transformerFactory, e)
+                        res = TransformAndAddAction(action, If(transformer Is Nothing, transformerFactory.GetTransformer(action, e), transformer), e)
                         If res IsNot Nothing Then
                             ret.Enqueue(res)
                         End If
@@ -35,7 +35,7 @@ Namespace CQRS.Transform
                         AsParallel.ForAll(Sub(o As Object)
                                               Try
                                                   Using New Runtime.SpawnThreadContext(user, s, cm)
-                                                      Dim temp = TransformAndAddAction(action, transformerFactory, o)
+                                                      Dim temp = TransformAndAddAction(action, If(transformer Is Nothing, transformerFactory.GetTransformer(action, o), transformer), o)
                                                       If temp IsNot Nothing Then
                                                           ret.Enqueue(temp)
                                                       End If
@@ -52,17 +52,24 @@ Namespace CQRS.Transform
                     Dim retList = ret.ToList
                     If transformerFactory.SortingFunc IsNot Nothing Then
                         retList.Sort(transformerFactory.SortingFunc)
+                    Else
+                        If transformer IsNot Nothing AndAlso TypeOf (transformer) Is ISortingFunction AndAlso CType(transformer, ISortingFunction).SortingFunc IsNot Nothing Then
+                            retList.Sort(CType(transformer, ISortingFunction).SortingFunc)
+                        End If
                     End If
+
+
+
                     Return retList
                 End If
             Else
-                Return TransformAndAddAction(action, transformerFactory, result)
+                Return TransformAndAddAction(action, If(transformer Is Nothing, transformerFactory.GetTransformer(action, result), transformer), result)
             End If
         End Function
 
-        Private Shared Function TransformAndAddAction(ByVal action As IAmAnAction, ByVal transformerFactory As ITransformerFactory, e As Object) As Object
+        Private Shared Function TransformAndAddAction(ByVal action As IAmAnAction, ByVal transformer As ITransformEntityToDto, e As Object) As Object
             Dim securityContext As Object
-
+            If transformer Is Nothing Then Return Nothing
             If TypeOf (e) Is IProvideSecurityContext Then
                 securityContext = DirectCast(e, IProvideSecurityContext).Context
             Else
@@ -70,10 +77,7 @@ Namespace CQRS.Transform
             End If
 
             If Not ActionSecurity.Current.EntityIsAvailableForUser(action.User, action, securityContext) Then Return Nothing
-
-            Dim transformer = transformerFactory.GetTransformer(action, e)
-            If transformer Is Nothing Then Return Nothing
-
+            
             Dim transformEntity As Object = transformer.TransformEntity(e)
             If transformEntity Is Nothing Then Return Nothing
 
@@ -87,3 +91,5 @@ Namespace CQRS.Transform
         End Function
     End Class
 End Namespace
+
+

@@ -66,7 +66,7 @@ Namespace CQRS.Transform
             End Class
 
 
-            Public Function SortingFunc() As Comparison(Of Object) Implements ITransformerFactory.SortingFunc
+            Public Function SortingFunc() As Comparison(Of Object) Implements ISortingFunction.SortingFunc
                 Return Nothing
             End Function
         End Class
