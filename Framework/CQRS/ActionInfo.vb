@@ -76,6 +76,9 @@ Namespace CQRS
             Return ret
         End Function
 
+
+
+
         Private Shared Function CheckAvailability(ByVal entity As Object, ByVal createInstance As IActionBase, ByVal user As IPrincipal) As Boolean
 
             If createInstance.IsAvailable(user, entity) Then
