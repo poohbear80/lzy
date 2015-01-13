@@ -54,22 +54,43 @@ Namespace CQRS
 
         Public Shared Function GetAvailableActionsForEntity(user As IPrincipal, entity As Object) As List(Of IActionBase)
             Dim ret As New List(Of IActionBase)
-            If AllActions.ContainsKey(entity.GetType) Then
-                For Each t In _actionsForType(entity.GetType)
-                    Dim createInstance As IActionBase = CType(Activator.CreateInstance(t), IActionBase)
-                    If createInstance.IsAvailable(user, entity) Then
-                        If TypeOf (createInstance) Is CommandBase Then
-                            CType(createInstance, CommandBase).SetInnerEntity(entity)
-                        End If
-                        If Not ActionSecurity.Current.UserCanRunThisAction(user, createInstance, If(TypeOf (entity) Is IProvideSecurityContext, DirectCast(entity, IProvideSecurityContext).Context, entity)) Then
-                            Continue For
-                        End If
-                        ret.Add(createInstance)
+
+            If TypeOf entity Is ActionContext.ActionContext Then
+                For Each action In DirectCast(entity, ActionContext.ActionContext).Actions
+                    If CheckAvailability(entity, action, user) Then
+                        ret.Add(action)
                     End If
                 Next
+            Else
+                If AllActions.ContainsKey(entity.GetType) Then
+                    For Each t In _actionsForType(entity.GetType)
+                        Dim createInstance As IActionBase = CType(Activator.CreateInstance(t), IActionBase)
+                        If CheckAvailability(entity, createInstance, user) Then
+                            ret.Add(createInstance)
+                        End If
+                    Next
+                End If
             End If
+
+
             Return ret
         End Function
 
+
+
+
+        Private Shared Function CheckAvailability(ByVal entity As Object, ByVal createInstance As IActionBase, ByVal user As IPrincipal) As Boolean
+
+            If createInstance.IsAvailable(user, entity) Then
+                If TypeOf (createInstance) Is CommandBase Then
+                    CType(createInstance, CommandBase).SetInnerEntity(entity)
+                End If
+                If Not ActionSecurity.Current.UserCanRunThisAction(user, createInstance, If(TypeOf (entity) Is IProvideSecurityContext, DirectCast(entity, IProvideSecurityContext).Context, entity)) Then
+                    Return False
+                End If
+                Return True
+            End If
+            Return False
+        End Function
     End Class
 End Namespace
