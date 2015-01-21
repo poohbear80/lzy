@@ -64,7 +64,10 @@ Namespace CQRS
             Else
                 If AllActions.ContainsKey(entity.GetType) Then
                     For Each t In _actionsForType(entity.GetType)
+                        If GetType(CQRS.Query.QueryBase).IsAssignableFrom(t) Then Continue For 'We do not want quries in action list. 
+
                         Dim createInstance As IActionBase = CType(Activator.CreateInstance(t), IActionBase)
+
                         If CheckAvailability(entity, createInstance, user) Then
                             ret.Add(createInstance)
                         End If
