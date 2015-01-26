@@ -9,12 +9,12 @@ Namespace CQRS.ActionContext
                         If _AllMappings Is Nothing Then
                             Dim temp As New Dictionary(Of Type, List(Of ActionContext))
                             For Each ac In AllContexts
-                                For Each action In ac.Actions
+                                For Each action In ac.Value.Actions
                                     Dim key As Type = action.GetType
                                     If Not temp.ContainsKey(key) Then
                                         temp.Add(key, New List(Of ActionContext))
                                     End If
-                                    temp(key).Add(ac)
+                                    temp(key).Add(ac.Value)
                                 Next
                             Next
                             _AllMappings = temp
@@ -26,17 +26,17 @@ Namespace CQRS.ActionContext
         End Property
 
         Private Shared ReadOnly Padlock2 As New Object
-        Private Shared _AllContexts As List(Of ActionContext)
-        Public Shared ReadOnly Property AllContexts() As IEnumerable(Of ActionContext)
+        Private Shared _AllContexts As Dictionary(Of String, ActionContext)
+        Public Shared ReadOnly Property AllContexts() As IDictionary(Of String, ActionContext)
             Get
                 If _AllContexts Is Nothing Then
                     SyncLock Padlock2
                         If _AllContexts Is Nothing Then
-                            Dim temp As New List(Of ActionContext)
+                            Dim temp As New Dictionary(Of String, ActionContext)
                             Dim ac As ActionContext
                             For Each t In TypeValidation.FindAllClassesOfTypeInApplication(GetType(ActionContext))
                                 ac = DirectCast(Activator.CreateInstance(t), ActionContext)
-                                temp.Add(ac)
+                                temp.Add(ac.GetType.Name, ac)
                             Next
                             _AllContexts = temp
                         End If

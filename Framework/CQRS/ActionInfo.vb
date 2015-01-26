@@ -39,6 +39,18 @@ Namespace CQRS
         End Property
 
 
+        Public Shared Function AllActionsForType(ctxType As System.Type) As IEnumerable(Of IActionBase)
+            Dim ret As New List(Of IActionBase)
+            If AllActions.ContainsKey(ctxType) Then
+                For Each t In _actionsForType(ctxType)
+                    Dim createInstance As IActionBase = CType(Activator.CreateInstance(t), IActionBase)
+                    ret.Add(createInstance)
+                Next
+            End If
+            Return ret
+        End Function
+
+
         Public Shared Function GetAvailableActionsForType(user As IPrincipal, entityType As Type) As List(Of IActionBase)
             Dim ret As New List(Of IActionBase)
             If AllActions.ContainsKey(entityType) Then
