@@ -10,7 +10,7 @@ Namespace Logging
 
         Public Caller As String
         Public Message As String
-        Public User As String
+        Public UserName As String
         Public Level As Integer
         Public Thread As Integer
 

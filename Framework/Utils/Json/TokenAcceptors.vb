@@ -7,7 +7,7 @@ Namespace Utils.Json
 
         Public Shared BuilderFactory As Type = GetType(ObjectBuilder(Of ))
 
-        Public Shared Sub EatUntil(c As Char, nextChar As IReader)          
+        Public Shared Sub EatUntil(c As Char, nextChar As IReader)
             WhiteSpace(nextChar)
             If nextChar.Current <> c Then
                 Throw New MissingTokenException(c)
@@ -114,7 +114,7 @@ Namespace Utils.Json
                                                                             {GetType(Date), New DateParser},
                                                                             {GetType(Double), New DoubleParser}
                                                                         }
-        
+
         Private Shared Function CanFindValueSeparator(ByVal nextChar As IReader) As Boolean
             WhiteSpace(nextChar)
             If nextChar.Current = "," Then
@@ -125,9 +125,8 @@ Namespace Utils.Json
         End Function
     End Class
 
-    Friend Class UnknownAttributeException
+    <Serializable> Friend Class UnknownAttributeException
         Inherits Exception
-
         Public Sub New(ByVal name As String)
             MyBase.New(name)
         End Sub

@@ -13,7 +13,7 @@ Namespace Logging
             log.Caller = New StackFrame(1, True).GetMethod().Name
             log.Level = level
             log.Thread = Threading.Thread.CurrentThread.ManagedThreadId
-            log.User = Threading.Thread.CurrentPrincipal.Identity.Name
+            log.UserName = Threading.Thread.CurrentPrincipal.Identity.Name
             log.Message = log.Message
 
             If ClassFactory.ContainsKey(Of ILogger)() Then

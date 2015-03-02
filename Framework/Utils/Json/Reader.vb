@@ -22,7 +22,7 @@ Namespace Utils.Json
     End Class
 
 
-    Friend Class PropertyNotFoundException
+    <Serializable> Friend Class PropertyNotFoundException
         Inherits Exception
 
         Public Sub New(ByVal result As String)
@@ -30,12 +30,12 @@ Namespace Utils.Json
         End Sub
     End Class
 
-    Public Class UncompleteException
+    <Serializable> Public Class UncompleteException
         Inherits Exception
 
     End Class
 
-    Public Class MissingTokenException
+    <Serializable> Public Class MissingTokenException
         Inherits Exception
 
         Private ReadOnly _S As String
