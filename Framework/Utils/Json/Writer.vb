@@ -151,7 +151,7 @@ Namespace Utils.Json
     Public Class JSonConfig
 
         Public Function ObjectToString(value As Object) As String
-            Writer.ObjectToString(Me, value)
+            Writer.ObjectToString(Me, value)            
         End Function
 
 
