@@ -6,7 +6,8 @@ Namespace Runtime
         Implements IContext, IDisposable
 
 
-        Private ReadOnly _User As IPrincipal
+
+        Private _User As IPrincipal
         Private ReadOnly _Storage As ProxyStorage(Of String, Object)
         Private _Cm As Boolean
 
@@ -23,9 +24,7 @@ Namespace Runtime
 
         End Sub
 
-        Public Function CurrentUser() As IPrincipal Implements IContext.CurrentUser
-            Return _User
-        End Function
+    
 
         Public Function Storage() As Dictionary(Of String, Object) Implements IContext.Storage
             Return _Storage
@@ -36,7 +35,7 @@ Namespace Runtime
                 Return _Cm
             End Get
             Set(value As Boolean)
-                _Cm = Value
+                _Cm = value
             End Set
         End Property
 
@@ -71,7 +70,7 @@ Namespace Runtime
         End Sub
 #End Region
 
-        
+
 
         Public Shared Function WrapAndFire(toFire As Action) As ThreadStart
             Dim user = Runtime.Context.Current.CurrentUser  'Have to copy this from outside of the loop
@@ -85,5 +84,14 @@ Namespace Runtime
                    End Sub
 
         End Function
+
+        Public Property CurrentUser As IPrincipal Implements IContext.CurrentUser
+            Get
+                Return _User
+            End Get
+            Set(value As IPrincipal)
+                _User = value
+            End Set
+        End Property
     End Class
 End Namespace

@@ -4,6 +4,7 @@ Namespace Runtime
     Public Class TestContext
         Implements IContext
 
+
         Public Items As New Dictionary(Of String, Object)
         Private _Principal As IPrincipal
 
@@ -14,10 +15,7 @@ Namespace Runtime
             _Principal = p
         End Sub
 
-        Public Function CurrentUser() As IPrincipal Implements IContext.CurrentUser
-            Return _Principal
-        End Function
-
+        
         Public Function Storage() As Dictionary(Of String, Object) Implements IContext.Storage
             If Not Items.ContainsKey(Constants.StoreName) Then
                 Items.Add(Constants.StoreName, New Dictionary(Of String, Object))
@@ -31,5 +29,14 @@ Namespace Runtime
         End Sub
 
         Public Property ChickenMode As Boolean = False Implements IContext.ChickenMode
+
+        Public Property CurrentUser As IPrincipal Implements IContext.CurrentUser
+            Get
+                Return _Principal
+            End Get
+            Set(value As IPrincipal)
+                _Principal = value
+            End Set
+        End Property
     End Class
 End NameSpace

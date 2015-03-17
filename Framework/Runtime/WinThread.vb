@@ -9,9 +9,7 @@ Namespace Runtime
     Public Class WinThread
         Implements IContext
 
-        Public Function CurrentUser() As IPrincipal Implements IContext.CurrentUser
-            Return System.Threading.Thread.CurrentPrincipal
-        End Function
+
 
         Private ReadOnly PadLock As New Object
         Public Function Storage() As Dictionary(Of String, Object) Implements IContext.Storage
@@ -31,5 +29,14 @@ Namespace Runtime
         End Sub
 
         Public Property ChickenMode As Boolean = False Implements IContext.ChickenMode
+
+        Public Property CurrentUser As IPrincipal Implements IContext.CurrentUser
+            Get
+                Return System.Threading.Thread.CurrentPrincipal
+            End Get
+            Set(value As IPrincipal)
+                System.Threading.Thread.CurrentPrincipal = value
+            End Set
+        End Property
     End Class
 End Namespace
