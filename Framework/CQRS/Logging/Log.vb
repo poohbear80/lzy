@@ -27,18 +27,18 @@ Namespace CQRS.Logging
 
 
         Private Shared ReadOnly PadLock As New Object
-        Private Shared _writer As ILogWriter
+        Private Shared _writers As List(Of ILogWriter)
 
-        Public Shared ReadOnly Property Writer As ILogWriter
+        Public Shared ReadOnly Property Writers As List(Of ILogWriter)
             Get
-                If _writer Is Nothing Then
+                If _writers Is Nothing Then
                     SyncLock PadLock
-                        If _writer Is Nothing Then
-                            _writer = ClassFactory.GetTypeInstance(Of ILogWriter, DevNullWriter)()
+                        If _writers Is Nothing Then
+                            _writers = New List(Of ILogWriter)
                         End If
                     End SyncLock
                 End If
-                Return _writer
+                Return _writers
             End Get
         End Property
 
@@ -58,8 +58,10 @@ Namespace CQRS.Logging
                 End If
             End If
 
+            For Each w In Writers
+                w.WriteCommand(input)
+            Next
 
-            Writer.WriteCommand(input)
         End Sub
 
         Public Shared Sub [Event](ByVal e As IAmAnEvent)
@@ -73,12 +75,17 @@ Namespace CQRS.Logging
                 input.SourceCommand = e.CommandSource.Guid
             End If
 
-            Writer.WriteEvent(input)
+            For Each w In Writers
+
+                w.WriteEvent(input)
+            Next
         End Sub
 
         Public Shared Sub Query(query As Query.IAmAQuery)
             Dim input As New QueryInfo
-            Writer.WriteQuery(input)
+            For Each w In Writers
+                w.WriteQuery(input)
+            Next
         End Sub
 
 
@@ -91,7 +98,10 @@ Namespace CQRS.Logging
             input.Message = ex.Message
             input.Type = ex.GetType.FullName
             input.Params = action
-            Writer.WriteError(input)
+
+            For Each w In Writers
+                w.WriteError(input)
+            Next
 
         End Sub
 
