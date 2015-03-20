@@ -32,7 +32,6 @@ Namespace CQRS.Logging
         Public Shared ReadOnly Property Writer As ILogWriter
             Get
                 If _writer Is Nothing Then
-                    Debug.Print("Writer is nothing")
                     SyncLock PadLock
                         If _writer Is Nothing Then
                             _writer = ClassFactory.GetTypeInstance(Of ILogWriter, DevNullWriter)()
