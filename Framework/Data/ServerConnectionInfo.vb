@@ -3,8 +3,12 @@
     Public UserName As String
     Public Password As String
     Public Database As String
-    
+    Public Pooling As Boolean = True
+
     Private _Provider As IDataAccessProvider
+
+
+
     Public Overridable Function GetProvider() As IDataAccessProvider
         If _Provider Is Nothing Then
             _Provider = New SqlServer2
