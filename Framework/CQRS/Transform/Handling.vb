@@ -67,7 +67,7 @@ Namespace CQRS.Transform
             End If
         End Function
 
-        Private Shared Function TransformAndAddAction(ByVal action As IAmAnAction, ByVal transformer As ITransformEntityToDto, e As Object) As Object
+        Public Shared Function TransformAndAddAction(ByVal action As IAmAnAction, ByVal transformer As ITransformEntityToDto, e As Object) As Object
             Dim securityContext As Object
             If transformer Is Nothing Then Return Nothing
             If TypeOf (e) Is IProvideSecurityContext Then
@@ -77,7 +77,7 @@ Namespace CQRS.Transform
             End If
 
             If Not ActionSecurity.Current.EntityIsAvailableForUser(action.User, action, securityContext) Then Return Nothing
-            
+
             Dim transformEntity As Object = transformer.TransformEntity(e)
             If transformEntity Is Nothing Then Return Nothing
 
