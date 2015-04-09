@@ -22,6 +22,10 @@
             counter += 1
             Dim toFill = Activator.CreateInstance(listObjectType)
             LazyFramework.Data.FillData(reader, filler, toFill)
+            If TypeOf (toFill) Is EntityBase Then
+                DirectCast(toFill, EntityBase).FillResult = FillResultEnum.DataFound
+                DirectCast(toFill, EntityBase).Loaded = Now.Ticks
+            End If
             data.Value.Add(toFill)
         End While
 
