@@ -135,7 +135,7 @@
       <Project>{d72ca321-6426-4493-bcc5-961284f1c51a}</Project>
       <Name>LazyFramework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Framework\SqlServer\LazyFramework.MSSqlServer.vbproj">
+    <ProjectReference Include="..\SqlServer\LazyFramework.MSSqlServer.vbproj">
       <Project>{50ab965d-b3d0-4da4-bfd4-49ea2907fc0d}</Project>
       <Name>LazyFramework.MSSqlServer</Name>
     </ProjectReference>

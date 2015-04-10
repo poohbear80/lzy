@@ -38,6 +38,7 @@ Public Class DataProvider
 
 End Class
 
+<CLSCompliant(True)>
 Public Class ServerConnectionInfo
     Inherits Data.ServerConnectionInfo
 

@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LazyFramework.MSSqlServer", "Framework\SqlServer\LazyFramework.MSSqlServer.vbproj", "{50AB965D-B3D0-4DA4-BFD4-49EA2907FC0D}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LazyFramework.MSSqlServer", "SqlServer\LazyFramework.MSSqlServer.vbproj", "{50AB965D-B3D0-4DA4-BFD4-49EA2907FC0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
