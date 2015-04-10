@@ -3,8 +3,34 @@ Imports System.Runtime.CompilerServices
 Imports LazyFramework.CQRS.EventHandling
 Imports LazyFramework.Utils
 Imports System.Threading
+Imports LazyFramework.CQRS.Monitor
 
 Namespace CQRS.Query
+
+
+    Public Class QueryMonitorData
+        Implements IMonitorData
+        
+        Public Property HandlerName As String Implements IMonitorData.Name
+        Public ActionName As String
+
+        Public Sub New()
+            StartTime = Now.Ticks
+        End Sub
+
+        Public Params As Object
+
+        Public ReadOnly Property Took() As Long Implements IMonitorData.Took
+            Get
+                Return New TimeSpan(EndTime - StartTime).Milliseconds
+            End Get
+        End Property
+
+        Public Property EndTime As Long Implements IMonitorData.EndTime
+        Public Property StartTime As Long Implements IMonitorData.StartTime
+
+        Public Property User As String Implements IMonitorData.User
+    End Class
 
     <Extension> Public Module Extensions
 
@@ -15,7 +41,7 @@ Namespace CQRS.Query
         End Function
 
     End Module
-    
+
     Public Class Handling
 
         Private Shared ReadOnly PadLock As New Object
@@ -78,12 +104,13 @@ Namespace CQRS.Query
             'Standard queryhandling. 1->1 mapping
             If Handlers.ContainsKey(q.GetType) Then
                 Try
+                    q.HandlerStart()
                     If TypeOf (q) Is ActionBase Then
                         DirectCast(q, ActionBase).OnActionBegin()
                     End If
 
                     Dim invoke As Object = Handlers(q.GetType)(0).Invoke(Nothing, {q})
-                    q.ActionComplete()
+
                     EventHub.Publish(New QueryExecuted(q))
 
                     Dim transformResult As Object = Nothing
@@ -95,20 +122,34 @@ Namespace CQRS.Query
                         DirectCast(q, ActionBase).OnActionComplete()
                     End If
 
+                    q.ActionComplete()
 
+
+                    Dim info As Monitor.MonitorMaxTimeAttribute = CType(Attribute.GetCustomAttribute(q.GetType, GetType(Monitor.MonitorMaxTimeAttribute)), MonitorMaxTimeAttribute)
+                    If info Is Nothing OrElse New TimeSpan(q.EndTimeStamp - q.HandlerStartTimeStamp).Milliseconds >= info.MaxTimeInMs Then
+                        Dim mon As New QueryMonitorData
+
+                        mon.StartTime = q.HandlerStartTimeStamp
+                        mon.EndTime = q.EndTimeStamp
+                        mon.HandlerName = Handlers(q.GetType)(0).Name
+                        mon.ActionName = q.GetType().FullName
+                        mon.Params = q
+                        mon.User() = q.User.Identity.Name
+                        Monitor.Handling.AddToQueue(mon)
+                    End If
 
                     Return transformResult
-                    
+
                 Catch ex As TargetInvocationException
                     Logging.Log.Error(q, ex)
                     Throw ex.InnerException
+                Catch ex As AggregateException
+
                 Catch ex As Exception
                     Logging.Log.Error(q, ex)
                     Throw
-                Catch ex As AggregateException
-
                 End Try
-                
+
                 'Else
                 'If MultiHandlers.ContainsKey(q.GetType) Then
                 '    Dim handler = MultiHandlers(q.GetType)

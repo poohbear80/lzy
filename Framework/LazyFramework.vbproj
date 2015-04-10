@@ -90,7 +90,6 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Messaging" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
@@ -142,6 +141,7 @@
     <Compile Include="CQRS\Logging\EventInfo.vb" />
     <Compile Include="CQRS\Logging\ILogWriter.vb" />
     <Compile Include="CQRS\Logging\QueryInfo.vb" />
+    <Compile Include="CQRS\Monitor\MonitorAttribute.vb" />
     <Compile Include="CQRS\Transform\EntityTransformerProvider.vb" />
     <Compile Include="CQRS\HandlerNotFound.vb" />
     <Compile Include="CQRS\Command\Handling.vb" />
@@ -163,13 +163,12 @@
     <Compile Include="CQRS\Validation\ValidateActionBase.vb" />
     <Compile Include="CQRS\Validation\ValidationException.vb" />
     <Compile Include="Data\BaseLogEvent.vb" />
-    <Compile Include="Data\Data.vb" />
+    <Compile Include="Data\BulkCopyDecorator.vb" />
+    <Compile Include="Data\Store.vb" />
     <Compile Include="DataAccess\DataModificationPluginBase.vb" />
     <Compile Include="DataAccess\IDatareaderDecorator.vb" />
     <Compile Include="DataAccess\ParmeterInfoCollection.vb" />
     <Compile Include="DataAccess\PluginNotFoundException.vb" />
-    <Compile Include="DataAccess\SQLServerExperimental.vb" />
-    <Compile Include="DataAccess\SqlServerSp.vb" />
     <Compile Include="Data\DataFiller.vb" />
     <Compile Include="Data\DataLog.vb" />
     <Compile Include="Data\ExecutingReaderLogEvent.vb" />
@@ -177,7 +176,6 @@
     <Compile Include="Data\IDataAccessProvider.vb" />
     <Compile Include="Data\ListFiller.vb" />
     <Compile Include="Data\ServerConnectionInfo.vb" />
-    <Compile Include="Data\SqlServer2.vb" />
     <Compile Include="CQRS\EventHandling\DebugLogger.vb" />
     <Compile Include="CQRS\EventHandling\EventBase.vb" />
     <Compile Include="CQRS\EventHandling\EventHub.vb" />

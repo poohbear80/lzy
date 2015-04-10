@@ -1,5 +1,8 @@
-﻿Public Interface IDataAccessProvider
-    Function CreateCommand(cmd As CommandInfo) As IDbCommand
-    Function CreateConnection(connectionInfo As ServerConnectionInfo) As IDbConnection
-    Function CreateParameter() As IDbDataParameter
-End Interface
+﻿Namespace Data
+
+    Public Interface IDataAccessProvider
+        Function CreateCommand(cmd As CommandInfo) As IDbCommand
+        Function CreateConnection(connectionInfo As ServerConnectionInfo) As IDbConnection
+        Function CreateParameter() As IDbDataParameter
+    End Interface
+End Namespace

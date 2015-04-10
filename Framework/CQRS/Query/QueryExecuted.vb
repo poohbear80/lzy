@@ -1,4 +1,6 @@
-﻿Namespace CQRS.Query
+﻿Imports LazyFramework.Data
+
+Namespace CQRS.Query
     Public Class QueryExecuted
         Inherits BaseLogEvent
 
@@ -14,4 +16,4 @@
             End Get
         End Property
     End Class
-End NameSpace
+End Namespace

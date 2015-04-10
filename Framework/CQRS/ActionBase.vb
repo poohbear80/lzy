@@ -3,7 +3,8 @@
 Namespace CQRS
     Public MustInherit Class ActionBase
         Implements IAmAnAction
-        
+
+
         Private _User As IPrincipal
         Private ReadOnly _GUID As Guid
         Private ReadOnly _TimeStamp As Long
@@ -66,6 +67,15 @@ Namespace CQRS
         End Sub
         Public Overridable Sub OnActionComplete()
         End Sub
+
+        Private _hsts As Long
+        Public Sub HandlerStart() Implements IAmAnAction.HandlerStart
+            _hsts = Now.Ticks
+        End Sub
+
+        Public Function HandlerStartTimeStamp() As Long Implements IAmAnAction.HandlerStartTimeStamp
+            Return _hsts
+        End Function
     End Class
 
 

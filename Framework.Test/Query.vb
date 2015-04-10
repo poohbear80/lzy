@@ -2,31 +2,48 @@
 Imports NUnit.Framework
 Imports LazyFramework.CQRS.Transform
 
+Public Class DebugLogger
+    Implements CQRS.Monitor.IMonitorWriter
+
+
+    Public Sub Write(list As IEnumerable(Of Monitor.IMonitorData)) Implements Monitor.IMonitorWriter.Write
+        For Each e In list
+            Debug.Print(Now().TimeOfDay.ToString & ":" & Newtonsoft.Json.JsonConvert.SerializeObject(e))
+        Next
+    End Sub
+
+    Public Property IsSuspended As Boolean Implements Monitor.IMonitorWriter.IsSuspended
+End Class
+
 <TestFixture> Public Class Query
 
-    <TestFixtureSetUp> Public Sub First()
+    <SetUp> Public Sub First()
         LazyFramework.Runtime.Context.Current = New Runtime.WinThread
 
         LazyFramework.ClassFactory.Clear()
         LazyFramework.ClassFactory.SetTypeInstance(Of IActionSecurity)(New TestSecurity)
 
-        Debug.Print(Now.Ticks.ToString)
+        'Debug.Print(Now.Ticks.ToString)
 
+        LazyFramework.CQRS.Monitor.Handling.StartMonitoring()
+        Monitor.Logger.Loggers.Add(New DebugLogger)
     End Sub
 
     '<SetUp> Public Sub SetUp()
 
     'End Sub
 
-    '<TearDown> Public Sub TearDown()
-
-    'End Sub
+    <TearDown> Public Sub TearDown()
+            LazyFramework.CQRS.Monitor.Handling.StopMonitor
+    End Sub
 
     <Test> Public Sub QueryFlowIsCorrect()
         Dim q As New TestQuery With {.Id = 1}
-        Dim res = CQRS.Query.Handling.ExecuteQuery(q)
 
+        Dim res As Object
 
+        res = CQRS.Query.Handling.ExecuteQuery(q)
+        
         Assert.IsInstanceOf(Of QueryResultDto)(res)
 
     End Sub
@@ -55,9 +72,8 @@ Public Class ValidateTestQuery3
 
 End Class
 
-Public Class TestQuery
+<Monitor.MonitorMaxTime(0)> Public Class TestQuery
     Inherits CQRS.Query.QueryBase
-
 
     Public Id As Integer
 

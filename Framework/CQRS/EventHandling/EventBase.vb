@@ -5,15 +5,16 @@ Namespace CQRS.EventHandling
     Public Class EventBase
         Implements IAmAnEvent
 
+
         Private _guid As Guid
         Private _endTimestamp As Long
         Private _TimeStamp As Long
 
         Public Sub New()
-            _guid = Guid.NewGuid
+            _guid = System.Guid.NewGuid()
             _TimeStamp = Now.Ticks
         End Sub
-        
+
         Public Overridable ReadOnly Property RunAsync As Boolean Implements IAmAnEvent.RunAsync
             Get
                 Return False
@@ -56,6 +57,14 @@ Namespace CQRS.EventHandling
 
         Public Function User() As Security.Principal.IPrincipal Implements IAmAnAction.User
             Return Nothing
+        End Function
+
+        Private _hsts As Long
+        Public Sub HandlerStart() Implements IAmAnAction.HandlerStart
+            _hsts = Now.Ticks
+        End Sub
+        Public Function HandlerStartTimeStamp() As Long Implements IAmAnAction.HandlerStartTimeStamp
+            Return _hsts
         End Function
     End Class
 

@@ -1,6 +1,9 @@
 ﻿Imports LazyFramework.CQRS.EventHandling
 
-Public MustInherit Class BaseLogEvent
-    Inherits EventBase
+Namespace Data
 
-End Class
+    Public MustInherit Class BaseLogEvent
+        Inherits EventBase
+
+    End Class
+End Namespace
