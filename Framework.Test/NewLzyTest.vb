@@ -1,16 +1,6 @@
 ﻿Imports LazyFramework.Data
 Imports LazyFramework.Logging
 Imports NUnit.Framework
-Imports SqlServer
-
-'Public Class SqlConnectionInfoBuilder
-'    Implements IConnectionInfoBuilder
-
-'    Public Function Build(conStr As String) As ServerConnectionInfo Implements IConnectionInfoBuilder.Build
-'        Return New ServerConnectionInfo With {.UserName = "sa", .Password = "InfoTjenester88", .Database = "Hr", .Address = "13-testsql"}
-'    End Function
-'End Class
-
 
 <TestFixture> Public Class NewLzyTest
 

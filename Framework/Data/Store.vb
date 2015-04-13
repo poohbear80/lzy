@@ -21,6 +21,9 @@ Namespace Data
 #Region "Privates"
 
         Private Shared Sub ExecReader(Of T As New)(ByVal connectionInfo As ServerConnectionInfo, ByVal command As CommandInfo, data As FillStatus(Of T), readerOptions As CommandBehavior, handler As HandleReader(Of T), dataObjectType As Type)
+
+
+
             Dim provider = connectionInfo.GetProvider
             Using cmd = provider.CreateCommand(command)
                 FillParameters(provider, command, dataObjectType, data.Value, cmd)
@@ -44,7 +47,7 @@ Namespace Data
             Dim p As IDbDataParameter
 
             For Each pi As ParameterInfo In command.Parameters.Values
-                p = provider.CreateParameter
+                p = cmd.CreateParameter
                 p.DbType = pi.DbType
                 p.ParameterName = pi.Name
                 If pi.Size <> 0 Then
