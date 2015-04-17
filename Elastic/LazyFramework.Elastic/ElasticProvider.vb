@@ -13,16 +13,3 @@ Public Class Provider
 
     End Function
 End Class
-
-Public Class CommandTextGenerator
-
-
-    Public Shared Function Insert(template) As String
-
-    End Function
-
-    Public Shared Function Read() As String
-
-    End Function
-
-End Class
