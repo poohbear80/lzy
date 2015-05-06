@@ -8,7 +8,7 @@ Namespace CQRS.Logging
         Private Class DevNullWriter
             Implements ILogWriter
 
-            Public Sub WriteCommand(cmd As CommandInfo) Implements ILogWriter.WriteCommand
+            Public Sub WriteCommand(cmd As CommandInfo, orginalcommand As IAmACommand) Implements ILogWriter.WriteCommand
 
             End Sub
 
@@ -59,7 +59,7 @@ Namespace CQRS.Logging
             End If
 
             For Each w In Writers
-                w.WriteCommand(input)
+                w.WriteCommand(input, e)
             Next
 
         End Sub

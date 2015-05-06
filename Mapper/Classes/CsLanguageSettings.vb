@@ -19,6 +19,7 @@ Public Class CsLanguageSettings
         {"bigint", New ILanguageSettings.DataType With {.DbType = "Int64", .LanguageType = "int64"}},
         {"bit", New ILanguageSettings.DataType With {.DbType = "Boolean", .LanguageType = "bool"}},
         {"datetime", New ILanguageSettings.DataType With {.DbType = "DateTime", .LanguageType = "DateTime"}},
+        {"datetime2", New ILanguageSettings.DataType With {.DbType = "DateTime2", .LanguageType = "DateTime"}},
         {"float", New ILanguageSettings.DataType With {.DbType = "Decimal", .LanguageType = "double"}},
         {"decimal", New ILanguageSettings.DataType With {.DbType = "Currency", .LanguageType = "double"}},
         {"double", New ILanguageSettings.DataType With {.DbType = "Double", .LanguageType = "double"}},

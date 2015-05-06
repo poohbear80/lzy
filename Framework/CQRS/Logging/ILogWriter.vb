@@ -1,8 +1,10 @@
-﻿Namespace CQRS.Logging
+﻿Imports LazyFramework.CQRS.Command
+
+Namespace CQRS.Logging
     Public Interface ILogWriter
-        Sub WriteCommand(cmd As CommandInfo)
+        Sub WriteCommand(cmd As CommandInfo, orginalcommand As IAmACommand)
         Sub WriteEvent(cmd As EventInfo)
         Sub WriteQuery(cmd As QueryInfo)
         Sub WriteError(erroInfo As ErrorInfo)
     End Interface
-End NameSpace
+End Namespace

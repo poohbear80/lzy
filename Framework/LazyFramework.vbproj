@@ -163,6 +163,9 @@
     <Compile Include="CQRS\Validation\ValidateActionBase.vb" />
     <Compile Include="CQRS\Validation\ValidationException.vb" />
     <Compile Include="Data\BaseLogEvent.vb" />
+    <Compile Include="Data\DataModificationPluginBase.vb" />
+    <Compile Include="Data\DataModificationPluginContext.vb" />
+    <Compile Include="Data\ExceptionInPluginEvent.vb" />
     <Compile Include="Data\Store.vb" />
     <Compile Include="DataAccess\DataModificationPluginBase.vb" />
     <Compile Include="DataAccess\IDatareaderDecorator.vb" />

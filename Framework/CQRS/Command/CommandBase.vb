@@ -41,6 +41,10 @@ Namespace CQRS.Command
 
         <System.ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Never)>
         Public Function GetInnerEntity() As Object
+            If Not IsResolved Then
+                InnerEntity = ResolveEntity()
+                IsResolved = True
+            End If
             Return InnerEntity
         End Function
 
@@ -74,9 +78,7 @@ Namespace CQRS.Command
             SetUser(user)
             Return True
         End Function
-
-
-
+        
     End Class
 
     Public MustInherit Class CommandBase(Of TEntity)

@@ -3,60 +3,6 @@ Imports LazyFramework.CQRS.Command
 Imports LazyFramework.CQRS.Logging
 Imports NUnit.Framework
 
-'<TestFixture> Public Class CreateCustomerTest
-'    Private _Persistdata As Persistdata
-
-'    <SetUp> Sub SetUp()
-'        LazyFramework.Runtime.Context.Current = New LazyFramework.Runtime.WinThread
-'        LazyFramework.ClassFactory.LogToDebug = True
-'        LazyFramework.ClassFactory.Clear()
-
-'        _Persistdata = New Persistdata
-'        LazyFramework.ClassFactory.SetTypeInstance(Of ILogWriter)(_Persistdata)
-'        LazyFramework.ClassFactory.SetTypeInstance(Of CQRS.IActionSecurity, TestSecurity)()
-
-'        Debug.WriteLine(System.Threading.Thread.CurrentThread.ManagedThreadId)
-'    End Sub
-
-'    <Test> Public Sub Create()
-
-'        Dim c As New CreateCustomerCommand
-'        c.Id = Guid.NewGuid
-'        c.Name = "Gjermund"
-'        c.Address = "Kalnesveien 5"
-
-'        CQRS.Command.Handling.ExecuteCommand(c)
-
-'        Assert.AreEqual("Gjermund", CommandHandler.CustomerRepository(c.Id).Name)
-
-'        Debug.WriteLine(System.Threading.Thread.CurrentThread.ManagedThreadId)
-
-'        Dim c2 As New UpdateCustomerNameCommand
-'        c2.Id = c.Id
-'        c2.NewName = "Martin"
-
-'        CQRS.Command.Handling.ExecuteCommand(c2)
-
-'        Assert.AreEqual("Martin", CommandHandler.CustomerRepository(c.Id).Name)
-'        Assert.AreEqual(2, _Persistdata.EventList.Count)
-
-'        CommandHandler.CustomerRepository.Clear()
-
-'        Assert.Throws(Of KeyNotFoundException)(Sub() CommandHandler.CustomerRepository(c.Id).Name = "")
-
-'        Dim toRestore As New List(Of IAmACommand)
-'        toRestore.AddRange(_Persistdata.EventList)
-
-'        For Each restore In toRestore
-'            CQRS.Command.Handling.ExecuteCommand(restore)
-'        Next
-'        Assert.AreEqual("Martin", CommandHandler.CustomerRepository(c.Id).Name)
-
-'    End Sub
-
-'End Class
-
-
 Public Class CustomerCommandBase
     Inherits CommandBase(Of Customer)
     Public Id As Guid
@@ -170,7 +116,7 @@ End Class
 Public Class Persistdata
     Implements ILogWriter
 
-    Public Sub WriteCommand(cmd As LazyFramework.CQRS.Logging.CommandInfo) Implements ILogWriter.WriteCommand
+    Public Sub WriteCommand(cmd As LazyFramework.CQRS.Logging.CommandInfo, orginalcommand As IAmACommand) Implements ILogWriter.WriteCommand
         Debug.WriteLine(cmd.GetType.FullName)
     End Sub
 

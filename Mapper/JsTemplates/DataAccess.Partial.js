@@ -18,14 +18,14 @@ result.WriteLine("");
 if (identity.length) {
     result.StartBlock("Public Sub GetOne( ByRef o As Entities.{0}{1}) Implements I{0}DataAccess.GetOne", [data.TableName, "," + params.join(",")]);
     result.WriteLine("Dim dbc As New CommandInfo");
-    result.WriteLine("dbc.TypeOfCommand = CommandInfoCommandTypeEnum.Read")
+    result.WriteLine("dbc.TypeOfCommand = CommandInfoCommandTypeEnum.Read");
 
     _.each(primaryKey, function (e, i) {
         result.WriteFormatLine('dbc.Parameters.Add("{0}", DbType.{1},o.{0})', [e.Name, e.DbType]);
     });
 
     result.WriteFormatLine('dbc.CommandText = "select * from {0} where {1}"', [data.TableName, _.map(primaryKey, function (o) { return o.Name + "=@" + o.Name }).join(" and ")]);
-    result.WriteLine("Data.Exec(of Entities.{0} )(SourceName, dbc, o)", [data.TableName]);
+    result.WriteLine("Data.Store.Exec(of Entities.{0} )(SourceName, dbc, o)", [data.TableName]);
     result.EndBlock("End Sub");
     result.WriteLine("");
 
@@ -44,7 +44,7 @@ if (identity.length) {
         _.map(notIdentity, function (o) { return '[' + o.Name + '] = @' + o.Name }).join(','),
         _.map(primaryKey, function (o) { return o.Name + "=@" + o.Name }).join(" and ")]);
 
-    result.WriteLine("Data.Exec(of Entities.{0} )(SourceName, dbc, o)", [data.TableName]);
+    result.WriteLine("Data.Store.Exec(of Entities.{0} )(SourceName, dbc, o)", [data.TableName]);
     result.EndBlock("End Sub");
     result.WriteLine("");
 
@@ -60,7 +60,7 @@ if (identity.length) {
         _.map(primaryKey, function (o) { return o.Name + "=@" + o.Name }).join(" and ")
     ]);
 
-    result.WriteLine("Data.Exec(of Entities.{0} )(SourceName, dbc, o)", [data.TableName]);
+    result.WriteLine("Data.Store.Exec(of Entities.{0} )(SourceName, dbc, o)", [data.TableName]);
     result.EndBlock("End Sub");
 
 
@@ -73,7 +73,7 @@ result.StartBlock("Public Sub GetAll( ByRef o As Entities.{0}Collection) Impleme
 result.WriteLine("Dim dbc As New CommandInfo");
 result.WriteLine("dbc.TypeOfCommand = CommandInfoCommandTypeEnum.Read");
 result.WriteFormatLine('dbc.CommandText = "select * from {0}"', [data.TableName]);
-result.WriteLine("Data.Exec(of Entities.{0} )(SourceName, dbc, o)", [data.TableName]);
+result.WriteLine("Data.Store.Exec(of Entities.{0} )(SourceName, dbc, o)", [data.TableName]);
 result.EndBlock("End Sub");
 result.WriteLine("");
 
@@ -98,16 +98,15 @@ if (identity.length) {
 } else {
     result.WriteFormatLine('dbc.CommandText = "SET NOCOUNT ON insert into {0}({1}) values({2});"',
     [data.TableName,
-    _.map(notIdentity, function (o) { return '[' + o.Name + ']' }).join(','),
-    _.map(notIdentity, function (o) { return ' @' + o.Name }).join(',')]);
+    _.map(notIdentity, function (o) { return "[" + o.Name + "]" }).join(","),
+    _.map(notIdentity, function (o) { return " @" + o.Name }).join(",")]);
 }
-result.WriteLine("Data.Exec(of Entities.{0} )(SourceName, dbc, o)", [data.TableName]);
+result.WriteLine("Data.Store.Exec(of Entities.{0} )(SourceName, dbc, o)", [data.TableName]);
 result.EndBlock("End Sub");
 result.WriteLine("");
-
 
 result.WriteLine("");
 result.EndBlock("End Class");
 result.WriteLine("");
-result.EndBlock("End Namespace")
+result.EndBlock("End Namespace");
 result.WriteLine("");

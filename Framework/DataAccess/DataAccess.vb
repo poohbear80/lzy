@@ -408,6 +408,7 @@ Public Class ParameterInfo
             _Value = value
         End Set
     End Property
+    
 End Class
 
 Public Enum CommandInfoCommandTypeEnum As Integer

@@ -68,7 +68,7 @@ Public Class ColumnInfo
                     End If
                 Next
             Catch ex As Exception
-                Return Me.DefaultValue & " ble ikke funnet i LanguageSettings"
+                Return Me.DefaultValue & ":" & ex.Message
             End Try
 
             Return Me.DefaultValue & " ble ikke funnet i LanguageSettings"

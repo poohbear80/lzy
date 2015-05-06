@@ -199,6 +199,21 @@ Imports NUnit.Framework
 
     End Sub
 
+
+    <Test> Public Sub PluginIsFired()
+        Store.RegisterPlugin(Of TestPlugin)()
+        Dim cmd2 As New CommandInfo
+        cmd2.CommandText = "select * from Hrunit where id = @Id"
+        cmd2.TypeOfCommand = CommandInfoCommandTypeEnum.Create
+        cmd2.Parameters.Add("Id", DbType.Int32, 1)
+
+        Dim data As New DataObject
+        Store.Exec(Connection, cmd2, data)
+        
+        Assert.IsTrue(TestPlugin.IsCalled)
+
+    End Sub
+
 End Class
 
 
@@ -220,4 +235,21 @@ End Class
 Public Class Mail
     Property PersonId As Integer
     Property Address As String
+End Class
+
+
+Public Class TestPlugin
+    Inherits Data.DataModificationPluginBase
+
+    Public Shared IsCalled As Boolean = False
+
+    Public Overrides Sub Pre(context As DataModificationPluginContext)
+        IsCalled = True
+    End Sub
+
+    Public Overrides Sub Post(context As DataModificationPluginContext)
+        MyBase.Post(context)
+    End Sub
+    
+
 End Class

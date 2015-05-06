@@ -19,6 +19,7 @@ Public Class VbLanguageSettings
         {"bigint", New ILanguageSettings.DataType With {.DbType = "Int64", .LanguageType = "Int64"}},
         {"bit", New ILanguageSettings.DataType With {.DbType = "Boolean", .LanguageType = "Boolean"}},
         {"datetime", New ILanguageSettings.DataType With {.DbType = "Datetime", .LanguageType = "DateTime"}},
+        {"datetime2", New ILanguageSettings.DataType With {.DbType = "DateTime2", .LanguageType = "DateTime"}},
         {"float", New ILanguageSettings.DataType With {.DbType = "Decimal", .LanguageType = "Decimal"}},
         {"decimal", New ILanguageSettings.DataType With {.DbType = "Decimal", .LanguageType = "Decimal"}},
         {"double", New ILanguageSettings.DataType With {.DbType = "Double", .LanguageType = "Double"}},
@@ -37,7 +38,10 @@ Public Class VbLanguageSettings
         New DefaultValue With {.Match = New Regex(".*?(\d+).*"), .Replace = "${1}", .DbType = "int"},
         New DefaultValue With {.Match = New Regex(".*?([\d\.]+).*"), .Replace = "${1}D", .DbType = "decimal"},
         New DefaultValue With {.Match = New Regex("newid"), .Replace = "Guid.NewGuid()", .DbType = "guid"},
-        New DefaultValue With {.Match = New Regex("getdate"), .Replace = "DateTime.Now()", .DbType = "datetime"}
+        New DefaultValue With {.Match = New Regex("getdate"), .Replace = "DateTime.Now()", .DbType = "datetime"},
+        New DefaultValue With {.Match = New Regex("getdate\(\)"), .Replace = "DateTime.Now()", .DbType = "datetime"},
+        New DefaultValue With {.Match = New Regex("getdate"), .Replace = "DateTime.Now()", .DbType = "datetime2"},
+        New DefaultValue With {.Match = New Regex("getdate\(\)"), .Replace = "DateTime.Now()", .DbType = "datetime2"}
     } Implements ILanguageSettings.DefaultValues
 
     Public ReadOnly Property FileName As String

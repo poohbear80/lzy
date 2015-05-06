@@ -1,10 +1,17 @@
 ﻿Imports System.Reflection
+Imports System.Runtime.InteropServices
 Imports System.Text.RegularExpressions
 Imports LazyFramework.Logging
 Imports LazyFramework.Utils
 
 Namespace Data
     Public Class Store
+
+
+        Private Shared Plugins As New List(Of Type)
+        Public Shared Sub RegisterPlugin(Of T As DataModificationPluginBase)()
+            Plugins.Add(GetType(T))
+        End Sub
 
         Public Shared Sub Exec(Of T As New)(connectionInfo As ServerConnectionInfo, command As CommandInfo, data As List(Of T))
             ExecReader(Of List(Of T))(connectionInfo, command, New FillStatus(Of List(Of T))(data), CommandBehavior.SingleResult, AddressOf New ListFiller().FillList, GetType(T))
@@ -21,12 +28,13 @@ Namespace Data
 #Region "Privates"
 
         Private Shared Sub ExecReader(Of T As New)(ByVal connectionInfo As ServerConnectionInfo, ByVal command As CommandInfo, data As FillStatus(Of T), readerOptions As CommandBehavior, handler As HandleReader(Of T), dataObjectType As Type)
-
-
-
+            Dim pluginCollection As List(Of DataModificationPluginBase)
             Dim provider = connectionInfo.GetProvider
+
             Using cmd = provider.CreateCommand(command)
                 FillParameters(provider, command, dataObjectType, data.Value, cmd)
+
+                FirePlugin(pluginCollection, PluginExecutionPointEnum.Pre, connectionInfo, command, data.Value)
 
                 Using conn = provider.CreateConnection(connectionInfo)
                     cmd.Connection = conn
@@ -40,8 +48,37 @@ Namespace Data
                         handler(filler, reader, data)
                     End Using
                 End Using
+
+                FirePlugin(pluginCollection, PluginExecutionPointEnum.Post, connectionInfo, command, data.Value)
+
             End Using
         End Sub
+
+        Private Shared Sub FirePlugin(<Out> ByRef pluginCollection As List(Of DataModificationPluginBase), point As PluginExecutionPointEnum, connectionInfo As ServerConnectionInfo, command As CommandInfo, data As Object)
+            If (command.TypeOfCommand And (CommandInfoCommandTypeEnum.Create Or CommandInfoCommandTypeEnum.Delete Or CommandInfoCommandTypeEnum.Update)) <> 0 Then 'Only fire plugins for CUD operations
+
+                If pluginCollection Is Nothing Then
+                    pluginCollection = (From t In Plugins Select DirectCast(Activator.CreateInstance(t), DataModificationPluginBase)).ToList()
+                End If
+
+                For Each p In pluginCollection
+                    Try
+                        Dim dmCtx = New DataModificationPluginContext(connectionInfo, command, data)
+                        If point = PluginExecutionPointEnum.Pre Then
+                            p.Pre(dmCtx)
+                        ElseIf point = PluginExecutionPointEnum.Post Then
+                            p.Post(dmCtx)
+                        End If
+
+                    Catch ex As Exception
+                        'SWOLLOW
+                        CQRS.EventHandling.EventHub.Publish(New ExceptionInPluginEvent(point.ToString, ex))
+                    End Try
+                Next
+            End If
+        End Sub
+
+
 
         Private Shared Sub FillParameters(ByVal provider As IDataAccessProvider, ByVal command As CommandInfo, ByVal dataObjectType As Type, ByVal data As Object, ByVal cmd As IDbCommand)
             Dim p As IDbDataParameter
