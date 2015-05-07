@@ -1,5 +1,7 @@
-﻿Imports LazyFramework.Logging
+﻿Imports LazyFramework.Data
+Imports LazyFramework.Logging
 Imports NUnit.Framework
+Imports SqlServer
 
 'Public Class SqlConnectionInfoBuilder
 '    Implements IConnectionInfoBuilder
@@ -12,28 +14,25 @@ Imports NUnit.Framework
 
 <TestFixture> Public Class NewLzyTest
 
-    Public Shared Connection As New ServerConnectionInfo With {.Address = "13-testsql", .Database = "hr", .UserName = "sa", .Password = "supermann"}
+    Public Shared Connection As New MSSqlServer.ServerConnectionInfo With {.Address = "13-testsql", .Database = "hr", .UserName = "sa", .Password = "supermann"}
+
     Private _MemoryLogger As MemoryLogger
 
 
     <SetUp> Public Sub SetUp()
         Runtime.Context.Current = New Runtime.WinThread
         LazyFramework.ClassFactory.Clear()
-        LazyFramework.ClassFactory.SetTypeInstance(Of IDataAccessProvider)(New SqlServer2)
+
         Dim lazyFrameworkConfiguration As LazyFrameworkConfiguration = New LazyFrameworkConfiguration
         LazyFramework.ClassFactory.SetTypeInstance(Of ILazyFrameworkConfiguration)(lazyFrameworkConfiguration)
 
-        'LazyFramework.ClassFactory.SetTypeInstance(Of IConnectionInfoBuilder)(New SqlConnectionInfoBuilder)
-
         lazyFrameworkConfiguration.LogLevel = 100
         lazyFrameworkConfiguration.EnableTiming = True
-
-        lazyFrameworkConfiguration.Servers.Add(New ServerConfigElement() With {.Name = "SystemServer", .ConnectionString = "server=81.175.37.120;Database=[DBName];User ID=sa;Password=InfoTjenester88;"})
+        
 
         _MemoryLogger = New LazyFramework.Logging.MemoryLogger
         LazyFramework.ClassFactory.SetTypeInstance(Of LazyFramework.Logging.ILogger)(_MemoryLogger)
-
-
+        
     End Sub
 
     <TearDown> Public Sub Tear()
@@ -53,12 +52,9 @@ Imports NUnit.Framework
 
 
         Dim ret As New DataObject
-        ret.Id = 1
-        LazyFramework.Data.Exec(Connection, cmd, ret)
-
-        Assert.AreEqual(1, ret.Id)
-
-        Assert.AreEqual("Petter Ekrann", ret.Name)
+        ret.Id = 27
+        Store.Exec(Connection, cmd, ret)
+        Assert.AreEqual("Sigurd Brekkesen", ret.Name)
 
         Debug.Print(LazyFramework.Utils.ResponseThread.Current.Timer.Timings.Count.ToString)
         For Each t In LazyFramework.Utils.ResponseThread.Current.Timer.Timings
@@ -70,7 +66,7 @@ Imports NUnit.Framework
 
 
     <Test> Public Sub SelectMany()
-        
+
         Dim cmd As New CommandInfo
         cmd.CommandText = "select * from Hrunit"
         cmd.TypeOfCommand = CommandInfoCommandTypeEnum.Read
@@ -78,7 +74,7 @@ Imports NUnit.Framework
 
         Dim ret As New List(Of DataObject)
 
-        LazyFramework.Data.Exec(Connection, cmd, ret)
+        Store.Exec(Connection, cmd, ret)
 
         Assert.AreNotEqual(0, ret.Count)
         'Assert.AreEqual("Petter Ekrann", ret.Name)
@@ -92,13 +88,29 @@ Imports NUnit.Framework
 
         Dim ret As New DataObjectList
 
-        LazyFramework.Data.Exec(Connection, cmd, ret)
+        Store.Exec(Connection, cmd, ret)
 
         Assert.AreNotEqual(0, ret.Count)
     End Sub
 
 
-    
+    <Test> Public Sub ListWithObjectsOfEntityBaseGetCorrectFillStatus()
+        Dim cmd As New CommandInfo
+        cmd.CommandText = "select * from Hrunit"
+        cmd.TypeOfCommand = CommandInfoCommandTypeEnum.Read
+        cmd.Parameters.Add("Id", DbType.Int32, 1)
+
+        Dim ret As New DataObjectList
+
+        Store.Exec(Connection, cmd, ret)
+
+        Assert.AreNotEqual(0, ret.Count)
+        Assert.AreEqual(ret(0).FillResult, FillResultEnum.DataFound)
+
+
+    End Sub
+
+
 
     Public Class DataObjectList
         Inherits List(Of DataObject)
@@ -108,7 +120,7 @@ Imports NUnit.Framework
 
     <Test> Public Sub FillerIsReused()
 
-        LazyFramework.Data.Fillers.Clear()
+        Store.Fillers.Clear()
 
         'Hent mange
         Dim cmd As New CommandInfo
@@ -123,10 +135,10 @@ Imports NUnit.Framework
         cmd2.Parameters.Add("Id", DbType.Int32, 1)
 
         Dim data As New DataObject
-        LazyFramework.Data.Exec(Connection, cmd, ret)
-        LazyFramework.Data.Exec(Connection, cmd2, data)
+        Store.Exec(Connection, cmd, ret)
+        Store.Exec(Connection, cmd2, data)
 
-        Assert.AreEqual(1, LazyFramework.Data.Fillers.Count)
+        Assert.AreEqual(1, Store.Fillers.Count)
 
     End Sub
 
@@ -170,11 +182,11 @@ Imports NUnit.Framework
         Dim cmd2 As New CommandInfo
         cmd2.CommandText = "select * from Hrunit where id = @Id"
         cmd2.TypeOfCommand = CommandInfoCommandTypeEnum.Read
-        cmd2.Parameters.Add("Id", DbType.Int32, 1)
+        cmd2.Parameters.Add("Id", DbType.Int32, 27)
 
         Dim data As New FillStatus(Of DataObject)
 
-        LazyFramework.Data.Exec(Connection, cmd2, data)
+        Store.Exec(Connection, cmd2, data)
 
         Assert.AreEqual(FillResultEnum.DataFound, data.FillResult)
 
@@ -193,25 +205,26 @@ Imports NUnit.Framework
 
 
         Dim data As New DataObject
-        LazyFramework.Data.Exec(Connection, cmd2, data)
-        
+        Store.Exec(Connection, cmd2, data)
+
     End Sub
 
 End Class
 
 
 Public Class DataObject
+    Inherits EntityBase
 
+    
     Property Id As Integer
     Property Name As String
     Property Age As Integer
     Property BirthDay As DateTime
 
     Property Mail As List(Of Mail)
-
-
     Property IsSet As Boolean?
 
+    
 End Class
 
 Public Class Mail

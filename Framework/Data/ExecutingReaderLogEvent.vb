@@ -1,4 +1,10 @@
-﻿Public Class ExecutingReaderLogEvent
-    Inherits BaseLogEvent
+﻿
+Namespace Data
+    Public Class ExecutingReaderLogEvent
+        Inherits BaseLogEvent
 
-End Class
+    End Class
+
+
+
+End Namespace

@@ -1,4 +1,6 @@
-﻿Namespace CQRS
+﻿Imports LazyFramework.Data
+
+Namespace CQRS
     Public Class NoAccess
         Inherits BaseLogEvent
 

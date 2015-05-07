@@ -14,6 +14,9 @@ Namespace CQRS
         Function TimeStamp() As Long
         Function EndTimeStamp() As Long
         Sub ActionComplete()
+        Sub HandlerStart()
+        Function HandlerStartTimeStamp() As Long
+
 
     End Interface
 End Namespace

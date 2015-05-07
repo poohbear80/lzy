@@ -1,4 +1,6 @@
-﻿Namespace CQRS.Command
+﻿Imports LazyFramework.Data
+
+Namespace CQRS.Command
 
     Public MustInherit Class CommandLogEvent
         Inherits BaseLogEvent

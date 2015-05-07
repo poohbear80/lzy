@@ -23,7 +23,7 @@ Public MustInherit Class LazyBaseAggregate
     ''' <param name="propName"></param>
     ''' <param name="value"></param>
     ''' <remarks></remarks>
-    Protected Shared Sub SetDefaultValue(ByVal instance As LazyBaseClass, ByVal propName As String, ByVal value As Object)
+    <Obsolete> Protected Shared Sub SetDefaultValue(ByVal instance As LazyBaseClass, ByVal propName As String, ByVal value As Object)
         If instance Is Nothing Then Return
 
         'Is the value named 'PropName' changed by the system. If it's set we do not set the default value.
