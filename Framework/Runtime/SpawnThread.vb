@@ -13,7 +13,7 @@ Namespace Runtime
 
         Private myName As String
 
-        Public Sub New(ByVal user As IPrincipal, ByVal storage As Dictionary(Of String, Object), ByVal cm As Boolean)
+        Public Sub New(ByVal user As IPrincipal, ByVal storage As IDictionary(Of String, Object), ByVal cm As Boolean)
             _User = user
             _Storage = New ProxyStorage(Of String, Object)(storage)
             _Cm = cm
@@ -23,10 +23,9 @@ Namespace Runtime
         Public Sub ContextSet() Implements IContext.ContextSet
 
         End Sub
+        
 
-    
-
-        Public Function Storage() As Dictionary(Of String, Object) Implements IContext.Storage
+        Public Function Storage() As IDictionary(Of String, Object) Implements IContext.Storage
             Return _Storage
         End Function
 

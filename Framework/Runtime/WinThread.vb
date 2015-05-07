@@ -12,7 +12,7 @@ Namespace Runtime
 
 
         Private ReadOnly PadLock As New Object
-        Public Function Storage() As Dictionary(Of String, Object) Implements IContext.Storage
+        Public Function Storage() As IDictionary(Of String, Object) Implements IContext.Storage
             Dim ldss As LocalDataStoreSlot = Thread.GetNamedDataSlot(Constants.StoreName)
             If Thread.GetData(ldss) Is Nothing Then
                 SyncLock PadLock

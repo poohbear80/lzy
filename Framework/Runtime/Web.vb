@@ -6,7 +6,7 @@ Namespace Runtime
 
 
         
-        Public Function Storage() As Dictionary(Of String, Object) Implements IContext.Storage
+        Public Function Storage() As IDictionary(Of String, Object) Implements IContext.Storage
             If System.Web.HttpContext.Current.Items(Constants.StoreName) Is Nothing Then
                 System.Web.HttpContext.Current.Items(Constants.StoreName) = New Dictionary(Of String, Object)
             End If

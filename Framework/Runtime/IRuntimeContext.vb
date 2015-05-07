@@ -3,7 +3,7 @@
 Namespace Runtime
     Public Interface IContext
         Property CurrentUser() As IPrincipal
-        Function Storage() As Dictionary(Of String, Object)
+        Function Storage() As IDictionary(Of String, Object)
 
         Sub ContextSet()
         

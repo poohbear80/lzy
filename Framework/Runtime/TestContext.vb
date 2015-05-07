@@ -16,7 +16,7 @@ Namespace Runtime
         End Sub
 
         
-        Public Function Storage() As Dictionary(Of String, Object) Implements IContext.Storage
+        Public Function Storage() As IDictionary(Of String, Object) Implements IContext.Storage
             If Not Items.ContainsKey(Constants.StoreName) Then
                 Items.Add(Constants.StoreName, New Dictionary(Of String, Object))
             End If

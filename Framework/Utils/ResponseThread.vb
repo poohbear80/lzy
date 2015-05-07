@@ -126,7 +126,7 @@ Namespace Utils
             Return ThreadStore.ContainsKey(name)
         End Function
 
-        Private Shared Function ThreadStore() As Dictionary(Of String, Object)
+        Private Shared Function ThreadStore() As IDictionary(Of String, Object)
 
             If Runtime.Context.Current Is Nothing Then
                 Throw New ClassFactory.NotConfiguredException("Please set LazyFramework.Runtime.Context.Current to a valid context")
