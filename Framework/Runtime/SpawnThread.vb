@@ -17,7 +17,7 @@ Namespace Runtime
             _User = user
             _Storage = New ProxyStorage(Of String, Object)(storage)
             _Cm = cm
-            Context.OverrideContext = Me
+            Context.AddOverrideContext(Me)
         End Sub
 
         Public Sub ContextSet() Implements IContext.ContextSet
@@ -47,7 +47,7 @@ Namespace Runtime
             If Not Me.disposedValue Then
                 If disposing Then
                     ' TODO: dispose managed state (managed objects).
-                    Context.OverrideContext = Nothing
+                    Context.RemoveContext()
                 End If
                 ' TODO: free unmanaged resources (unmanaged objects) and override Finalize() below.
                 ' TODO: set large fields to null.
