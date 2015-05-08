@@ -24,7 +24,6 @@ Namespace Runtime
 
         End Sub
         
-
         Public Function Storage() As IDictionary(Of String, Object) Implements IContext.Storage
             Return _Storage
         End Function
