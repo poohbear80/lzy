@@ -9,33 +9,26 @@ Namespace Runtime
 
         Private _User As IPrincipal
         Private ReadOnly _Storage As ProxyStorage(Of String, Object)
-        Private _Cm As Boolean
 
         Private myName As String
 
         Public Sub New(ByVal user As IPrincipal, ByVal storage As IDictionary(Of String, Object), ByVal cm As Boolean)
             _User = user
             _Storage = New ProxyStorage(Of String, Object)(storage)
-            _Cm = cm
+            ChickenMode = cm
             Context.AddOverrideContext(Me)
         End Sub
 
         Public Sub ContextSet() Implements IContext.ContextSet
 
         End Sub
-        
+
         Public Function Storage() As IDictionary(Of String, Object) Implements IContext.Storage
             Return _Storage
         End Function
 
         Public Property ChickenMode As Boolean Implements IContext.ChickenMode
-            Get
-                Return _Cm
-            End Get
-            Set(value As Boolean)
-                _Cm = value
-            End Set
-        End Property
+
 
 #Region "IDisposable Support"
         Private disposedValue As Boolean ' To detect redundant calls

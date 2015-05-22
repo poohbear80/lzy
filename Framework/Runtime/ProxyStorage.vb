@@ -88,7 +88,10 @@ Namespace Runtime
 
         Public ReadOnly Property Values As ICollection(Of TValue) Implements IDictionary(Of TKey, TValue).Values
             Get
-
+                Dim ret As New List(Of TValue)
+                ret.AddRange(_myValues.Values)
+                ret.AddRange(_Origin.Values)
+                Return ret
             End Get
         End Property
 

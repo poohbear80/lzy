@@ -16,11 +16,10 @@ Namespace Runtime
                 _current = value
             End Set
         End Property
-
-
+        
         Private Shared ctxStore As New Dictionary(Of Integer, IContext)
         Public Shared Sub AddOverrideContext(ctx As IContext)
-            ctxStore(System.Threading.Thread.CurrentThread.ManagedThreadId) = ctx
+            ctxStore(Thread.CurrentThread.ManagedThreadId) = ctx
         End Sub
 
         Public Shared Sub RemoveContext()
