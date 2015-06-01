@@ -1,0 +1,3 @@
+[submodule "Framework/Utils/json"]
+	path = Framework/Utils/json
+	url = https://github.com/petterek/json.git
