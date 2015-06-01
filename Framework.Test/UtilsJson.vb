@@ -24,15 +24,15 @@ End Module
 
 
     <Test(Description:="Testing encoding of strings"),
-    TestCase("StandardText"),
-    TestCase("ÆØÅ{"),
-    TestCase("Some€"),
-    TestCase("with " & Chr(&H22) & " "),
-    TestCase("\\\///" & Chr(9)),
-    TestCase("--" & Chr(&HC), Description:="Formfeed"),
-    TestCase("--" & vbCrLf),
-    TestCase(Nothing)
-    > Public Sub TextIsWritten(input As String)
+        TestCase("StandardText"),
+        TestCase("ÆØÅ{"),
+        TestCase("Some€"),
+        TestCase("with " & Chr(&H22) & " "),
+        TestCase("\\\///" & Chr(9)),
+        TestCase("--" & Chr(&HC), Description:="Formfeed"),
+        TestCase("--" & vbCrLf),
+        TestCase(Nothing)
+        > Public Sub TextIsWritten(input As String)
 
         Dim value = New With {.ToTest = input, .test = input}
         Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(value), Writer.ObjectToString(value))
@@ -41,32 +41,32 @@ End Module
 
 
     <Test,
-    TestCase(1),
-    TestCase(123467854684),
-    TestCase(-1)> Public Sub IntegersIsWritten(input As Long)
+        TestCase(1),
+        TestCase(123467854684),
+        TestCase(-1)> Public Sub IntegersIsWritten(input As Long)
         Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(New With {.ToTest = input}), Writer.ObjectToString(New With {.ToTest = input}))
     End Sub
 
     <Test,
-    TestCase(1),
-    TestCase(1234),
-    TestCase(Nothing)> Public Sub NullableIntegers(input As Integer?)
+        TestCase(1),
+        TestCase(1234),
+        TestCase(Nothing)> Public Sub NullableIntegers(input As Integer?)
 
         Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(New With {.ToTest = input}), Writer.ObjectToString(New With {.ToTest = input}))
 
     End Sub
 
     <Test,
-    TestCase(1.123),
-    TestCase(684.7853),
-    TestCase(-1.45644)> Public Sub DoubleIsWritten(input As Double)
+        TestCase(1.123),
+        TestCase(684.7853),
+        TestCase(-1.45644)> Public Sub DoubleIsWritten(input As Double)
         Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(New With {.ToTest = input}), Writer.ObjectToString(New With {.ToTest = input}))
     End Sub
 
     <Test,
-    TestCase(1.123),
-    TestCase(684.7853),
-    TestCase(-1.45644)> Public Sub DoubleIsWritten(input As Decimal)
+        TestCase(1.123),
+        TestCase(684.7853),
+        TestCase(-1.45644)> Public Sub DoubleIsWritten(input As Decimal)
         Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(New With {.ToTest = input}), Writer.ObjectToString(New With {.ToTest = input}))
     End Sub
 
