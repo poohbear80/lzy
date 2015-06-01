@@ -94,7 +94,7 @@ End Module
         o.Addresse = "blbla"
         o.Name = "Mikael"
 
-        Assert.AreEqual("{""Addresse"":""blbla"",""Name"":""Mikael"",""Year"":0}", Writer.ObjectToString(o))
+        Assert.AreEqual("{""Addresse"":""blbla"",""Name"":""Mikael"",""Year"":0,""Scores"":null}", Writer.ObjectToString(o))
 
     End Sub
 
@@ -181,12 +181,51 @@ End Class
     End Sub
 
 
+    <Test> Public Sub ParseEmptyList()
+        Dim p = Reader.StringToObject(Of List(Of Person))("[]")
+        Assert.IsInstanceOf(Of List(Of Person))(p)
+        Assert.AreEqual(0, p.Count)
+    End Sub
+
+    <Test> Public Sub ParseListOfOneSimpleObject()
+        Dim p = Reader.StringToObject(Of List(Of Person))("[{""Navn"":""Petter"",""Speed"":  4.2,""Alder"":42  }]")
+        Assert.AreEqual("Petter", p(0).Navn)
+        Assert.AreEqual(4.2, p(0).Speed)
+    End Sub
+
+    <Test> Public Sub ParseListOfManySimpleObject()
+        Dim p = Reader.StringToObject(Of List(Of Person))("[{""Navn"":""Petter"",""Speed"":  4.2,""Alder"":42  },{""Navn"":""Gjermund"",""Speed"":  4.0,""Alder"":40  }]")
+        Assert.AreEqual("Gjermund", p(1).Navn)
+        Assert.AreEqual(4.0, p(1).Speed)
+    End Sub
+
+    <Test> Public Sub ParseListOfManyValueTypes()
+        Dim p = Reader.StringToObject(Of List(Of Integer))("[1,2,3]")
+        Assert.AreEqual(1, p(0))
+        Assert.AreEqual(2, p(1))
+    End Sub
+
+    <Test> Public Sub ParseListOfStrings()
+        Dim p = Reader.StringToObject(Of List(Of String))("[""1"",""2"",""3""]")
+        Assert.AreEqual("1", p(0))
+        Assert.AreEqual("2", p(1))
+    End Sub
+
+    <Test> Public Sub ParseListAsPartOfObject()
+        Dim p = Reader.StringToObject(Of Test)("{""Name"":""Petter"",""Scores"" : [""1"",""2"",""3""]}")
+        Assert.AreEqual("Petter", p.Name)
+        Assert.AreEqual("1", p.Scores(0))
+    End Sub
+
+
+
 
 End Class
 
 Public Class Test
     Public Name As String
     Public Year As Integer
+    Public Scores As List(Of String)
 End Class
 
 

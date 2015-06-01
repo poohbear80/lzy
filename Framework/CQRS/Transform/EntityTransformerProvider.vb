@@ -16,6 +16,9 @@ Namespace CQRS.Transform
                                     If t.BaseType.IsGenericType Then
                                         Dim key = t.BaseType.GetGenericArguments()(0)
                                         Dim value = Activator.CreateInstance(t)
+                                        If temp.ContainsKey(key) Then
+                                            Throw New TransformerFactoryForActionAllreadyExists(key, t, temp(key))
+                                        End If
                                         temp.Add(key, CType(value, ITransformerFactory))
                                     End If
                                 End If

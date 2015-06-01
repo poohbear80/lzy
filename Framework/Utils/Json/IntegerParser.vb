@@ -2,6 +2,9 @@ Namespace Utils.Json
     Friend Class IntegerParser
         Inherits Builder
 
+        Public Sub New()
+            MyBase.New(GetType(Integer))
+        End Sub
         Public Overrides Function Parse(nextChar As IReader) As Object
             TokenAcceptors.WhiteSpace(nextChar)
             While IsNumeric(nextChar.Peek)
@@ -11,4 +14,4 @@ Namespace Utils.Json
         End Function
 
     End Class
-End NameSpace
+End Namespace

@@ -19,11 +19,6 @@ Namespace Utils.Json
 
         Public Shared Function ObjectToString(o As Object) As String
             Return ObjectToString(New JSonConfig, o)
-            'Dim result = New StreamWriter(New MemoryStream, Text.Encoding.UTF8)
-            'ObjectToString(result, o)
-            'result.Flush()
-            'result.BaseStream.Position = 0
-            'Return New StreamReader(result.BaseStream).ReadToEnd
         End Function
 
         Public Shared Function ObjectToString(config As JSonConfig, o As Object) As String
@@ -39,7 +34,6 @@ Namespace Utils.Json
         End Function
 
         Private Shared Sub ObjectToString(result As StreamWriter, o As Object)
-
             If Formatters.ContainsKey(o.GetType) Then
                 Formatters(o.GetType)(result, o)
                 Return

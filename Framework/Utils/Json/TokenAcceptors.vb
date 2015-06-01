@@ -1,11 +1,13 @@
 Namespace Utils.Json
     Public Class TokenAcceptors
+        Public Const ListStart = "["c
+        Public Const ListEnd = "]"c
         Public Const ObjectStart = "{"c
         Public Const ObjectEnd = "}"c
         Public Const Qualifier = ":"c
         Public Const Separator = ","c
 
-        Public Shared BuilderFactory As Type = GetType(ObjectBuilder(Of ))
+        Public Shared BuilderFactory As Type = GetType(ObjectBuilder)
 
         Public Shared Sub EatUntil(c As Char, nextChar As IReader)
             WhiteSpace(nextChar)
@@ -85,17 +87,19 @@ Namespace Utils.Json
         Private Shared Sub CreateAttributeValue(ByVal nextChar As IReader, ByVal result As Object, ByVal name As String)
 
             Dim fInfo = result.GetType().GetField(name)
+            Dim value As Object
+
             If fInfo Is Nothing Then
                 Throw New UnknownAttributeException(name)
             End If
-            If fInfo.FieldType.IsValueType Or fInfo.FieldType Is GetType(String) Then
-                Dim builder = TypeParserMapper(fInfo.FieldType)
 
-                fInfo.SetValue(result, builder.Parse(nextChar))
+            If fInfo.FieldType.IsValueType Or fInfo.FieldType Is GetType(String) Then
+                value = TypeParserMapper(fInfo.FieldType).Parse(nextChar)
             Else
-                Dim b As Builder = CType(Activator.CreateInstance(BuilderFactory.MakeGenericType(fInfo.FieldType)), Builder)
-                fInfo.SetValue(result, b.Parse(nextChar))
+                value = Reader.StringToObject(nextChar, fInfo.FieldType)
             End If
+
+            fInfo.SetValue(result, value)
         End Sub
 
         Public Shared Sub BufferLegalCharacters(nextChar As IReader, leagal As String)
@@ -115,9 +119,9 @@ Namespace Utils.Json
                                                                             {GetType(Double), New DoubleParser}
                                                                         }
 
-        Private Shared Function CanFindValueSeparator(ByVal nextChar As IReader) As Boolean
+        Friend Shared Function CanFindValueSeparator(ByVal nextChar As IReader) As Boolean
             WhiteSpace(nextChar)
-            If nextChar.Current = "," Then
+            If nextChar.Current = TokenAcceptors.Separator Then
                 nextChar.Read()
                 Return True
             End If

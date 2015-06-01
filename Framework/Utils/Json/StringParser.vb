@@ -1,6 +1,9 @@
 Namespace Utils.Json
     Public Class StringParser
         Inherits Builder
+        Public Sub New()
+            MyBase.New(GetType(String))
+        End Sub
 
         Public Delegate Function TransformText(reader As IReader) As String
         Public Delegate Function Match(input As String) As Boolean

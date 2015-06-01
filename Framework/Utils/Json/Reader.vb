@@ -14,11 +14,26 @@ Namespace Utils.Json
 
         'Here we can add another function that accepts stream as parameter
         Public Shared Function StringToObject(Of T As New)(input As StreamReader) As T
-            Dim builder As New ObjectBuilder(Of T)
 
-            Return DirectCast(builder.Parse(New ReadStream(input)), T)
+            Return DirectCast(StringToObject(New ReadStream(input), GetType(T)), T)
 
         End Function
+
+        Friend Shared Function StringToObject(input As IReader, type As Type) As Object
+
+            Dim builder As Builder
+
+            If GetType(IList).IsAssignableFrom(type) Then
+                builder = New ArrayBuilder(type)
+            Else
+                builder = New ObjectBuilder(type)
+            End If
+
+            Return builder.Parse(input)
+        End Function
+
+
+
     End Class
 
 

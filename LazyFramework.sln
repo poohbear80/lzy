@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40302.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.22823.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LazyFramework", "Framework\LazyFramework.vbproj", "{D72CA321-6426-4493-BCC5-961284F1C51A}"
 EndProject
@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LazyFramework.MSSqlServer", "SqlServer\LazyFramework.MSSqlServer.vbproj", "{50AB965D-B3D0-4DA4-BFD4-49EA2907FC0D}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LazyFramework.Webcontrols", "..\oldLazy\FrameWork\LazyFramework.Webcontrols\LazyFramework.Webcontrols.vbproj", "{DC75B855-6640-4241-BA9F-7E8A40D521A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,12 +41,6 @@ Global
 		{50AB965D-B3D0-4DA4-BFD4-49EA2907FC0D}.DebugPersonalarkiv|Any CPU.Build.0 = Debug|Any CPU
 		{50AB965D-B3D0-4DA4-BFD4-49EA2907FC0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50AB965D-B3D0-4DA4-BFD4-49EA2907FC0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DC75B855-6640-4241-BA9F-7E8A40D521A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC75B855-6640-4241-BA9F-7E8A40D521A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DC75B855-6640-4241-BA9F-7E8A40D521A6}.DebugPersonalarkiv|Any CPU.ActiveCfg = DebugPersonalarkiv|Any CPU
-		{DC75B855-6640-4241-BA9F-7E8A40D521A6}.DebugPersonalarkiv|Any CPU.Build.0 = DebugPersonalarkiv|Any CPU
-		{DC75B855-6640-4241-BA9F-7E8A40D521A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DC75B855-6640-4241-BA9F-7E8A40D521A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

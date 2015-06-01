@@ -149,6 +149,7 @@
     <Compile Include="CQRS\Command\CommandHasBeenExecuted.vb" />
     <Compile Include="CQRS\Dto\ISupportActionList.vb" />
     <Compile Include="CQRS\Transform\Handling.vb" />
+    <Compile Include="CQRS\Transform\TransformerFactoryForActionAllreadyExists.vb" />
     <Compile Include="CQRS\Validation\Handling.vb" />
     <Compile Include="CQRS\Transform\ITransformEntityToDto.vb" />
     <Compile Include="CQRS\Transform\ITransformerFactory.vb" />
@@ -252,11 +253,13 @@
     <Compile Include="Utils\FindHandlers.vb" />
     <Compile Include="Utils\Helpers.vb" />
     <Compile Include="Utils\ILazyFrameworkConfiguration.vb" />
+    <Compile Include="Utils\Json\ArrayBuilder.vb" />
     <Compile Include="Utils\Json\Builder.vb" />
     <Compile Include="Utils\Json\DateParser.vb" />
     <Compile Include="Utils\Json\DoubleParser.vb" />
     <Compile Include="Utils\Json\IntegerParser.vb" />
     <Compile Include="Utils\Json\IReader.vb" />
+    <Compile Include="Utils\Json\NonGenericListIsNotSupportedException.vb" />
     <Compile Include="Utils\Json\ObjectBuilder.vb" />
     <Compile Include="Utils\Json\Reader.vb" />
     <Compile Include="Utils\Json\ReadStream.vb" />
