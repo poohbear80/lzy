@@ -108,6 +108,7 @@
     <Compile Include="ResponseThread.vb" />
     <Compile Include="SpawnThread.vb" />
     <Compile Include="TypeValidation.vb" />
+    <Compile Include="UtilsConfig.vb" />
     <Compile Include="UtilsJson.vb" />
     <Compile Include="ValidatorTest.vb" />
   </ItemGroup>
@@ -130,6 +131,9 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <None Include="SystemConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework\LazyFramework.vbproj">

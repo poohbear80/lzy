@@ -249,6 +249,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Utils\Config\Reader.vb" />
     <Compile Include="Utils\FileExtension.vb" />
     <Compile Include="Utils\FindHandlers.vb" />
     <Compile Include="Utils\Helpers.vb" />
