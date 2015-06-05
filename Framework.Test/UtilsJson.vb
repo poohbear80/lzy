@@ -139,6 +139,16 @@ End Module
         Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(toWrite), Writer.ObjectToString(toWrite))
 
     End Sub
+
+    <Test> Public Sub WriteValueTypeArray()
+
+        Dim toWrite = New With {.Values = {1, 2, 3, 4}}
+        Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(toWrite), Writer.ObjectToString(toWrite))
+
+
+    End Sub
+
+
 End Class
 
 
@@ -217,9 +227,29 @@ End Class
         Assert.AreEqual("1", p.Scores(0))
     End Sub
 
+    <Test> Public Sub ParseValueTypesIntoArray()
+        Dim p = Reader.StringToObject(Of TestWithIntArray)("{""Name"":""Petter"",""Scores"" : [1,2,3]}")
+        Assert.AreEqual(1, p.Scores(0))
+    End Sub
+
+    <Test> Public Sub ParseValueTypesDoubleIntoArray()
+        Dim p = Reader.StringToObject(Of TestWithDArray)("{""Name"":""Petter"",""Scores"" : [1.2,2.34,3.12]}")
+        Assert.AreEqual(1, p.Scores(0))
+    End Sub
 
 
+End Class
 
+Public Class TestWithDArray
+    Public Name As String
+    Public Year As Integer
+    Public Scores As Integer()
+End Class
+
+Public Class TestWithIntArray
+    Public Name As String
+    Public Year As Integer
+    Public Scores As Integer()
 End Class
 
 Public Class Test
