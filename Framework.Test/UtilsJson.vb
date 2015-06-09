@@ -234,7 +234,7 @@ End Class
 
     <Test> Public Sub ParseValueTypesDoubleIntoArray()
         Dim p = Reader.StringToObject(Of TestWithDArray)("{""Name"":""Petter"",""Scores"" : [1.2,2.34,3.12]}")
-        Assert.AreEqual(1, p.Scores(0))
+        Assert.AreEqual(1.2, p.Scores(0))
     End Sub
 
 
@@ -243,7 +243,7 @@ End Class
 Public Class TestWithDArray
     Public Name As String
     Public Year As Integer
-    Public Scores As Integer()
+    Public Scores As Double()
 End Class
 
 Public Class TestWithIntArray
