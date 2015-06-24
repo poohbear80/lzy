@@ -188,6 +188,7 @@
     <Compile Include="CQRS\EventHandling\IHandleEvent.vb" />
     <Compile Include="CQRS\EventHandling\IPublishEvent.vb" />
     <Compile Include="CQRS\EventHandling\PublishesEventOfTypeAttribute.vb" />
+    <Compile Include="Data\WillDisposeThoseForU.vb" />
     <Compile Include="Events\Events.vb" />
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="IDataAccess.vb" />

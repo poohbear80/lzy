@@ -14,7 +14,7 @@ Namespace Data
         End Sub
 
         Public Shared Sub Exec(Of T As New)(connectionInfo As ServerConnectionInfo, command As CommandInfo, data As List(Of T))
-            ExecReader(Of List(Of T))(connectionInfo, command, New FillStatus(Of List(Of T))(data), CommandBehavior.SingleResult, AddressOf New ListFiller().FillList, GetType(T))
+            ExecReader(connectionInfo, command, New FillStatus(Of List(Of T))(data), CommandBehavior.SingleResult, AddressOf New ListFiller().FillList, GetType(T))
         End Sub
 
         Public Shared Sub Exec(Of T As New)(connectionInfo As ServerConnectionInfo, command As CommandInfo, data As FillStatus(Of T))
@@ -22,10 +22,55 @@ Namespace Data
         End Sub
 
         Public Shared Sub Exec(connectionInfo As ServerConnectionInfo, command As CommandInfo, data As Object)
-            ExecReader(Of Object)(connectionInfo, command, New FillStatus(Of Object)(data), CommandBehavior.SingleResult Or CommandBehavior.SingleRow, AddressOf ReadOne, data.GetType)
+            ExecReader(connectionInfo, command, New FillStatus(Of Object)(data), CommandBehavior.SingleResult Or CommandBehavior.SingleRow, AddressOf ReadOne, data.GetType)
         End Sub
 
+        Public Shared Sub Exec(connectionInfo As ServerConnectionInfo, command As CommandInfo)
+            ExecReader(Of Object)(connectionInfo, command, New FillStatus(Of Object)(Nothing), CommandBehavior.SingleResult, Nothing, Nothing)
+        End Sub
+
+
+        Public Shared Sub GetStream(of T As {New,WillDisposeThoseForU})(connectionInfo As ServerConnectionInfo, command As CommandInfo, data As T)
+            ExecReaderWithStream(Of T)(connectionInfo,command,New FillStatus(Of T)(data),CommandBehavior.SingleResult Or CommandBehavior.SingleRow, AddressOf ReadOne(Of T), data.GetType)
+        End Sub
+
+        
+
 #Region "Privates"
+
+        Private Shared Sub ExecReaderWithStream(Of T As {New, WillDisposeThoseForU})(ByVal connectionInfo As ServerConnectionInfo, ByVal command As CommandInfo, data As FillStatus(Of T), readerOptions As CommandBehavior, handler As HandleReader(Of T), dataObjectType As Type)
+            Dim pluginCollection As List(Of DataModificationPluginBase)
+            Dim provider = connectionInfo.GetProvider
+
+            Dim cmd = provider.CreateCommand(command)
+            data.Value.DisposeThis(cmd)
+
+            FillParameters(provider, command, dataObjectType, data.Value, cmd)
+            FirePlugin(pluginCollection, PluginExecutionPointEnum.Pre, connectionInfo, command, data.Value)
+
+            Dim conn = provider.CreateConnection(connectionInfo)
+            data.Value.DisposeThis(conn)
+
+            cmd.Connection = conn
+            conn.Open()
+
+            Dim filler As FillObject = Nothing
+            Dim reader As IDataReader = Nothing
+
+            Dim timer = New InlineTimer(connectionInfo.Database & "-" & cmd.CommandText, ResponseThread.Current.Timer.Timings)
+            data.Value.DisposeThis(timer)
+            reader = cmd.ExecuteReader(readerOptions Or CommandBehavior.CloseConnection Or CommandBehavior.SequentialAccess)
+
+            If dataObjectType IsNot Nothing Then
+                filler = GetFiller(command, reader, dataObjectType)
+                handler(filler, reader, data)
+            End If
+
+            FirePlugin(pluginCollection, PluginExecutionPointEnum.Post, connectionInfo, command, data.Value)
+
+        End Sub
+
+
 
         Private Shared Sub ExecReader(Of T As New)(ByVal connectionInfo As ServerConnectionInfo, ByVal command As CommandInfo, data As FillStatus(Of T), readerOptions As CommandBehavior, handler As HandleReader(Of T), dataObjectType As Type)
             Dim pluginCollection As List(Of DataModificationPluginBase)
@@ -43,9 +88,11 @@ Namespace Data
                     Dim reader As IDataReader = Nothing
 
                     Using New InlineTimer(connectionInfo.Database & "-" & cmd.CommandText, ResponseThread.Current.Timer.Timings)
-                        reader = cmd.ExecuteReader(readerOptions Or CommandBehavior.CloseConnection)
-                        filler = GetFiller(command, reader, dataObjectType)
-                        handler(filler, reader, data)
+                        reader = cmd.ExecuteReader(readerOptions Or CommandBehavior.CloseConnection Or CommandBehavior.SequentialAccess)
+                        If dataObjectType IsNot Nothing Then
+                            filler = GetFiller(command, reader, dataObjectType)
+                            handler(filler, reader, data)
+                        End If
                     End Using
                 End Using
 

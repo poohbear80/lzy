@@ -18,11 +18,11 @@ Imports NUnit.Framework
 
         lazyFrameworkConfiguration.LogLevel = 100
         lazyFrameworkConfiguration.EnableTiming = True
-        
+
 
         _MemoryLogger = New LazyFramework.Logging.MemoryLogger
         LazyFramework.ClassFactory.SetTypeInstance(Of LazyFramework.Logging.ILogger)(_MemoryLogger)
-        
+
     End Sub
 
     <TearDown> Public Sub Tear()
@@ -209,18 +209,73 @@ Imports NUnit.Framework
 
         Dim data As New DataObject
         Store.Exec(Connection, cmd2, data)
-        
+
         Assert.IsTrue(TestPlugin.IsCalled)
 
     End Sub
 
+    <Test> Public Sub ExecCommandWithoutResult()
+
+        Dim cmd2 As New CommandInfo
+        cmd2.CommandText = "select * from Hrunit where id = @Id"
+        cmd2.TypeOfCommand = CommandInfoCommandTypeEnum.Update
+        cmd2.Parameters.Add("Id", DbType.Int32, 1)
+
+        Dim data As New DataObject
+
+        Assert.DoesNotThrow(Sub() Store.Exec(Connection, cmd2))
+
+
+
+    End Sub
+
+
+    <Test> Public Sub ProprtiesOfBaseClassIsFilledIfNotFOundOnInstanceClass
+
+        Dim cmd2 As New CommandInfo
+        cmd2.CommandText = "select * from Hrunit where id = @Id"
+        cmd2.TypeOfCommand = CommandInfoCommandTypeEnum.Read
+        cmd2.Parameters.Add("Id", DbType.Int32, 27)
+
+        Dim data As New InheritedDataObject
+
+         Store.Exec(Connection, cmd2,data)
+        Assert.IsNotNull(data.LastChanged)
+        Assert.AreEqual(27, data.Id)
+    End Sub
+
+
+    <Test> Public Sub ReadStreamFromTable()
+
+        Dim cmd2 As New CommandInfo
+        cmd2.CommandText = "select * from HrFile where id = @Id"
+        cmd2.TypeOfCommand = CommandInfoCommandTypeEnum.Read
+        cmd2.Parameters.Add("Id", DbType.Int32, 2375)
+
+        Using data As New StreamTo
+            Dim mem As New System.IO.MemoryStream
+            Store.GetStream(Of StreamTo)(Connection, cmd2, data)
+            Assert.Greater(data.FileSize, 0)
+            Assert.IsInstanceOf(Of System.IO.Stream)(data.FileData)
+            data.FileData.CopyTo(mem)
+            Assert.AreEqual(mem.Length, data.FileSize)
+        End Using
+
+    End Sub
+
+End Class
+
+Public Class StreamTo
+    Inherits Data.WillDisposeThoseForU
+    Public FileSize As Integer
+    Public FileData As System.IO.Stream
 End Class
 
 
 Public Class DataObject
     Inherits EntityBase
 
-    
+
     Property Id As Integer
     Property Name As String
     Property Age As Integer
@@ -229,7 +284,7 @@ Public Class DataObject
     Property Mail As List(Of Mail)
     Property IsSet As Boolean?
 
-    
+
 End Class
 
 Public Class Mail
@@ -250,6 +305,13 @@ Public Class TestPlugin
     Public Overrides Sub Post(context As DataModificationPluginContext)
         MyBase.Post(context)
     End Sub
-    
 
+
+End Class
+
+
+Public Class InheritedDataObject
+    Inherits DataObject
+
+    Public LastChanged As DateTime
 End Class
