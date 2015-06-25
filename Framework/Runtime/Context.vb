@@ -17,7 +17,21 @@ Namespace Runtime
             End Set
         End Property
         
-        Private Shared ctxStore As New Dictionary(Of Integer, IContext)
+        Private Shared PadLock As New Object
+        Private shared _ctxStore As Dictionary(Of Integer, IContext)
+        Private Shared ReadOnly Property CtxStore As  Dictionary(Of Integer, IContext)
+        Get
+            If _ctxStore Is Nothing Then
+                SyncLock PadLock
+                    If _ctxStore Is Nothing Then
+                        _ctxStore = New Dictionary(Of Integer, IContext)
+                    End If
+                End SyncLock
+            End If
+            Return _ctxStore
+        End Get
+        End Property
+
 
         Public Shared Sub AddOverrideContext(ctx As IContext)
             ctxStore(Thread.CurrentThread.ManagedThreadId) = ctx
