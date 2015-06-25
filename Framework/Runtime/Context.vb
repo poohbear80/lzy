@@ -18,16 +18,16 @@ Namespace Runtime
         End Property
         
         Private Shared ctxStore As New Dictionary(Of Integer, IContext)
+
         Public Shared Sub AddOverrideContext(ctx As IContext)
             ctxStore(Thread.CurrentThread.ManagedThreadId) = ctx
         End Sub
 
         Public Shared Sub RemoveContext()
-            ctxStore.Remove(Thread.CurrentThread.ManagedThreadId)
+            If ctxStore.ContainsKey(Thread.CurrentThread.ManagedThreadId) Then
+                ctxStore.Remove(Thread.CurrentThread.ManagedThreadId)
+            End If
         End Sub
-
-
-
 
 
     End Class
