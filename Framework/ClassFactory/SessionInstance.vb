@@ -38,21 +38,22 @@ Partial Class ClassFactory
         Public Sub New()
             Parent = ClassFactory.Session
             ClassFactory.Session = Me
+            _store = New Dictionary(Of Type, ITypeInfo)
         End Sub
 
-        Public Property Parent As SessionInstance
-        Private Property Store() As New Dictionary(Of Type, ITypeInfo)
+        Public Parent As SessionInstance
+        Private _store As Dictionary(Of Type, ITypeInfo)
 
 
         Public Function ContainsKey(Of TKey)() As Boolean
-            If Store.ContainsKey(GetType(TKey)) Then Return True
+            If _store.ContainsKey(GetType(TKey)) Then Return True
             If Parent IsNot Nothing Then Return Parent.ContainsKey(Of TKey)()
             Return False
         End Function
 
         Public Function ContainsKey(Of TKey)(name As String) As Boolean
-            If Store.ContainsKey(GetType(Dictionary(Of String, TKey))) Then
-                If CType(Store(GetType(Dictionary(Of String, TKey))).CurrentInstance, Dictionary(Of String, TKey)).ContainsKey(name) Then
+            If _store.ContainsKey(GetType(Dictionary(Of String, TKey))) Then
+                If CType(_store(GetType(Dictionary(Of String, TKey))).CurrentInstance, Dictionary(Of String, TKey)).ContainsKey(name) Then
                     Return True
                 End If
             End If
@@ -62,21 +63,21 @@ Partial Class ClassFactory
 
 
         Public Function GetInstance(key As Type) As ITypeInfo
-            If Store.ContainsKey(key) Then Return Store(key)
+            If _store.ContainsKey(key) Then Return _store(key)
             If Parent IsNot Nothing Then Return Parent.GetInstance(key)
             Throw New NotConfiguredException(key.ToString)
         End Function
 
         Public Function GetAll() As IEnumerable(Of ITypeInfo)
-            Return Store.Values
+            Return _store.Values
         End Function
 
         Public Sub SetInstance(key As Type, typeInfo As ITypeInfo)
-            Store(key) = typeInfo
+            _store(key) = typeInfo
         End Sub
 
         Public Function Remove(ByVal type As Type) As Boolean
-            Store.Remove(type)
+            _store.Remove(type)
         End Function
 
 #Region "IDisposable Support"
@@ -90,7 +91,7 @@ Partial Class ClassFactory
                     Complete()
                     ClassFactory.Session = Parent
 
-                    Store = Nothing
+                    _store = Nothing
                     ' TODO: dispose managed state (managed objects).
                 End If
 
