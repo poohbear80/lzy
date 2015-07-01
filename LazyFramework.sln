@@ -16,6 +16,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LazyFramework.MSSqlServer", "SqlServer\LazyFramework.MSSqlServer.vbproj", "{50AB965D-B3D0-4DA4-BFD4-49EA2907FC0D}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LazyMessage", "LazyMessage\LazyMessage.vbproj", "{EB217583-6769-4109-874B-7FD07AE9944B}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LazyMessage.MSMQ", "LazyMessage.MSMQ\LazyMessage.MSMQ.vbproj", "{2A86F622-594F-466B-BC03-956D1347DC36}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Sender", "MessageConsole\Sender\Sender.vbproj", "{7F60E909-1278-4DB2-99CF-347D5E4DD809}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Reciver", "MessageConsole\Reciver\Reciver.vbproj", "{4CC5254E-6F94-4675-9F8B-62D313854FEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,11 +49,37 @@ Global
 		{50AB965D-B3D0-4DA4-BFD4-49EA2907FC0D}.DebugPersonalarkiv|Any CPU.Build.0 = Debug|Any CPU
 		{50AB965D-B3D0-4DA4-BFD4-49EA2907FC0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50AB965D-B3D0-4DA4-BFD4-49EA2907FC0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB217583-6769-4109-874B-7FD07AE9944B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB217583-6769-4109-874B-7FD07AE9944B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB217583-6769-4109-874B-7FD07AE9944B}.DebugPersonalarkiv|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB217583-6769-4109-874B-7FD07AE9944B}.DebugPersonalarkiv|Any CPU.Build.0 = Debug|Any CPU
+		{EB217583-6769-4109-874B-7FD07AE9944B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB217583-6769-4109-874B-7FD07AE9944B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A86F622-594F-466B-BC03-956D1347DC36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A86F622-594F-466B-BC03-956D1347DC36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A86F622-594F-466B-BC03-956D1347DC36}.DebugPersonalarkiv|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A86F622-594F-466B-BC03-956D1347DC36}.DebugPersonalarkiv|Any CPU.Build.0 = Debug|Any CPU
+		{2A86F622-594F-466B-BC03-956D1347DC36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A86F622-594F-466B-BC03-956D1347DC36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F60E909-1278-4DB2-99CF-347D5E4DD809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F60E909-1278-4DB2-99CF-347D5E4DD809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F60E909-1278-4DB2-99CF-347D5E4DD809}.DebugPersonalarkiv|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F60E909-1278-4DB2-99CF-347D5E4DD809}.DebugPersonalarkiv|Any CPU.Build.0 = Debug|Any CPU
+		{7F60E909-1278-4DB2-99CF-347D5E4DD809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F60E909-1278-4DB2-99CF-347D5E4DD809}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CC5254E-6F94-4675-9F8B-62D313854FEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CC5254E-6F94-4675-9F8B-62D313854FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CC5254E-6F94-4675-9F8B-62D313854FEB}.DebugPersonalarkiv|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CC5254E-6F94-4675-9F8B-62D313854FEB}.DebugPersonalarkiv|Any CPU.Build.0 = Debug|Any CPU
+		{4CC5254E-6F94-4675-9F8B-62D313854FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CC5254E-6F94-4675-9F8B-62D313854FEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7244C152-0CAD-4A1F-B911-3BFECD923E1B} = {B6A318C8-C2A9-468B-886A-A8F0D37848D5}
+		{7F60E909-1278-4DB2-99CF-347D5E4DD809} = {B6A318C8-C2A9-468B-886A-A8F0D37848D5}
+		{4CC5254E-6F94-4675-9F8B-62D313854FEB} = {B6A318C8-C2A9-468B-886A-A8F0D37848D5}
 	EndGlobalSection
 EndGlobal

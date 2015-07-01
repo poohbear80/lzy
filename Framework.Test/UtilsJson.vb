@@ -144,9 +144,14 @@ End Module
 
         Dim toWrite = New With {.Values = {1, 2, 3, 4}}
         Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(toWrite), Writer.ObjectToString(toWrite))
-
-
     End Sub
+
+
+    <Test> public sub Serializeguid
+
+        Dim toWrite = New With {.g = New Guid("FE41254C-FFFC-4121-8345-7353C5D128DC")}
+        Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(toWrite), Writer.ObjectToString(toWrite))
+    End sub 
 
 
 End Class
@@ -236,9 +241,21 @@ End Class
         Dim p = Reader.StringToObject(Of TestWithDArray)("{""Name"":""Petter"",""Scores"" : [1.2,2.34,3.12]}")
         Assert.AreEqual(1.2, p.Scores(0))
     End Sub
+    
+    <test> Public Sub  Readguid()
+        Dim p = Reader.StringToObject(Of Holder(Of Guid))("{""Value"":""FE41254C-FFFC-4121-8345-7353C5D128DC""}")
+        Assert.AreEqual(New Guid("FE41254C-FFFC-4121-8345-7353C5D128DC"), p.Value)
 
+
+    End Sub
 
 End Class
+
+
+Public Class Holder(Of T)
+    Public Value As T
+End Class
+
 
 Public Class TestWithDArray
     Public Name As String
