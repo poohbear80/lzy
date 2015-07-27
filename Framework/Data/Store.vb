@@ -82,6 +82,7 @@ Namespace Data
                 FirePlugin(pluginCollection, PluginExecutionPointEnum.Pre, connectionInfo, command, data.Value)
 
                 Using conn = provider.CreateConnection(connectionInfo)
+                    
                     cmd.Connection = conn
                     conn.Open()
                     Dim filler As FillObject = Nothing
