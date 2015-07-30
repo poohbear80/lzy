@@ -3,10 +3,15 @@
     Public Class TimingInfos
         Inherits Dictionary(Of String, TimingInfo)
 
-        Public Overloads Sub Add(ti As TimingInfo)
+        Private padLock As New Object
 
+        Public Overloads Sub Add(ti As TimingInfo)
             If Not ContainsKey(ti.Key) Then
-                MyBase.Add(ti.Key, ti)
+                SyncLock padLock
+                    If Not ContainsKey(ti.Key) Then
+                        MyBase.Add(ti.Key, ti)
+                    End If
+                End SyncLock
             Else
                 For Each l In ti.List
                     Me(ti.Key).List.Add(l)

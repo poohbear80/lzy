@@ -121,6 +121,7 @@
     <Compile Include="ClassFactory\SessionNotCreatedException.vb" />
     <Compile Include="ClassFactory\TypeInfo.vb" />
     <Compile Include="CQRS\ActionBase.vb" />
+    <Compile Include="CQRS\ExecutionContext.vb" />
     <Compile Include="CQRS\ActionContext\ActionContext.vb" />
     <Compile Include="CQRS\ActionContext\Handling.vb" />
     <Compile Include="CQRS\ActionInfo.vb" />

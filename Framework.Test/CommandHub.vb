@@ -198,14 +198,7 @@ Public Class TestCommand
         Return "Name"
 
     End Function
-
-    Public Overrides Sub OnActionBegin()
-        MyBase.OnActionBegin()
-    End Sub
-
-    Public Overrides Sub OnActionComplete()
-        MyBase.OnActionComplete()
-    End Sub
+        
 
 End Class
 

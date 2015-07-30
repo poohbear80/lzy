@@ -10,7 +10,7 @@ Namespace CQRS.Query
 
     Public Class QueryMonitorData
         Implements IMonitorData
-        
+
         Public Property HandlerName As String Implements IMonitorData.Name
         Public ActionName As String
 
@@ -104,11 +104,12 @@ Namespace CQRS.Query
             'Standard queryhandling. 1->1 mapping
             If Handlers.ContainsKey(q.GetType) Then
                 Try
-                    q.HandlerStart()
-                    If TypeOf (q) Is ActionBase Then
-                        DirectCast(q, ActionBase).OnActionBegin()
+                    Dim ctx = ExecutionContext.GetContextForAction(q)
+                    If ctx IsNot Nothing Then
+                        ctx.StartSession(q)
                     End If
 
+                    q.HandlerStart()
                     Dim invoke As Object = Handlers(q.GetType)(0).Invoke(Nothing, {q})
 
                     EventHub.Publish(New QueryExecuted(q))
@@ -118,17 +119,19 @@ Namespace CQRS.Query
                         transformResult = CQRS.Transform.Handling.TransformResult(q, invoke)
                     End If
 
-                    If TypeOf (q) Is ActionBase Then
-                        DirectCast(q, ActionBase).OnActionComplete()
-                    End If
+                    'If TypeOf (q) Is ActionBase Then
+                    '    DirectCast(q, ActionBase).OnActionComplete()
+                    'End If
 
                     q.ActionComplete()
 
+                    If ctx IsNot Nothing Then
+                        ctx.EndSession
+                    End If
 
                     Dim info As Monitor.MonitorMaxTimeAttribute = CType(Attribute.GetCustomAttribute(q.GetType, GetType(Monitor.MonitorMaxTimeAttribute)), MonitorMaxTimeAttribute)
                     If info Is Nothing OrElse New TimeSpan(q.EndTimeStamp - q.HandlerStartTimeStamp).Milliseconds >= info.MaxTimeInMs Then
                         Dim mon As New QueryMonitorData
-
                         mon.StartTime = q.HandlerStartTimeStamp
                         mon.EndTime = q.EndTimeStamp
                         mon.HandlerName = Handlers(q.GetType)(0).Name
@@ -137,6 +140,8 @@ Namespace CQRS.Query
                         mon.User() = q.User.Identity.Name
                         Monitor.Handling.AddToQueue(mon)
                     End If
+
+                    
 
                     Return transformResult
 

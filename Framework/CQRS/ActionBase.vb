@@ -63,10 +63,10 @@ Namespace CQRS
         End Function
 
 
-        Public Overridable Sub OnActionBegin()
-        End Sub
-        Public Overridable Sub OnActionComplete()
-        End Sub
+        'Public Overridable Sub OnActionBegin()
+        'End Sub
+        'Public Overridable Sub OnActionComplete()
+        'End Sub
 
         Private _hsts As Long
         Public Sub HandlerStart() Implements IAmAnAction.HandlerStart
@@ -78,5 +78,8 @@ Namespace CQRS
         End Function
     End Class
 
+    
+
+    
 
 End Namespace

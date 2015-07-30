@@ -69,9 +69,9 @@ Namespace CQRS.Command
         Public Shared Sub ExecuteCommand(command As IAmACommand)
 
             If AllHandlers.ContainsKey(command.GetType) Then
-                If TypeOf (command) Is ActionBase Then
-                    DirectCast(command, ActionBase).OnActionBegin()
-                End If
+                'If TypeOf (command) Is ActionBase Then
+                '    DirectCast(command, ActionBase).OnActionBegin()
+                'End If
 
                 If TypeOf (command) Is CommandBase Then
                     If Not IsCommandAvailable(CType(command, CommandBase)) Then
@@ -93,9 +93,9 @@ Namespace CQRS.Command
                         command.SetResult(Transform.Handling.TransformResult(command, temp))
                     End If
 
-                    If TypeOf (command) Is ActionBase Then
-                        DirectCast(command, ActionBase).OnActionComplete()
-                    End If
+                    'If TypeOf (command) Is ActionBase Then
+                    '    DirectCast(command, ActionBase).OnActionComplete()
+                    'End If
 
                 Catch ex As TargetInvocationException
                     EventHub.Publish(New CommandFailureEvent(command))

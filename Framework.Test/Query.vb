@@ -1,6 +1,7 @@
 ﻿Imports LazyFramework.CQRS
 Imports NUnit.Framework
 Imports LazyFramework.CQRS.Transform
+Imports LazyFramework.Test
 
 Public Class DebugLogger
     Implements CQRS.Monitor.IMonitorWriter
@@ -34,7 +35,7 @@ End Class
     'End Sub
 
     <TearDown> Public Sub TearDown()
-            LazyFramework.CQRS.Monitor.Handling.StopMonitor
+        LazyFramework.CQRS.Monitor.Handling.StopMonitor
     End Sub
 
     <Test> Public Sub QueryFlowIsCorrect()
@@ -43,7 +44,7 @@ End Class
         Dim res As Object
 
         res = CQRS.Query.Handling.ExecuteQuery(q)
-        
+
         Assert.IsInstanceOf(Of QueryResultDto)(res)
 
     End Sub
@@ -58,7 +59,31 @@ End Class
 
     End Sub
 
+
+
+    <Test> Public Sub ContextSetupIsFound
+        Dim q As New TestQuery With {.Id = 1}
+        Dim res = CQRS.Query.Handling.ExecuteQuery(q)
+
+        Assert.AreEqual(100, q.Id)
+                
+
+    End Sub
 End Class
+
+
+Public Class TestQueryContext
+    Inherits LazyFramework.CQRS.ExecutionContext.Context(Of TestQuery)
+
+    Public Overrides Sub SetupCache(action As TestQuery)
+        MyBase.SetupCache(action)
+
+        action.Id = 100
+    End Sub
+
+End Class
+
+
 
 
 Public Class ValidateTestQuery
@@ -142,5 +167,7 @@ Friend Class Transformers
         Return ret
     End Function
 End Class
+
+
 
 
