@@ -4,6 +4,7 @@
         Inherits Dictionary(Of String, TimingInfo)
 
         Private padLock As New Object
+        Private padLock2 As New Object
 
         Public Overloads Sub Add(ti As TimingInfo)
             If Not ContainsKey(ti.Key) Then
@@ -14,19 +15,23 @@
                 End SyncLock
             Else
                 For Each l In ti.List
-                    Me(ti.Key).List.Add(l)
+                    SyncLock padLock2
+                        If Not Me(ti.Key).List.Contains(l)
+                            Me(ti.Key).List.Add(l)
+                        End If
+                    End SyncLock
                 Next
             End If
         End Sub
 
     End Class
-    
+
     Public Class Timing
-        
+
         Public Timings As New TimingInfos
 
         Public Property DoLog As Boolean = True
-        
+
     End Class
 
     Public Class InlineTimer
