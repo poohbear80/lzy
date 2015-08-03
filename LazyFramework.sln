@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LazyFramework", "Framework\LazyFramework.vbproj", "{D72CA321-6426-4493-BCC5-961284F1C51A}"
 EndProject
@@ -23,6 +23,8 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Sender", "MessageConsole\Sender\Sender.vbproj", "{7F60E909-1278-4DB2-99CF-347D5E4DD809}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Reciver", "MessageConsole\Reciver\Reciver.vbproj", "{4CC5254E-6F94-4675-9F8B-62D313854FEB}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LazyFramework.CQRS", "LazyFramework.CQRS\LazyFramework.CQRS.vbproj", "{478C54CA-00C8-4F36-B3C5-AE7291270F70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,12 @@ Global
 		{4CC5254E-6F94-4675-9F8B-62D313854FEB}.DebugPersonalarkiv|Any CPU.Build.0 = Debug|Any CPU
 		{4CC5254E-6F94-4675-9F8B-62D313854FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CC5254E-6F94-4675-9F8B-62D313854FEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{478C54CA-00C8-4F36-B3C5-AE7291270F70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{478C54CA-00C8-4F36-B3C5-AE7291270F70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{478C54CA-00C8-4F36-B3C5-AE7291270F70}.DebugPersonalarkiv|Any CPU.ActiveCfg = Debug|Any CPU
+		{478C54CA-00C8-4F36-B3C5-AE7291270F70}.DebugPersonalarkiv|Any CPU.Build.0 = Debug|Any CPU
+		{478C54CA-00C8-4F36-B3C5-AE7291270F70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{478C54CA-00C8-4F36-B3C5-AE7291270F70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

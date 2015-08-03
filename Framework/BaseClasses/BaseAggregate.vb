@@ -11,9 +11,6 @@ Public MustInherit Class LazyBaseAggregate
     ''' <value>The name of the db.</value>
     <Obsolete> Public MustOverride Property DbName() As String
 
-    Protected Sub Publish(e As IAmAnEvent)
-        EventHub.Publish(e)
-    End Sub
 
     ''' <summary>
     ''' Used to set a default value for an entity in this aggregate class.
