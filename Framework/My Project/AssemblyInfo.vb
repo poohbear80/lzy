@@ -12,7 +12,7 @@ Imports System.Resources
 <Assembly: AssemblyDescription("")> 
 <Assembly: AssemblyCompany("Infotjenester AS")> 
 <Assembly: AssemblyProduct("LazyFramework")> 
-<Assembly: AssemblyCopyright("Copyright © Info Tjenester AS 2007")> 
+<Assembly: AssemblyCopyright("Copyright © Info Tjenester AS 2015")> 
 <Assembly: AssemblyTrademark("")> 
 <Assembly: CLSCompliant(True)> 
 <Assembly: ComVisible(False)> 
@@ -31,7 +31,7 @@ Imports System.Resources
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("2010.4.0.0")> 
-<Assembly: AssemblyFileVersion("2010.4.0.0")> 
+<Assembly: AssemblyVersion("2.1.9999.*")> 
+<Assembly: AssemblyFileVersion("2.1.9999.0")> 
 
 

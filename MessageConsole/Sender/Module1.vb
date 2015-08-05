@@ -1,4 +1,4 @@
-﻿Imports LazyMessage
+﻿Imports LazyFramework.Message
 
 Module Module1
 
@@ -8,11 +8,11 @@ Module Module1
 
         m.Id = 1
         m.Message = "Dette er en teste."
-        
-        Dim mysender As New LazyMessage.Sender(New Config )
+
+        Dim mysender As New LazyFramework.Message.Sender(New Config)
 
 
-        mysender.SendMessage(New Guid("0DD42853-2E40-4C29-A88A-9578C5697B6E"),m)
+        mysender.SendMessage(New Guid("0DD42853-2E40-4C29-A88A-9578C5697B6E"), m)
 
     End Sub
 
@@ -21,7 +21,7 @@ End Module
 
 
 Public Class Config
-    Inherits LazyMessage.SenderConfig
+    Inherits LazyFramework.Message.SenderConfig
 
     Public Overrides ReadOnly Property SystemName As String
         Get

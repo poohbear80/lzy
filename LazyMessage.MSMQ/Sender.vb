@@ -1,8 +1,8 @@
 ﻿Imports System.Messaging
-Imports LazyMessage
+Imports LazyFramework.Message
 
 Public Class Sender
-    Implements LazyMessage.ISenderConnection
+    Implements ISenderConnection
 
     Private _messageQueue as MessageQueue = New Messaging.MessageQueue(".\private$\SystemMessage")
 

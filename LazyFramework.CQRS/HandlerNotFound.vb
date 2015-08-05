@@ -1,17 +1,18 @@
-﻿Imports LazyFramework.Data
+﻿Imports LazyFramework.CQRS.Logging
+Imports LazyFramework.Data
 
 
-    Public Class HandlerNotFound
-        Inherits BaseLogEvent
+Public Class HandlerNotFound
+    Inherits BaseLogEvent
 
-        Private ReadOnly _AmAnAction As IAmAnAction
-        Public Sub New(ByVal amAnAction As IAmAnAction)
-            _AmAnAction = amAnAction
-        End Sub
+    Private ReadOnly _AmAnAction As IAmAnAction
+    Public Sub New(ByVal amAnAction As IAmAnAction)
+        _AmAnAction = amAnAction
+    End Sub
 
-        Public ReadOnly Property AmAnAction As IAmAnAction
-            Get
-                Return _AmAnAction
-            End Get
-        End Property
-    End Class
+    Public ReadOnly Property AmAnAction As IAmAnAction
+        Get
+            Return _AmAnAction
+        End Get
+    End Property
+End Class

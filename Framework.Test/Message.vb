@@ -1,6 +1,6 @@
 ﻿Imports LazyFramework.CQRS
 Imports LazyFramework.CQRS.Command
-Imports LazyFramework.MessageHandling
+Imports LazyMessage.MessageHandling
 Imports NUnit.Framework
 
 <TestFixture> Public Class Message
@@ -12,7 +12,7 @@ Imports NUnit.Framework
 
         LazyFramework.ClassFactory.SetTypeInstance(Of IMessageHandling)(serializer)
         LazyFramework.ClassFactory.SetTypeInstance(Of IActionSecurity)(New TestSecurity)
-        
+
     End Sub
 
     <TearDown> Public Sub Tear()
@@ -88,11 +88,11 @@ Public Class MessageConcrete
         Return Newtonsoft.Json.JsonConvert.SerializeObject(data)
     End Function
 
-    Public Function DeSerialize(type As Type, data As String) As Object Implements IObjectSerializer.DeSerialize
+    Public Function DeSerialize(type As Type, data As String) As Object Implements IObjectSerializer.Deserialize
         Return Newtonsoft.Json.JsonConvert.DeserializeObject(data, type)
     End Function
 
-    Public Function DeSerialize(Of T)(ByVal msg As String) As T Implements IObjectSerializer.DeSerialize
+    Public Function DeSerialize(Of T)(ByVal msg As String) As T Implements IObjectSerializer.Deserialize
         Return Newtonsoft.Json.JsonConvert.DeserializeObject(Of T)(msg)
     End Function
 

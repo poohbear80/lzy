@@ -1,5 +1,4 @@
-﻿Imports LazyFramework.CQRS.EventHandling
-
+﻿
 Namespace Logging
     Public Class Logger
         Public Shared Property LogLevel As Integer = -1
@@ -20,7 +19,8 @@ Namespace Logging
                 ClassFactory.GetTypeInstance(Of ILogger).Log(log)
             End If
 
-            EventHub.Publish(log)
+
+            'EventHub.Publish(log)
         End Sub
     End Class
 End Namespace

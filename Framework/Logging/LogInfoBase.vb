@@ -2,7 +2,7 @@
 
 Namespace Logging
     Public Class LogInfoBase
-        Inherits EventBase
+        'Inherits EventBase
 
         Public Sub New(msg As String)
             Message = msg

@@ -1,4 +1,4 @@
-﻿Imports LazyFramework.Data
+﻿Imports LazyFramework.CQRS.Logging
 
 Namespace Command
 

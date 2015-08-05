@@ -1,4 +1,5 @@
 ﻿Imports System.Security.Principal
+Imports LazyFramework.CQRS.EventHandling
 
 Namespace Logging
     Public Class CommandInfo
@@ -12,4 +13,11 @@ Namespace Logging
         Public Data As Object
         Public EntityType As String
     End Class
-End NameSpace
+
+    Public MustInherit Class BaseLogEvent
+        Inherits EventBase
+
+    End Class
+End Namespace
+
+

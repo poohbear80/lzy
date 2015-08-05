@@ -2,7 +2,7 @@ Imports LazyFramework.CQRS.EventHandling
 
 Namespace Data
     Public Class ExceptionInPluginEvent
-        Inherits EventBase
+        'Inherits EventBase
 
         Public Sub New(pre As String, exception As Exception)
             Me.Pre = pre

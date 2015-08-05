@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>PEtter Ekrann</authors>
+    <owners>PEtter Ekrann</owners>
+    <description>CQRS framework. Command Query Transformation </description>
+    <language>en-US</language>
+    <projectUrl>https://github.com/petterek/lzy</projectUrl>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <tags>CQRS</tags>
+    <dependencies>
+      <group>
+        <dependency id="LazyFramework" version="[2,3)" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\$configuration$\$id$.pdb" target="lib\net45\" />
+  </files>
+</package>

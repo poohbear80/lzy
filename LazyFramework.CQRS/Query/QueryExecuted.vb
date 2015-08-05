@@ -1,4 +1,5 @@
-﻿Imports LazyFramework.Data
+﻿Imports LazyFramework.CQRS.Logging
+Imports LazyFramework.Data
 
 Namespace Query
     Public Class QueryExecuted

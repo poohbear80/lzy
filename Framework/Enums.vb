@@ -1,7 +1,4 @@
-﻿
-
-
-''' <summary>
+﻿''' <summary>
 ''' An enum of possible returnvalues from then dataaccesslayer
 ''' </summary>
 ''' <remarks></remarks>

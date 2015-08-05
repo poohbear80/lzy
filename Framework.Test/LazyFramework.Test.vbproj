@@ -10,7 +10,7 @@
     <AssemblyName>LazyFramework.Test</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -84,7 +84,6 @@
     <Compile Include="CreateCustomer.vb" />
     <Compile Include="FileExtensionTest.vb" />
     <Compile Include="Helpers.vb" />
-    <Compile Include="Message.vb" />
     <Compile Include="MultiThread.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -143,6 +142,10 @@
     <ProjectReference Include="..\LazyFramework.CQRS\LazyFramework.CQRS.vbproj">
       <Project>{478c54ca-00c8-4f36-b3c5-ae7291270f70}</Project>
       <Name>LazyFramework.CQRS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LazyMessage\LazyFramework.Message.vbproj">
+      <Project>{eb217583-6769-4109-874b-7fd07ae9944b}</Project>
+      <Name>LazyFramework.Message</Name>
     </ProjectReference>
     <ProjectReference Include="..\SqlServer\LazyFramework.MSSqlServer.vbproj">
       <Project>{50ab965d-b3d0-4da4-bfd4-49ea2907fc0d}</Project>

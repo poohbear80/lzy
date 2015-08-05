@@ -1,4 +1,6 @@
-﻿Namespace EventHandling
+﻿Imports LazyFramework.CQRS.Command
+
+Namespace EventHandling
     Public Class EventBase
         Implements IAmAnEvent
 

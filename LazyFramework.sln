@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LazyFramework.MSSqlServer", "SqlServer\LazyFramework.MSSqlServer.vbproj", "{50AB965D-B3D0-4DA4-BFD4-49EA2907FC0D}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LazyMessage", "LazyMessage\LazyMessage.vbproj", "{EB217583-6769-4109-874B-7FD07AE9944B}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LazyFramework.Message", "LazyMessage\LazyFramework.Message.vbproj", "{EB217583-6769-4109-874B-7FD07AE9944B}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LazyMessage.MSMQ", "LazyMessage.MSMQ\LazyMessage.MSMQ.vbproj", "{2A86F622-594F-466B-BC03-956D1347DC36}"
 EndProject

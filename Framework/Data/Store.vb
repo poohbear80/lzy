@@ -120,7 +120,7 @@ Namespace Data
 
                     Catch ex As Exception
                         'SWOLLOW
-                        EventHandling.EventHub.Publish(New ExceptionInPluginEvent(point.ToString, ex))
+                        'EventHandling.EventHub.Publish(New ExceptionInPluginEvent(point.ToString, ex))
                     End Try
                 Next
             End If

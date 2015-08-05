@@ -104,15 +104,18 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="Sender.nuspec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\LazyMessage.MSMQ\LazyMessage.MSMQ.vbproj">
       <Project>{2a86f622-594f-466b-bc03-956d1347dc36}</Project>
       <Name>LazyMessage.MSMQ</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\LazyMessage\LazyMessage.vbproj">
+    <ProjectReference Include="..\..\LazyMessage\LazyFramework.Message.vbproj">
       <Project>{eb217583-6769-4109-874b-7fd07ae9944b}</Project>
-      <Name>LazyMessage</Name>
+      <Name>LazyFramework.Message</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

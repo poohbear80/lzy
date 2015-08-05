@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{EB217583-6769-4109-874B-7FD07AE9944B}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>LazyMessage</RootNamespace>
-    <AssemblyName>LazyMessage</AssemblyName>
+    <RootNamespace>LazyFramework.Message</RootNamespace>
+    <AssemblyName>LazyFramework.Message</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
@@ -18,7 +18,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>LazyMessage.xml</DocumentationFile>
+    <DocumentationFile>LazyFramework.Message.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -27,7 +27,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>LazyMessage.xml</DocumentationFile>
+    <DocumentationFile>LazyFramework.Message.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -69,6 +69,15 @@
     <Compile Include="Envelope.vb" />
     <Compile Include="ISenderConnection.vb" />
     <Compile Include="IReciveConnection.vb" />
+    <Compile Include="MessageHandling\IAmAMessage.vb" />
+    <Compile Include="MessageHandling\IDispatchMessage.vb" />
+    <Compile Include="MessageHandling\IMessageHandling.vb" />
+    <Compile Include="MessageHandling\INameMapping.vb" />
+    <Compile Include="MessageHandling\IObjectSerializer.vb" />
+    <Compile Include="MessageHandling\ITransportLayer.vb" />
+    <Compile Include="MessageHandling\MessageEnvelope.vb" />
+    <Compile Include="MessageHandling\Reciver.vb" />
+    <Compile Include="MessageHandling\Sender.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
