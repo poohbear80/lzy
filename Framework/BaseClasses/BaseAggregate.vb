@@ -4,7 +4,7 @@
 ''' A base class for aggregated functionallity. 
 ''' </summary>
 Public MustInherit Class LazyBaseAggregate
-    
+
     ''' <summary>
     ''' Gets or sets the name of the db.
     ''' </summary>

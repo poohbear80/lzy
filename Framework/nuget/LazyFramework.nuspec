@@ -5,7 +5,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">  
   <metadata>
     <id>$id$</id>
-    <title>Your got framework for easy application developemnt</title>
+    <title>Your goto framework for easy application developemnt</title>
     <version>$version$</version>
     <authors>Petter Ekrann</authors>
     <owners>PEtter Ekrann</owners>
@@ -17,6 +17,8 @@
     <tags>ORM Framework Development</tags>
   </metadata>
   <files>
+    <file src="..\Mapper\bin\Release\lzy.exe" target="tools"/>
+    <file src="nuget\readme.txt"  />
     <file src="bin\$configuration$\$id$.pdb" target="lib\net45\" />
   </files>
 </package>

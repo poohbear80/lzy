@@ -39,6 +39,11 @@ End Module
 
     End Sub
 
+    <Test> Public Sub BooleanIsWritten()
+        Dim o = New With {.ThisIsTrue = true,.ThisIsFalse = False}
+        Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(o), Writer.ObjectToString(o))
+    End Sub
+
 
     <Test,
         TestCase(1),
@@ -125,8 +130,8 @@ End Module
         o.StartDate = New Date(1999, 6, 1)
         o.EndDate = New Date(2000, 6, 1)
 
-        Assert.AreEqual("{""StartDate"":01.06.1999 00:00:00,""EndDate"":01.06.2000 00:00:00}", Writer.ObjectToString(o))
-
+        'Assert.AreEqual("{""StartDate"":01.06.1999 00:00:00,""EndDate"":01.06.2000 00:00:00}", Writer.ObjectToString(o))
+        Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(o), Writer.ObjectToString(o))
     End Sub
 
     <Test> Public Sub StringArray()

@@ -1,20 +1,15 @@
-﻿Imports System.Web
-Imports System.Threading
-Imports System.ServiceModel
-
-Namespace Utils
+﻿Namespace Utils
 
     Public Class ResponseThread
-        Private ReadOnly _AllMessages As New ThreadMessageCollection
+        Private ReadOnly _allMessages As New ThreadMessageCollection
 
         Public Sub New()
-            _Logger = New Logging.Logger
             If LazyFrameworkConfiguration.Current IsNot Nothing Then
                 Timer.DoLog = LazyFrameworkConfiguration.Current.EnableTiming
-                Logging.Logger.LogLevel = LazyFrameworkConfiguration.Current.LogLevel
+                'Logging.Logger.LogLevel = LazyFrameworkConfiguration.Current.LogLevel
             Else
                 Timer.DoLog = False
-                Logging.Logger.LogLevel = 0
+                'Logging.Logger.LogLevel = 0
             End If
         End Sub
 
@@ -68,12 +63,12 @@ Namespace Utils
             End Get
         End Property
 
-        Private _Logger As Logging.Logger
-        Public ReadOnly Property Logger As Logging.Logger
-            Get
-                Return _Logger
-            End Get
-        End Property
+        'Private _Logger As Logging.Logger
+        'Public ReadOnly Property Logger As Logging.Logger
+        '    Get
+        '        Return _Logger
+        '    End Get
+        'End Property
 
 
         Public Sub Clear()

@@ -10,7 +10,8 @@
     <AssemblyName>LazyFramework.CQRS</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -74,7 +75,6 @@
     <Compile Include="ActionSecurityAuthorizationFaildException.vb" />
     <Compile Include="ActionValidationBaseException.vb" />
     <Compile Include="Command\CommandBase.vb" />
-    <Compile Include="Command\CommandHasBeenExecuted.vb" />
     <Compile Include="Command\ExpectsEvent.vb" />
     <Compile Include="Command\Handling.vb" />
     <Compile Include="Command\IAmACommand.vb" />
@@ -82,14 +82,6 @@
     <Compile Include="Dto\DtoBase.vb" />
     <Compile Include="Dto\IActionDescriptor.vb" />
     <Compile Include="Dto\ISupportActionList.vb" />
-    <Compile Include="EventHandling\DebugLogger.vb" />
-    <Compile Include="EventHandling\EventBase.vb" />
-    <Compile Include="EventHandling\EventHub.vb" />
-    <Compile Include="EventHandling\IAmAnEvent.vb" />
-    <Compile Include="EventHandling\IDoEventLogging.vb" />
-    <Compile Include="EventHandling\IHandleEvent.vb" />
-    <Compile Include="EventHandling\IPublishEvent.vb" />
-    <Compile Include="EventHandling\PublishesEventOfTypeAttribute.vb" />
     <Compile Include="ExecutionContext.vb" />
     <Compile Include="HandlerNotFound.vb" />
     <Compile Include="IActionBase.vb" />
@@ -98,8 +90,6 @@
     <Compile Include="IProvideSecurityContext.vb" />
     <Compile Include="Logging\CommandInfo.vb" />
     <Compile Include="Logging\ErrorInfo.vb" />
-    <Compile Include="Logging\EventInfo.vb" />
-    <Compile Include="Logging\ILogWriter.vb" />
     <Compile Include="Logging\Log.vb" />
     <Compile Include="Logging\QueryInfo.vb" />
     <Compile Include="Monitor\MonitorAttribute.vb" />
@@ -162,6 +152,14 @@
     <ProjectReference Include="..\Framework\LazyFramework.vbproj">
       <Project>{d72ca321-6426-4493-bcc5-961284f1c51a}</Project>
       <Name>LazyFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LazyFramework.EventHandling\LazyFramework.EventHandling.vbproj">
+      <Project>{ef6603ed-7f45-4bc4-bee0-ff7193cc8cfe}</Project>
+      <Name>LazyFramework.EventHandling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LazyFramework.Logging\LazyFramework.Logging.vbproj">
+      <Project>{80f1df77-210f-4e39-ae66-2fadcc420cdc}</Project>
+      <Name>LazyFramework.Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

@@ -1,7 +1,7 @@
-﻿Imports LazyFramework.CQRS.EventHandling
-Imports LazyFramework.CQRS.Command
-Imports LazyFramework.CQRS.Logging
-Imports NUnit.Framework
+﻿Imports LazyFramework.CQRS.Command
+Imports LazyFramework.EventHandling
+Imports LazyFramework.Logging
+
 
 Public Class CustomerCommandBase
     Inherits CommandBase(Of Customer)
@@ -36,7 +36,7 @@ Public Class Customer
 End Class
 
 Public Class CustomerCreatedEvent
-    Inherits CQRS.EventHandling.EventBase
+    Inherits EventHandling.EventBase
 
     Public Id As Guid
     Public Name As String
@@ -55,7 +55,7 @@ End Class
 
 
 Public Class CustomerAlteredEvent
-    Inherits CQRS.EventHandling.EventBase
+    Inherits EventHandling.EventBase
 
     Public ReadOnly ID As Guid
 
@@ -66,7 +66,7 @@ Public Class CustomerAlteredEvent
 End Class
 
 Public Class HandleCustomerEvents
-    Implements CQRS.EventHandling.IHandleEvent
+    Implements EventHandling.IHandleEvent
 
     Public Shared Sub CustomerCreated(e As CustomerCreatedEvent)
 
@@ -74,11 +74,11 @@ Public Class HandleCustomerEvents
 End Class
 
 Public Class CommandHandler
-    Implements CQRS.Command.IHandleCOmmand, CQRS.EventHandling.IPublishEvent
+    Implements CQRS.Command.IHandleCOmmand, EventHandling.IPublishEvent
 
     <ThreadStatic> Public Shared CustomerRepository As New Dictionary(Of Guid, Customer)
 
-    <CQRS.EventHandling.PublishesEventOfType(GetType(CustomerCreatedEvent))>
+    <EventHandling.PublishesEventOfType(GetType(CustomerCreatedEvent))>
     Public Shared Sub CreateCustomer(cust As CreateCustomerCommand)
         'Save customer to databse
 
@@ -90,13 +90,13 @@ Public Class CommandHandler
 
         CommandHandler.CustomerRepository.Add(customer.Id, customer)
 
-        CQRS.EventHandling.EventHub.Publish(cust, New CustomerCreatedEvent(customer))
+        EventHandling.EventHub.Publish(New CustomerCreatedEvent(customer))
 
     End Sub
 
     Public Shared Sub AlterName(cmd As UpdateCustomerNameCommand)
         CustomerRepository(cmd.Id).Name = cmd.NewName
-        CQRS.EventHandling.EventHub.Publish(cmd, New CustomerAlteredEvent(cmd.Id))
+        EventHandling.EventHub.Publish( New CustomerAlteredEvent(cmd.Id))
     End Sub
 
 End Class
@@ -115,24 +115,14 @@ End Class
 
 Public Class Persistdata
     Implements ILogWriter
-
-    Public Sub WriteCommand(cmd As LazyFramework.CQRS.Logging.CommandInfo, orginalcommand As IAmACommand) Implements ILogWriter.WriteCommand
-        Debug.WriteLine(cmd.GetType.FullName)
+    
+    Public Sub Write(info As LogInfo) Implements ILogWriter.Write
+        Throw New NotImplementedException()
     End Sub
 
-    Public Sub WriteError(erroInfo As ErrorInfo) Implements ILogWriter.WriteError
-
-    End Sub
-
-    Public Sub WriteEvent(cmd As EventInfo) Implements ILogWriter.WriteEvent
-        Debug.WriteLine(cmd.CommandData)
-        Debug.WriteLine(System.Threading.Thread.CurrentThread.ManagedThreadId)
-        EventList.Add(cmd.CommandData)
-    End Sub
-
-    Public Sub WriteQuery(cmd As QueryInfo) Implements ILogWriter.WriteQuery
-
-    End Sub
+    Public Function Level() As LogLevelEnum Implements ILogWriter.Level
+        Return LogLevelEnum.Verbose
+    End Function
 
     Public Property EventList As New List(Of CQRS.Command.IAmACommand)
 

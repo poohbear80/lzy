@@ -1,4 +1,5 @@
-﻿Imports LazyFramework.Data
+﻿Imports LazyFramework.CQRS.Monitor
+Imports LazyFramework.Data
 Imports LazyFramework.Logging
 Imports NUnit.Framework
 
@@ -6,7 +7,7 @@ Imports NUnit.Framework
 
     Public Shared Connection As New MSSqlServer.ServerConnectionInfo With {.Address = "13-testsql", .Database = "hr", .UserName = "sa", .Password = "supermann"}
 
-    Private _MemoryLogger As MemoryLogger
+    Private _MemoryLogger As MemoryWriter
 
 
     <SetUp> Public Sub SetUp()
@@ -20,8 +21,8 @@ Imports NUnit.Framework
         lazyFrameworkConfiguration.EnableTiming = True
 
 
-        _MemoryLogger = New LazyFramework.Logging.MemoryLogger
-        LazyFramework.ClassFactory.SetTypeInstance(Of LazyFramework.Logging.ILogger)(_MemoryLogger)
+        _MemoryLogger = New LazyFramework.Logging.MemoryWriter
+        Log.AddWriter(Of Object)(_MemoryLogger)
 
     End Sub
 
@@ -185,9 +186,7 @@ Imports NUnit.Framework
     End Sub
 
     <Test> Public Sub TestingLog()
-
-        Logger.Log(0, New GenericLogEvent("Start"))
-
+        
         Dim cmd2 As New CommandInfo
         cmd2.CommandText = "select * from Hrunit where id = @Id"
         cmd2.TypeOfCommand = CommandInfoCommandTypeEnum.Read

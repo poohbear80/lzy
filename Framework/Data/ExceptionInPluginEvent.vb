@@ -1,4 +1,3 @@
-Imports LazyFramework.CQRS.EventHandling
 
 Namespace Data
     Public Class ExceptionInPluginEvent

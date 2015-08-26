@@ -1,9 +1,8 @@
 ﻿Imports System.Reflection
 Imports System.Runtime.CompilerServices
-Imports LazyFramework.CQRS.EventHandling
 Imports LazyFramework.Utils
-Imports System.Threading
 Imports LazyFramework.CQRS.Monitor
+Imports LazyFramework.EventHandling
 
 Namespace Query
 
@@ -95,8 +94,9 @@ Namespace Query
         Public Shared Function ExecuteQuery(q As IAmAQuery) As Object
 
             If Not ActionSecurity.Current.UserCanRunThisAction(q.User, q) Then
-                EventHub.Publish(New NoAccess(q))
-                Throw New ActionSecurityAuthorizationFaildException(q, q.User)
+                Dim actionSecurityAuthorizationFaildException1 As ActionSecurityAuthorizationFaildException = New ActionSecurityAuthorizationFaildException(q, q.User)
+                Logging.Log.Error(q,actionSecurityAuthorizationFaildException1 )
+                Throw actionSecurityAuthorizationFaildException1
             End If
 
             Validation.Handling.ValidateAction(q)

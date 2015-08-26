@@ -109,9 +109,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\LazyMessage.MSMQ\LazyMessage.MSMQ.vbproj">
+    <ProjectReference Include="..\..\LazyMessage.MSMQ\Lazyframework.Message.MSMQ.vbproj">
       <Project>{2a86f622-594f-466b-bc03-956d1347dc36}</Project>
-      <Name>LazyMessage.MSMQ</Name>
+      <Name>Lazyframework.Message.MSMQ</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\LazyMessage\LazyFramework.Message.vbproj">
       <Project>{eb217583-6769-4109-874b-7fd07ae9944b}</Project>

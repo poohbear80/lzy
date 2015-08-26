@@ -1,5 +1,5 @@
 ﻿Imports System.Security.Principal
-Imports LazyFramework.CQRS.EventHandling
+Imports LazyFramework.EventHandling
 
 Namespace Logging
     Public Class CommandInfo

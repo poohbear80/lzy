@@ -1,5 +1,4 @@
-﻿Imports System.Messaging
-
+﻿
 Namespace Events
 
     ''' <summary>

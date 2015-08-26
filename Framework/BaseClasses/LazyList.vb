@@ -6,7 +6,7 @@
 ''' </summary>
 ''' <typeparam name="T"></typeparam>
 ''' <remarks></remarks>
-<Serializable(), CLSCompliant(True)> _
+<Serializable(), CLSCompliant(True)>
 Public MustInherit Class LazyList(Of T As {IORDataObject, New})
     Inherits List(Of T)
     Implements IORDataObject

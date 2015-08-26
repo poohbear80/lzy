@@ -1,5 +1,5 @@
 ﻿Imports System.Reflection
-Imports LazyFramework.CQRS.EventHandling
+Imports LazyFramework.EventHandling
 Imports LazyFramework.Utils
 
 Namespace Command
@@ -65,7 +65,6 @@ Namespace Command
         ''' </summary>
         ''' <param name="command"></param>
         ''' <remarks>Any command can have only 1 handler. An exception will be thrown if there is found more than one for any given command. </remarks>
-        <PublishesEventOfType(GetType(NoAccess), GetType(HandlerNotFound), GetType(CommandHasBeenExecutedEvent))>
         Public Shared Sub ExecuteCommand(command As IAmACommand)
 
             If AllHandlers.ContainsKey(command.GetType) Then
@@ -98,7 +97,6 @@ Namespace Command
                     'End If
 
                 Catch ex As TargetInvocationException
-                    EventHub.Publish(New CommandFailureEvent(command))
                     Logging.Log.Error(command, ex)
                     Throw ex.InnerException
                 Catch ex As Exception
@@ -112,7 +110,7 @@ Namespace Command
             End If
 
             command.ActionComplete()
-            Logging.Log.Command(command)
+            'Logging.Log.Command(command)
         End Sub
 
         Public Shared Function IsCommandAvailable(cmd As CommandBase) As Boolean
