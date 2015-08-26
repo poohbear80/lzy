@@ -1,5 +1,4 @@
-﻿Imports LazyFramework.CQRS.EventHandling
-Imports LazyFramework.EventHandling
+﻿Imports LazyFramework.EventHandling
 Imports NUnit.Framework
 
 <TestFixture> Public Class PubSub
