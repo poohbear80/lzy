@@ -64,9 +64,9 @@ Namespace My
     Friend Module MySettingsProperty
         
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.LazyMessage.MSMQ.My.MySettings
+        Friend ReadOnly Property Settings() As Global.LazyFramework.Message.MSMQ.My.MySettings
             Get
-                Return Global.LazyMessage.MSMQ.My.MySettings.Default
+                Return Global.LazyFramework.Message.MSMQ.My.MySettings.Default
             End Get
         End Property
     End Module

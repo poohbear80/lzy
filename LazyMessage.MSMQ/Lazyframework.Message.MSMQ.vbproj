@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2A86F622-594F-466B-BC03-956D1347DC36}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>LazyMessage.MSMQ</RootNamespace>
-    <AssemblyName>LazyMessage.MSMQ</AssemblyName>
+    <RootNamespace>LazyFramework.Message.MSMQ</RootNamespace>
+    <AssemblyName>Lazyframework.Message.MSMQ</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -19,7 +19,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>LazyMessage.MSMQ.xml</DocumentationFile>
+    <DocumentationFile>Lazyframework.Message.MSMQ.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -28,7 +28,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>LazyMessage.MSMQ.xml</DocumentationFile>
+    <DocumentationFile>Lazyframework.Message.MSMQ.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>

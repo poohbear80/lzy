@@ -8,7 +8,7 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("LazyMessage.MSMQ")> 
+<Assembly: AssemblyTitle("LazyMessage.Message.MSMQ")> 
 <Assembly: AssemblyDescription("For sending messages on MSMQ")> 
 <Assembly: AssemblyCompany("Infotjenester AS")> 
 <Assembly: AssemblyProduct("Lazyframework.Message.MSMQ")> 

@@ -30,7 +30,7 @@ Public Class Config
     End Property
 
     Public Overrides Function CreateConnection() As ISenderConnection
-        Return New LazyMessage.MSMQ.Sender
+        Return New LazyFramework.Message.MSMQ.Sender
     End Function
 End Class
 
