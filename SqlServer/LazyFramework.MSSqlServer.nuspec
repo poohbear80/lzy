@@ -13,6 +13,7 @@
     <language>en-US</language>
     <projectUrl>https://github.com/petterek/lzy</projectUrl>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <releaseNotes></releaseNotes>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>ORM Framework Development SQLServer</tags>
   </metadata>

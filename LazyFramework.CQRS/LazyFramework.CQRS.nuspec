@@ -8,12 +8,10 @@
     <owners>PEtter Ekrann</owners>
     <description>CQRS framework. Command Query Transformation </description>
     <language>en-US</language>
+    <releaseNotes></releaseNotes>
     <projectUrl>https://github.com/petterek/lzy</projectUrl>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <tags>CQRS</tags>
   </metadata>
-  <files>
-    <file src="bin\$configuration$\$id$.pdb" target="lib\net45\" />
-  </files>
 </package>

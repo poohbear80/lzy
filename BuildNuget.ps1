@@ -2,7 +2,7 @@ param([bool]$force = $true,[string]$configuration = "release",$output = "..\nuge
 
 $projects = @(
     @{Path = '.\Framework\'; Project = 'LazyFramework'}
-   #,@{Path = '.\SqlServer\'; Project = 'LazyFramework.SqlServer'}
+   ,@{Path = '.\SqlServer\'; Project = 'LazyFramework.SqlServer'}
 )
 
 $output = $output + $repo
