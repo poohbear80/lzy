@@ -12,11 +12,6 @@
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <tags>CQRS</tags>
-    <dependencies>
-      <group>
-        <dependency id="LazyFramework" version="[2,3)" />
-      </group>
-    </dependencies>
   </metadata>
   <files>
     <file src="bin\$configuration$\$id$.pdb" target="lib\net45\" />

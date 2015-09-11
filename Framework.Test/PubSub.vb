@@ -8,8 +8,11 @@ Imports NUnit.Framework
     End Sub
 
 
+
     <Test> Public Sub PublishedEventIsRecived()
-        
+    
+        LazyFramework.Runtime.Context.Current = New Runtime.TestContext
+            
         EventPublisher.PublishEvent()
 
         Assert.IsNotNull(ClassThatHandlesEvent.Hmm)

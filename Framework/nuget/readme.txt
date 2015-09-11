@@ -1,1 +1,0 @@
-﻿Lazyframework is an internal tool in Infotjenester. 

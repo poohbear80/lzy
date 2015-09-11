@@ -4,7 +4,7 @@ Namespace MessageHandling
     Public Class Reciver
 
         Public Shared Sub Start()
-            ClassFactory.GetTypeInstance(Of ITransportLayer).Recieve(AddressOf Recive)
+         LazyFramework.ClassFactory.GetTypeInstance(Of ITransportLayer).Recieve(AddressOf Recive)
         End Sub
 
         Private Shared Sub Recive(msg As MessageEnvelope)

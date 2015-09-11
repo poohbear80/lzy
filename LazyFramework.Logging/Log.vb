@@ -31,7 +31,7 @@ Public Class Log
         loginfo.DataType = GetType(T).FullName
 
         For Each writerType In Writers.Keys
-            If GetType(t).IsAssignableFrom(writerType) Then
+            If writerType.IsAssignableFrom(GetType(t)) Then
                 For Each w In Writers(writerType)
                     If (w.Level And level) <> 0 Then
                         w.Write(loginfo)

@@ -84,6 +84,7 @@
     <Compile Include="CreateCustomer.vb" />
     <Compile Include="FileExtensionTest.vb" />
     <Compile Include="Helpers.vb" />
+    <Compile Include="LoggerTest.vb" />
     <Compile Include="MultiThread.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -150,10 +151,6 @@
     <ProjectReference Include="..\LazyFramework.Logging\LazyFramework.Logging.vbproj">
       <Project>{80F1DF77-210F-4E39-AE66-2FADCC420CDC}</Project>
       <Name>LazyFramework.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LazyMessage\LazyFramework.Message.vbproj">
-      <Project>{eb217583-6769-4109-874b-7fd07ae9944b}</Project>
-      <Name>LazyFramework.Message</Name>
     </ProjectReference>
     <ProjectReference Include="..\SqlServer\LazyFramework.MSSqlServer.vbproj">
       <Project>{50ab965d-b3d0-4da4-bfd4-49ea2907fc0d}</Project>
