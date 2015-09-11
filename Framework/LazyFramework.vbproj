@@ -117,20 +117,10 @@
     <Compile Include="ClassFactory\SessionInstance.vb" />
     <Compile Include="ClassFactory\SessionNotCreatedException.vb" />
     <Compile Include="ClassFactory\TypeInfo.vb" />
-    <Compile Include="Data\DataModificationPluginBase.vb" />
-    <Compile Include="Data\DataModificationPluginContext.vb" />
-    <Compile Include="Data\ExceptionInPluginEvent.vb" />
-    <Compile Include="Data\Store.vb" />
     <Compile Include="DataAccess\DataModificationPluginBase.vb" />
     <Compile Include="DataAccess\IDatareaderDecorator.vb" />
     <Compile Include="DataAccess\ParmeterInfoCollection.vb" />
     <Compile Include="DataAccess\PluginNotFoundException.vb" />
-    <Compile Include="Data\DataFiller.vb" />
-    <Compile Include="Data\FillStatus.vb" />
-    <Compile Include="Data\IDataAccessProvider.vb" />
-    <Compile Include="Data\ListFiller.vb" />
-    <Compile Include="Data\ServerConnectionInfo.vb" />
-    <Compile Include="Data\WillDisposeThoseForU.vb" />
     <Compile Include="Events\Events.vb" />
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="IDataAccess.vb" />
@@ -236,12 +226,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LazyFramework.Logging\LazyFramework.Logging.vbproj">
-      <Project>{80f1df77-210f-4e39-ae66-2fadcc420cdc}</Project>
-      <Name>LazyFramework.Logging</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
     <PostBuildEvent>

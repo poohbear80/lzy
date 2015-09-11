@@ -1,4 +1,4 @@
-Namespace Data
+
 
     Public Class DataModificationPluginBase
         Public Overridable Sub Pre(context As DataModificationPluginContext)
@@ -9,4 +9,3 @@ Namespace Data
 
         End Sub
     End Class
-End Namespace

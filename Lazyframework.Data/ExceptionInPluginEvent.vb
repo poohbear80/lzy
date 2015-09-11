@@ -1,5 +1,3 @@
-
-Namespace Data
     Public Class ExceptionInPluginEvent
         'Inherits EventBase
 
@@ -11,4 +9,3 @@ Namespace Data
         Public Property Exception As Exception
         Public Property Pre As String
     End Class
-End NameSpace

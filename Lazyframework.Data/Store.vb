@@ -3,8 +3,8 @@ Imports System.Runtime.InteropServices
 Imports System.Text.RegularExpressions
 Imports LazyFramework.Utils
 
-Namespace Data
-    Public Class Store
+
+Public Class Store
 
 
         Private Shared Plugins As New List(Of Type)
@@ -115,7 +115,7 @@ Namespace Data
         End Sub
 
         Private Shared Sub FirePlugin(<Out> ByRef pluginCollection As List(Of DataModificationPluginBase), point As PluginExecutionPointEnum, connectionInfo As ServerConnectionInfo, command As CommandInfo, data As Object)
-            If (command.TypeOfCommand And (CommandInfoCommandTypeEnum.Create Or CommandInfoCommandTypeEnum.Delete Or CommandInfoCommandTypeEnum.Update)) <> 0 Then 'Only fire plugins for CUD operations
+            If (command.TypeOfCommand And (CommandTypeEnum.Create Or CommandTypeEnum.Delete Or CommandTypeEnum.Update)) <> 0 Then 'Only fire plugins for CUD operations
 
                 If pluginCollection Is Nothing Then
                     pluginCollection = (From t In Plugins Select DirectCast(Activator.CreateInstance(t), DataModificationPluginBase)).ToList()
@@ -217,26 +217,3 @@ Namespace Data
 #End Region
 
     End Class
-
-    Public MustInherit Class DbRequestLog
-
-        Public Took As Long
-        Public DbName As ServerConnectionInfo
-        Public Command As CommandInfo
-
-    End Class
-
-
-    Public Class DbRequestOkLog
-        Inherits DbRequestLog
-
-    End Class
-
-    Public Class DbRequestFaildLog
-        Inherits DbRequestLog
-
-        Public [Error] As Exception
-
-    End Class
-
-End Namespace

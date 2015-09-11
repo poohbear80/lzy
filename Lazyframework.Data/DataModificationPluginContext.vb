@@ -1,4 +1,4 @@
-Namespace Data
+
     Public Class DataModificationPluginContext
         Private ReadOnly _serverConnectionInfo As ServerConnectionInfo
         Private ReadOnly _commandInfo As CommandInfo
@@ -28,4 +28,3 @@ Namespace Data
             End Get
         End Property
     End Class
-End NameSpace
