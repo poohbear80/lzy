@@ -13,7 +13,9 @@
     <language>en-US</language>
     <projectUrl>https://github.com/petterek/lzy</projectUrl>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
-    <releaseNotes></releaseNotes>
+    <releaseNotes>Missed the nuspec
+
+</releaseNotes>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <tags>
     </tags>
