@@ -4,6 +4,7 @@ $projects = @(
     @{Path = '.\Framework\'; Project = 'LazyFramework'}
    ,@{Path = '.\Lazyframework.Data\'; Project = 'Lazyframework.Data'}
    ,@{Path = '.\SqlServer\'; Project = 'LazyFramework.MSSqlServer'}
+   ,@{Path = '.\LazyFramework.CQRS\'; Project = 'LazyFramework.CQRS'}
 )
 
 $output = $output + $repo

@@ -1,5 +1,4 @@
-﻿Imports LazyFramework.CQRS.Monitor
-Imports LazyFramework.Data
+﻿Imports LazyFramework.Data
 Imports LazyFramework.Logging
 Imports NUnit.Framework
 
@@ -32,12 +31,12 @@ Imports NUnit.Framework
 
     <Test> Public Sub FillObject()
 
-        Dim cmd As New CommandInfo
+        Dim cmd As New data.CommandInfo
 
         Dim a = New With {.a = 123}
 
         cmd.CommandText = "select * from Hrunit where id = @Id"
-        cmd.TypeOfCommand = CommandInfoCommandTypeEnum.Read
+        cmd.TypeOfCommand = data.CommandTypeEnum.Read
         cmd.Parameters.Add("Id", DbType.Int32)
 
 
@@ -58,23 +57,23 @@ Imports NUnit.Framework
 
     <Test> Public Sub SelectMany()
 
-        Dim cmd As New CommandInfo
+        Dim cmd As New data.CommandInfo
         cmd.CommandText = "select * from Hrunit"
-        cmd.TypeOfCommand = CommandInfoCommandTypeEnum.Read
+        cmd.TypeOfCommand = commandTypeEnum.Read
         cmd.Parameters.Add("Id", DbType.Int32, 1)
 
         Dim ret As New List(Of DataObject)
 
-        Store.Exec(Connection, cmd, ret)
+        data.Store.Exec(Connection, cmd, ret)
 
         Assert.AreNotEqual(0, ret.Count)
         'Assert.AreEqual("Petter Ekrann", ret.Name)
     End Sub
 
     <Test> Public Sub InheritedGenericListIsWorking()
-        Dim cmd As New CommandInfo
+        Dim cmd As New LazyFramework.Data.CommandInfo
         cmd.CommandText = "select * from Hrunit"
-        cmd.TypeOfCommand = CommandInfoCommandTypeEnum.Read
+        cmd.TypeOfCommand = CommandTypeEnum.Read
         cmd.Parameters.Add("Id", DbType.Int32, 1)
 
         Dim ret As New DataObjectList
@@ -86,9 +85,9 @@ Imports NUnit.Framework
 
 
     <Test> Public Sub ListWithObjectsOfEntityBaseGetCorrectFillStatus()
-        Dim cmd As New CommandInfo
+        Dim cmd As New data.CommandInfo
         cmd.CommandText = "select * from Hrunit"
-        cmd.TypeOfCommand = CommandInfoCommandTypeEnum.Read
+        cmd.TypeOfCommand = CommandTypeEnum.Read
         cmd.Parameters.Add("Id", DbType.Int32, 1)
 
         Dim ret As New DataObjectList
@@ -114,15 +113,15 @@ Imports NUnit.Framework
         Store.Fillers.Clear()
 
         'Hent mange
-        Dim cmd As New CommandInfo
+        Dim cmd As New data.CommandInfo
         cmd.CommandText = "select * from Hrunit"
-        cmd.TypeOfCommand = CommandInfoCommandTypeEnum.Read
+        cmd.TypeOfCommand = CommandTypeEnum.Read
         Dim ret As New List(Of DataObject)
 
 
-        Dim cmd2 As New CommandInfo
+        Dim cmd2 As New data.CommandInfo
         cmd2.CommandText = "select * from Hrunit where id = @Id"
-        cmd2.TypeOfCommand = CommandInfoCommandTypeEnum.Read
+        cmd2.TypeOfCommand = CommandTypeEnum.Read
         cmd2.Parameters.Add("Id", DbType.Int32, 1)
 
         Dim data As New DataObject
@@ -170,9 +169,9 @@ Imports NUnit.Framework
 
     <Test> Public Sub UseFillStatus()
 
-        Dim cmd2 As New CommandInfo
+        Dim cmd2 As New data.CommandInfo
         cmd2.CommandText = "select * from Hrunit where id = @Id"
-        cmd2.TypeOfCommand = CommandInfoCommandTypeEnum.Read
+        cmd2.TypeOfCommand = CommandTypeEnum.Read
         cmd2.Parameters.Add("Id", DbType.Int32, 27)
 
         Dim data As New FillStatus(Of DataObject)
@@ -187,9 +186,9 @@ Imports NUnit.Framework
 
     <Test> Public Sub TestingLog()
         
-        Dim cmd2 As New CommandInfo
+        Dim cmd2 As New data.CommandInfo
         cmd2.CommandText = "select * from Hrunit where id = @Id"
-        cmd2.TypeOfCommand = CommandInfoCommandTypeEnum.Read
+        cmd2.TypeOfCommand = CommandTypeEnum.Read
         cmd2.Parameters.Add("Id", DbType.Int32, 1)
 
 
@@ -201,9 +200,9 @@ Imports NUnit.Framework
 
     <Test> Public Sub PluginIsFired()
         Store.RegisterPlugin(Of TestPlugin)()
-        Dim cmd2 As New CommandInfo
+        Dim cmd2 As New data.CommandInfo
         cmd2.CommandText = "select * from Hrunit where id = @Id"
-        cmd2.TypeOfCommand = CommandInfoCommandTypeEnum.Create
+        cmd2.TypeOfCommand = CommandTypeEnum.Create
         cmd2.Parameters.Add("Id", DbType.Int32, 1)
 
         Dim data As New DataObject
@@ -215,9 +214,9 @@ Imports NUnit.Framework
 
     <Test> Public Sub ExecCommandWithoutResult()
 
-        Dim cmd2 As New CommandInfo
+        Dim cmd2 As New data.CommandInfo
         cmd2.CommandText = "select * from Hrunit where id = @Id"
-        cmd2.TypeOfCommand = CommandInfoCommandTypeEnum.Update
+        cmd2.TypeOfCommand = CommandTypeEnum.Update
         cmd2.Parameters.Add("Id", DbType.Int32, 1)
 
         Dim data As New DataObject
@@ -231,14 +230,14 @@ Imports NUnit.Framework
 
     <Test> Public Sub ProprtiesOfBaseClassIsFilledIfNotFOundOnInstanceClass
 
-        Dim cmd2 As New CommandInfo
+        Dim cmd2 As New data.CommandInfo
         cmd2.CommandText = "select * from Hrunit where id = @Id"
-        cmd2.TypeOfCommand = CommandInfoCommandTypeEnum.Read
+        cmd2.TypeOfCommand = CommandTypeEnum.Read
         cmd2.Parameters.Add("Id", DbType.Int32, 27)
 
         Dim data As New InheritedDataObject
 
-         Store.Exec(Connection, cmd2,data)
+        LazyFramework.Data.Store.Exec(Connection, cmd2,data)
         Assert.IsNotNull(data.LastChanged)
         Assert.AreEqual(27, data.Id)
     End Sub
@@ -246,9 +245,9 @@ Imports NUnit.Framework
 
     <Test> Public Sub ReadStreamFromTable()
 
-        Dim cmd2 As New CommandInfo
+        Dim cmd2 As New Data.CommandInfo
         cmd2.CommandText = "select * from HrFile where id = @Id"
-        cmd2.TypeOfCommand = CommandInfoCommandTypeEnum.Read
+        cmd2.TypeOfCommand = CommandTypeEnum.Read
         cmd2.Parameters.Add("Id", DbType.Int32, 2375)
 
         Using data As New StreamTo
@@ -272,7 +271,7 @@ End Class
 
 
 Public Class DataObject
-    Inherits EntityBase
+    Inherits data.EntityBase
 
 
     Property Id As Integer

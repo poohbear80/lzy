@@ -34,15 +34,28 @@ End Module
         TestCase(Nothing)
         > Public Sub TextIsWritten(input As String)
 
-        Dim value = New With {.ToTest = input, .test = input}
-        Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(value), Writer.ObjectToString(value))
+        Dim value = New EncodingTest With {.ToTest = input, .test = input}
+        Dim res = Writer.ObjectToString(value)
+
+        Dim toTest As EncodingTest = Nothing
+
+        Assert.DoesNotThrow(Sub() toTest = Newtonsoft.Json.JsonConvert.DeserializeObject(Of EncodingTest)(res))
+
+        Assert.AreEqual(value.ToTest, toTest.ToTest)
+        Assert.AreEqual(value.test, toTest.test)
 
     End Sub
+    Public Class EncodingTest
+        Public ToTest As String
+        Public test As String
+    End Class
+
 
     <Test> Public Sub BooleanIsWritten()
-        Dim o = New With {.ThisIsTrue = true,.ThisIsFalse = False}
+        Dim o = New With {.ThisIsTrue = True, .ThisIsFalse = False}
         Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(o), Writer.ObjectToString(o))
     End Sub
+
 
 
     <Test,
@@ -99,7 +112,12 @@ End Module
         o.Addresse = "blbla"
         o.Name = "Mikael"
 
-        Assert.AreEqual("{""Addresse"":""blbla"",""Name"":""Mikael"",""Year"":0,""Scores"":null}", Writer.ObjectToString(o))
+        Dim v As String = Writer.ObjectToString(o)
+        Dim o2 As Person2 = Nothing
+
+        Assert.DoesNotThrow(Sub() o2 = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Person2)(v))
+
+        Assert.AreEqual(o.Addresse, o2.Addresse)
 
     End Sub
 
@@ -127,11 +145,15 @@ End Module
     <Test> Public Sub DateAttributesIsWrittenToText()
         Dim o As New ExcavationTripDate
 
-        o.StartDate = New Date(1999, 6, 1)
+        o.StartDate = New Date(1999, 6, 1, 22, 05, 12, 25)
         o.EndDate = New Date(2000, 6, 1)
 
         'Assert.AreEqual("{""StartDate"":01.06.1999 00:00:00,""EndDate"":01.06.2000 00:00:00}", Writer.ObjectToString(o))
-        Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(o), Writer.ObjectToString(o))
+        Dim des = Writer.ObjectToString(o)
+        Dim o2 = Reader.StringToObject(Of ExcavationTripDate)(des)
+
+        Assert.AreEqual(o.StartDate, o2.StartDate)
+
     End Sub
 
     <Test> Public Sub StringArray()
@@ -152,11 +174,11 @@ End Module
     End Sub
 
 
-    <Test> public sub Serializeguid
+    <Test> Public Sub Serializeguid()
 
         Dim toWrite = New With {.g = New Guid("FE41254C-FFFC-4121-8345-7353C5D128DC")}
         Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(toWrite), Writer.ObjectToString(toWrite))
-    End sub 
+    End Sub
 
 
 End Class
@@ -246,8 +268,8 @@ End Class
         Dim p = Reader.StringToObject(Of TestWithDArray)("{""Name"":""Petter"",""Scores"" : [1.2,2.34,3.12]}")
         Assert.AreEqual(1.2, p.Scores(0))
     End Sub
-    
-    <test> Public Sub  Readguid()
+
+    <Test> Public Sub Readguid()
         Dim p = Reader.StringToObject(Of Holder(Of Guid))("{""Value"":""FE41254C-FFFC-4121-8345-7353C5D128DC""}")
         Assert.AreEqual(New Guid("FE41254C-FFFC-4121-8345-7353C5D128DC"), p.Value)
 
