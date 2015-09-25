@@ -41,7 +41,7 @@ Public Class EventHub
             SyncLock PadLock
                 If _publishers Is Nothing Then
                     Dim temp As New Dictionary(Of Type, List(Of MethodInfo))
-                    For Each [class] In TypeValidation.FindAllClassesOfTypeInApplication(GetType(IPublishEvent))
+                    For Each [class] In Reflection.FindAllClassesOfTypeInApplication(GetType(IPublishEvent))
                         For Each method In [class].GetMethods
                             Dim getCustomAttribute = method.GetCustomAttribute(Of PublishesEventOfTypeAttribute)()
                             If getCustomAttribute IsNot Nothing Then

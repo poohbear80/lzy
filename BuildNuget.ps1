@@ -2,8 +2,10 @@ param([bool]$force = $true,[string]$configuration = "release",$output = "..\nuge
 
 $projects = @(
     @{Path = '.\Framework\'; Project = 'LazyFramework'}
+    @{Path = '.\LazyFramework.Logging\'; Project = 'LazyFramework.Logging'}
    ,@{Path = '.\Lazyframework.Data\'; Project = 'LazyFramework.Data'}
    ,@{Path = '.\SqlServer\'; Project = 'LazyFramework.MSSqlServer'}
+   ,@{Path = '.\LazyFramework.EventHandling\'; Project = 'LazyFramework.EventHandling'}
    ,@{Path = '.\LazyFramework.CQRS\'; Project = 'LazyFramework.CQRS'}
 )
 
@@ -60,7 +62,7 @@ $projects | % {
 
     .\nuget pack $p  -OutputDirectory $output -Build -IncludeReferencedProjects -Symbols  -Properties Configuration=$configuration
 
-    git checkout $specFile
+    git checkout $specFile #Cleaning the spec file :)
     "Release notes:"
     $msg
 }

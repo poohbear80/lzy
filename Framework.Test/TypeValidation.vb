@@ -7,7 +7,7 @@
 
         LazyFramework.TypeValidation.IgnoreAssemblies = "moq\.dll$"
 
-        Dim test = LazyFramework.TypeValidation.FindAllClassesOfTypeInApplication(GetType(IORDataObject))
+        Dim test = LazyFramework.Reflection.FindAllClassesOfTypeInApplication(GetType(IORDataObject))
 
         Assert.Greater(test.Count, 0)
 
@@ -17,7 +17,7 @@
     <Test> Public Sub EmptyIgnoreLoadsAll()
         'LazyFramework.TypeValidation.IgnoreAssemblies = "moq\.dll$"
 
-        Dim test = LazyFramework.TypeValidation.FindAllClassesOfTypeInApplication(GetType(IORDataObject))
+        Dim test = LazyFramework.Reflection.FindAllClassesOfTypeInApplication(GetType(IORDataObject))
 
         Assert.Greater(test.Count, 0)
     End Sub

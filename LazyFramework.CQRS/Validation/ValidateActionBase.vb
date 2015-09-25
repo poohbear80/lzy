@@ -8,7 +8,7 @@
 
             Dim [getType] As Type = Me.GetType
 
-            For Each p In [getType].GetMethods(Reflection.BindingFlags.DeclaredOnly Or Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance)
+            For Each p In [getType].GetMethods(system.Reflection.BindingFlags.DeclaredOnly Or system.Reflection.BindingFlags.Public Or system.Reflection.BindingFlags.Instance)
                 Try
                     If p.GetParameters.Count = 1 AndAlso p.GetParameters(0).ParameterType.IsAssignableFrom(action.GetType) Then
                         p.Invoke(Me, {action})

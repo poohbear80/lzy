@@ -105,7 +105,7 @@ Namespace Events
             If Not _hasRun Then
                 _hasRun = True
                 SyncLock Lock
-                    TypeValidation.FindAllClassesOfTypeInApplication(GetType(IInitEvents)).ForEach(Sub(t As Type)
+                    Reflection.FindAllClassesOfTypeInApplication(GetType(IInitEvents)).ForEach(Sub(t As Type)
                                                                                                        Dim i = CType(Activator.CreateInstance(t), IInitEvents)
                                                                                                        _allListeners.Add(i)
                                                                                                    End Sub)

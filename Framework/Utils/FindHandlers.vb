@@ -9,7 +9,7 @@ Namespace Utils
         ''' <remarks></remarks>
         Public Shared Function FindAllHandlerDelegates(Of THolder, TParamType)(allowMulti As Boolean) As Dictionary(Of Type, List(Of MethodInfo))
             Dim ret As New Dictionary(Of Type, List(Of MethodInfo))
-            Dim handlerHolders = TypeValidation.FindAllClassesOfTypeInApplication(GetType(THolder))
+            Dim handlerHolders = Reflection.FindAllClassesOfTypeInApplication(GetType(THolder))
 
             For Each t As Type In handlerHolders
                 Dim methodInfos As MethodInfo() = t.GetMethods(BindingFlags.Public Or BindingFlags.Static Or BindingFlags.Instance)
@@ -44,7 +44,7 @@ Namespace Utils
         
         Public Shared Function FindAllMultiHandlers(Of THolder, T)() As Dictionary(Of Type, MethodList)
             Dim ret As New Dictionary(Of Type, MethodList)
-            Dim allClasses = TypeValidation.FindAllClassesOfTypeInApplication(GetType(THolder))
+            Dim allClasses = Reflection.FindAllClassesOfTypeInApplication(GetType(THolder))
 
             For Each typeFound As Type In allClasses
                 If typeFound.IsAbstract Then

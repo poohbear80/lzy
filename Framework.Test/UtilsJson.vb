@@ -51,9 +51,18 @@ End Module
     End Class
 
 
+    Public Class BoolTest
+        Public ThisIsTrue As Boolean
+        Public ThisIsFalse As Boolean
+    End Class
     <Test> Public Sub BooleanIsWritten()
-        Dim o = New With {.ThisIsTrue = True, .ThisIsFalse = False}
-        Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(o), Writer.ObjectToString(o))
+        Dim o = New BoolTest With {.ThisIsTrue = True, .ThisIsFalse = False}
+        Dim o2 As BoolTest = Nothing
+
+        Assert.DoesNotThrow(Sub() o2 = Newtonsoft.Json.JsonConvert.DeserializeObject(Of BoolTest)(Writer.ObjectToString(o)))
+
+        Assert.AreEqual(o.ThisIsFalse, o2.ThisIsFalse)
+        Assert.AreEqual(o.ThisIsTrue, o2.ThisIsTrue)
     End Sub
 
 

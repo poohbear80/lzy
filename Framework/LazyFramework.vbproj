@@ -114,6 +114,7 @@
     <Compile Include="ClassFactory\ClassFactory.vb" />
     <Compile Include="ClassFactory\ISessionAware.vb" />
     <Compile Include="ClassFactory\NotConfiguredException.vb" />
+    <Compile Include="Reflection.vb" />
     <Compile Include="ClassFactory\SessionInstance.vb" />
     <Compile Include="ClassFactory\SessionNotCreatedException.vb" />
     <Compile Include="ClassFactory\TypeInfo.vb" />

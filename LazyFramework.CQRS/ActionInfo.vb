@@ -13,7 +13,7 @@ Imports LazyFramework.CQRS.Command
                     SyncLock Pl
                         If _actionsForType Is Nothing Then
                             Dim temp As New Dictionary(Of Type, List(Of Type))
-                            For Each el In TypeValidation.FindAllClassesOfTypeInApplication(GetType(IActionBase))
+                            For Each el In Reflection.FindAllClassesOfTypeInApplication(GetType(IActionBase))
                                 If el.IsAbstract Then Continue For
 
                                 Dim basetype = el.BaseType

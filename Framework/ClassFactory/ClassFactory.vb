@@ -1,4 +1,5 @@
-﻿Imports LazyFramework.Utils
+﻿
+Imports LazyFramework.Utils
 
 ''' <summary>
 ''' This is an IoC factory. Possible extensions to be made is to configure things from a config file. 
@@ -85,6 +86,11 @@ Public Class ClassFactory
         Return CType(ti, TypeInfo(Of T)).CreateInstance
     End Function
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <typeparam name="T"></typeparam>
+    ''' <returns></returns>
     Public Shared Function GetTypeInstance(Of T)() As T
         Dim ti As ITypeInfo = Nothing
 
@@ -111,6 +117,9 @@ Public Class ClassFactory
                 Return tiSpesific.CreateInstance()
             End If
         Else
+            'See if there is any implementations of this interface in the ApplicationPool
+            'If only 1 exist then return this one, if more existes then throw exception.
+            
             Throw New NotConfiguredException(GetType(T).ToString)
         End If
     End Function
@@ -353,6 +362,6 @@ Public Class ClassFactory
         Session.Start()
     End Sub
 
-    
 
+    
 End Class

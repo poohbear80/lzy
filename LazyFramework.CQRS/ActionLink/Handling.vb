@@ -14,7 +14,7 @@ Namespace ActionLink
                     SyncLock PadLock
                         If _actionLinkList Is Nothing Then
                             Dim temp As New Dictionary(Of String, Type)
-                            For Each t In TypeValidation.FindAllClassesOfTypeInApplication(GetType(ActionLinkBase))
+                            For Each t In Reflection.FindAllClassesOfTypeInApplication(GetType(ActionLinkBase))
                                 If t.IsAbstract Then Continue For 'Do not map abstract queries. 
 
                                 Dim c As ActionLinkBase = CType(Activator.CreateInstance(t), ActionLinkBase)

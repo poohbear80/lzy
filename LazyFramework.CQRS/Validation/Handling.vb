@@ -11,7 +11,7 @@ Namespace Validation
                     SyncLock PadLock
                         If _allValidators Is Nothing Then
                             Dim temp As New Dictionary(Of Type, List(Of IValidateAction))
-                            For Each t In TypeValidation.FindAllClassesOfTypeInApplication(GetType(IValidateAction))
+                            For Each t In Reflection.FindAllClassesOfTypeInApplication(GetType(IValidateAction))
                                 If Not t.IsAbstract Then
                                     Dim tSpes = t.BaseType
                                     While Not tSpes.IsGenericType

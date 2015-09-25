@@ -23,7 +23,7 @@ Namespace Command
                     SyncLock PadLock
                         If _commadList Is Nothing Then
                             Dim temp As New Dictionary(Of String, Type)
-                            For Each t In TypeValidation.FindAllClassesOfTypeInApplication(GetType(IAmACommand))
+                            For Each t In Reflection.FindAllClassesOfTypeInApplication(GetType(IAmACommand))
                                 If t.IsAbstract Then Continue For 'Do not map abstract commands. 
 
                                 Dim c As IAmACommand = CType(Activator.CreateInstance(t), IAmACommand)

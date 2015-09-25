@@ -54,7 +54,7 @@ Namespace Query
                     SyncLock PadLock
                         If _queryList Is Nothing Then
                             Dim temp As New Dictionary(Of String, Type)
-                            For Each t In TypeValidation.FindAllClassesOfTypeInApplication(GetType(IAmAQuery))
+                            For Each t In Reflection.FindAllClassesOfTypeInApplication(GetType(IAmAQuery))
                                 If t.IsAbstract Then Continue For 'Do not map abstract queries. 
 
                                 Dim c As IAmAQuery = CType(Activator.CreateInstance(t), IAmAQuery)

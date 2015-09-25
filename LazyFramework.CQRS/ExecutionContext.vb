@@ -14,7 +14,7 @@
                 SyncLock PadLock
                     If AllContext Is Nothing Then
                         Dim temp As New Dictionary(Of Type, Type)
-                        For Each context In TypeValidation.FindAllClassesOfTypeInApplication(GetType(IContext))
+                        For Each context In Reflection.FindAllClassesOfTypeInApplication(GetType(IContext))
                             Dim key As Type
                             Dim toSearch As Type
                             toSearch = context.BaseType

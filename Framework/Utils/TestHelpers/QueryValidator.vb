@@ -15,7 +15,7 @@ Namespace Utils.TestHelpers
         End Sub
 
         Public Shared Sub Validate(Of T)()
-            Validate(Of T)(TypeValidation.FindAllClassesOfTypeInApplication(GetType(T)))
+            Validate(Of T)(Reflection.FindAllClassesOfTypeInApplication(GetType(T)))
         End Sub
 
 

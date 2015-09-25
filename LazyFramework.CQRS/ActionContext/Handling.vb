@@ -34,7 +34,7 @@ Namespace ActionContext
                         If _AllContexts Is Nothing Then
                             Dim temp As New Dictionary(Of String, ActionContext)
                             Dim ac As ActionContext
-                            For Each t In TypeValidation.FindAllClassesOfTypeInApplication(GetType(ActionContext))
+                            For Each t In Reflection.FindAllClassesOfTypeInApplication(GetType(ActionContext))
                                 ac = DirectCast(Activator.CreateInstance(t), ActionContext)
                                 temp.Add(ac.GetType.Name, ac)
                             Next
