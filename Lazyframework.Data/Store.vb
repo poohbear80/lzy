@@ -196,7 +196,7 @@ Public Class Store
 
         Private Shared Function GetFiller(ByVal commandInfo As CommandInfo, ByVal dataReader As IDataReader, ByVal t As Type) As FillObject
 
-            Dim key = GetHashCodeForCommand(commandInfo, t)
+            Dim key = GetHashCodeForCommand(commandInfo, t, dataReader)
             If Not Fillers.ContainsKey(key) Then
                 SyncLock PadLock
                     If Not Fillers.ContainsKey(key) Then
@@ -207,9 +207,9 @@ Public Class Store
             Return AddressOf Fillers(key).FillObject
         End Function
 
-        Private Shared Function GetHashCodeForCommand(ByVal commandInfo As CommandInfo, ByVal t As Type) As Integer
+        Private Shared Function GetHashCodeForCommand(ByVal commandInfo As CommandInfo, ByVal t As Type, ByVal dataReader As IDataReader) As Integer
             Dim cmd = Match.Match(commandInfo.CommandText.ToLower).Value.Replace(" ", "")
-            Return (cmd & t.ToString).GetHashCode
+            Return (cmd & t.ToString & "-" & dataReader.FieldCount).GetHashCode
         End Function
 
         Friend Delegate Sub FillObject(reader As IDataReader, data As Object)
