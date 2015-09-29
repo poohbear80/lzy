@@ -18,6 +18,6 @@
     <tags>ORM Framework Development</tags>
   </metadata>
   <files>
-    <file src="..\Mapper\bin\Release\lzy.exe" target="tools" />
+    <file src="..\Mapper\bin\Release\*" target="tools" />
   </files>
 </package>
