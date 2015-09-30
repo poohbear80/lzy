@@ -11,8 +11,6 @@ $projects = @(
 
 $output = $output + $repo
 
-
-
 if(!(Test-Path $output)){ New-Item $output -ItemType Directory}
 
 $saveHash = $output+"lastbuild.log"
@@ -52,20 +50,32 @@ $projects | % {
     }
             
     #Updating spec file with release notes. 
-     $specFile = $_.Path + $_.Project +".nuspec" 
+     $specFile = (Resolve-Path $_.Path).Path + $_.Project + ".nuspec"
      [xml]$xml = Get-Content $specFile
      $xml.package.metadata.releaseNotes = $msg.ToString()
+     $xml.package.metadata.version = $xml.package.metadata.version + "-alpha"
      $xml.Save($specFile)
     #End
 
     $p = $_.Path+$_.Project+".vbproj"
+    
+    .\nuget pack $p  -OutputDirectory $output -Build -IncludeReferencedProjects -Symbols  -Properties Configuration=$configuration 
+    
+    
 
-    .\nuget pack $p  -OutputDirectory $output -Build -IncludeReferencedProjects -Symbols  -Properties Configuration=$configuration
-
-    git checkout $specFile #Cleaning the spec file :)
+    git checkout $specFile
     "Release notes:"
     $msg
 }
 
-$currRev | Set-Content $saveHash
+"Pushing symbols"
+
+$output = "..\nuget\core\"
+$symbolServer = "http://symbol.itaslan.infotjenester.no/nuget/Core"
+
+Get-ChildItem $output -Filter *.symbols.nupkg | % {
+    .\nuget push $_.FullName p:p  -source $symbolServer
+}
+
+$currRev | Set-Content $saveHash 
 
